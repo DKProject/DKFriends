@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.pretronic.dkfriends</groupId>
+    <artifactId>DKFriends</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0.0-SNAPSHOT</version>
+    <modules>
+        <module>dkfriends-api</module>
+        <module>dkfriends-common</module>
+        <module>dkfriends-minecraft</module>
+    </modules>
+
+    <properties>
+        <!-- Project settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Dependency version -->
+        <dependency.pretronic.libraries>1.2.69.208-SNAPSHOT</dependency.pretronic.libraries>
+        <dependency.pretronic.databasequery>1.2.38.65-SNAPSHOT</dependency.pretronic.databasequery>
+
+        <dependency.mcnative.api>1.2.25.83-SNAPSHOT</dependency.mcnative.api>
+        <dependency.mcnative.runtime>1.10.25.92-SNAPSHOT</dependency.mcnative.runtime>
+        <dependency.mcnative.licensing>1.0.5.8-SNAPSHOT</dependency.mcnative.licensing>
+        <dependency.mcnative.buildtool>1.0.8.15-SNAPSHOT</dependency.mcnative.buildtool>
+        <dependency.mcnative.loader>1.7.75.53</dependency.mcnative.loader>
+
+        <dependency.cloudnet.v2>2.1.17</dependency.cloudnet.v2>
+        <dependency.cloudnet.v3>3.3.0-RELEASE</dependency.cloudnet.v3>
+        <dependency.pex>1.23.5-SNAPSHOT</dependency.pex>
+        <dependency.luckperms>5.0</dependency.luckperms>
+
+
+        <dependency.hikaricp>3.4.1</dependency.hikaricp>
+        <dependency.mariadb.driver>2.4.1</dependency.mariadb.driver>
+
+        <!-- Maven plugins -->
+        <plugin.compiler>3.8.1</plugin.compiler>
+        <plugin.source>3.2.1</plugin.source>
+
+        <plugin.maven.shade>3.2.2</plugin.maven.shade>
+        <plugin.maven.deploy>3.0.0-M1</plugin.maven.deploy>
+
+        <!-- Test dependencies -->
+        <test.junit.jupiter>5.5.2</test.junit.jupiter>
+    </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>pretronic</id>
+            <url>https://repository.pretronic.net/repository/pretronic/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>pretronic</id>
+            <url>https://repository.pretronic.net/repository/pretronic/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>pretronic</id>
+            <url>https://repository.pretronic.net/repository/pretronic/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>
