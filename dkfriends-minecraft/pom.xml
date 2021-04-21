@@ -95,16 +95,10 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>net.pretronic.dkperms</groupId>
-            <artifactId>dkperms-api</artifactId>
-            <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
 
         <dependency>
-            <groupId>net.pretronic.dkperms</groupId>
-            <artifactId>dkperms-common</artifactId>
+            <groupId>net.pretronic.dkfriends</groupId>
+            <artifactId>dkfriends-common</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
