@@ -16,4 +16,120 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plugin.compiler}</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.mcnative.buildtool</groupId>
+                <artifactId>mcnative-buildtool-maven</artifactId>
+                <version>${dependency.mcnative.buildtool}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>McNative-Build</goal>
+                            <goal>McNative-Package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mcnative-loader-version>${dependency.mcnative.loader}</mcnative-loader-version>
+                    <resource-loader-version>${dependency.pretronic.libraries}</resource-loader-version>
+
+                    <manifest>
+                        <installMcNative>true</installMcNative>
+                        <name>DKFriends</name>
+                        <id>f9aa2e05-fb5a-407a-844c-175105ec3544</id>
+                        <version>${project.version}</version>
+                        <main>net.pretronic.dkfriends.minecraft.DKFriendsPlugin</main>
+                        <website>https://pretronic.net</website>
+                        <author>Pretronic</author>
+                        <messageModule>DKFriends</messageModule>
+                    </manifest>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>${plugin.maven.shade}</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/maven/**</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${plugin.maven.deploy}</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.pretronic.dkperms</groupId>
+            <artifactId>dkperms-api</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.pretronic.dkperms</groupId>
+            <artifactId>dkperms-common</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mcnative.runtime.api</groupId>
+            <artifactId>mcnative-runtime-api-service</artifactId>
+            <version>${dependency.mcnative.api}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mcnative.runtime</groupId>
+            <artifactId>mcnative-runtime-build</artifactId>
+            <version>${dependency.mcnative.runtime}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mcnative.licensing</groupId>
+            <artifactId>mcnative-licensing</artifactId>
+            <version>${dependency.mcnative.licensing}</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
 </project>
