@@ -36,6 +36,8 @@ public interface Party {
 
     PartyMember getMember(UUID uniqueId);
 
+    boolean isMember(UUID uniqueId);
+
 
     default PartyMember addMember(UUID uniqueId){
         return addMember(uniqueId,PartyRole.GUEST);
@@ -48,7 +50,8 @@ public interface Party {
 
     void removeMember(UUID uniqueId);
 
-    void isMember(UUID uniqueId);
+    void leaveMember(UUID uniqueId);
+
 
 
     Document getProperties();

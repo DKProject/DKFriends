@@ -14,6 +14,8 @@ public interface PartyManager {
 
     Party getPartyForPlayer(UUID playerId);
 
+    PartyMember getPartyForPlayerAsMember(UUID playerId);
+
 
     Party createParty(UUID ownerId);
 

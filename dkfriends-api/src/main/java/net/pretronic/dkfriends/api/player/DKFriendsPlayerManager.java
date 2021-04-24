@@ -6,6 +6,6 @@ public interface DKFriendsPlayerManager {
 
     DKFriendsPlayer getPlayer(UUID uniqueId);
 
-    DKFriendsPlayer getPlayer(String name);
+    DKFriendsPlayer getLoadedPlayer(UUID uniqueId);
 
 }

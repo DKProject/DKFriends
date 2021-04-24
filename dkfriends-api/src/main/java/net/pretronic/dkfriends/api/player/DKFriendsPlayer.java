@@ -13,9 +13,11 @@ import java.util.UUID;
 
 public interface DKFriendsPlayer {
 
-    Collection<Friend> getFriends();
+    UUID getId();
 
-    Collection<Friend> getOnlineFriends();
+
+
+    Collection<Friend> getFriends();
 
     Friend getFriend(UUID friendId);
 
@@ -24,14 +26,47 @@ public interface DKFriendsPlayer {
 
     Friend addFriend(UUID friendId);
 
+
     void removeFriend(UUID friendId);
+
+    void removeFriend(DKFriendsPlayer friend);
+
+    void removeFriend(Friend friend);
+
+    void clearFriends();
 
 
     Collection<FriendRequest> getFriendRequests();
 
-    FriendRequest sendFriendRequest(UUID playerId);
+    FriendRequest getFriendRequest(UUID requesterId);
 
-    FriendRequest sendFriendRequest(UUID playerId,String message);
+    boolean hasFriendRequest(UUID requesterId);
+
+    boolean hasFriendRequest(DKFriendsPlayer player);
+
+
+    FriendRequest sendFriendRequest(UUID requesterId);
+
+    FriendRequest sendFriendRequest(DKFriendsPlayer requester);
+
+
+    FriendRequest sendFriendRequest(UUID requesterId,String message);
+
+    FriendRequest sendFriendRequest(DKFriendsPlayer requester,String message);
+
+    void acceptFriendRequest(UUID requesterId);
+
+    void acceptFriendRequest(DKFriendsPlayer requester);
+
+    void acceptFriendRequest(FriendRequest request);
+
+
+    void denyFriendRequest(UUID requesterId);
+
+    void denyFriendRequest(DKFriendsPlayer requester);
+
+    void denyFriendRequest(FriendRequest request);
+
 
     void acceptAllFriendRequests();
 

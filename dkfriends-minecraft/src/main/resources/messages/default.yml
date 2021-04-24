@@ -1,0 +1,24 @@
+meta:
+  name: 'DKFriends English'
+  module: 'DKFriends'
+  language:
+    name: 'English'
+    localizedName: 'English'
+    code: 'en'
+messages:
+  dkfriends.prefix: '&8» &aDKFriends &8|&f'
+  dkfriends.prefix.party: '&8» &5DKParty &8|&f'
+  dkfriends.prefix.clan: '&8» &3DKClans &8|&f'
+
+  dkfriends.error.onlyPlayer: '{prefix} &cThis command can only be executed as a player'
+  dkfriends.error.player.notFound: '{prefix} &cThe player &e{name} &cwas not found'
+  dkfriends.error.player.notOnline: '{prefix} &cThe player &e{player.displayName} &cis not online'
+  dkfriends.error.player.notSelf: '{prefix} &cYou can''t interact with your self'
+
+  dkfriends.error.friend.already: '${dkfriends.prefix} &e{player.displayName} &7is already your friend'
+  dkfriends.error.friend.not: '${dkfriends.prefix} &e{player.displayName} &cis not your friend'
+
+  dkfriends.command.friend.add.success: '${dkfriends.prefix} &7Du hast &e{player.displayName} &7eine Freundschaftsanfrage gesendet.'
+  dkfriends.command.friend.add.already: '${dkfriends.prefix} &7Du bist bereits mit &e{player.displayName} &7befreundet.'
+  dkfriends.command.friend.add.already: '${dkfriends.prefix} &7Du bist bereits mit &e{player.displayName} &7befreundet.'
+

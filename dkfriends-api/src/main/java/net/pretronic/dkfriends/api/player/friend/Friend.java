@@ -1,10 +1,15 @@
 package net.pretronic.dkfriends.api.player.friend;
 
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+
 import java.util.UUID;
 
 public interface Friend {
 
     UUID getPlayerId();
+
+    DKFriendsPlayer getPlayer();
+
 
     UUID getFriendId();
 
