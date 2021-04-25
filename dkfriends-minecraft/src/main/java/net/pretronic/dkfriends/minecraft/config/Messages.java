@@ -45,4 +45,11 @@ public class Messages {
     public static MessageComponent<?> COMMAND_FRIEND_JUMP_SUCCESS = Text.ofMessageKey("dkfriends.command.friend.jump.success");
     public static MessageComponent<?> COMMAND_FRIEND_MSG = Text.ofMessageKey("dkfriends.command.msg");
 
+    public static MessageComponent<?> FRIEND_REQUEST = Text.ofMessageKey("dkfriends.friend.request");
+    public static MessageComponent<?> FRIEND_DENY = Text.ofMessageKey("dkfriends.friend.deny");
+    public static MessageComponent<?> FRIEND_ADD = Text.ofMessageKey("dkfriends.friend.add");
+    public static MessageComponent<?> FRIEND_REMOVE = Text.ofMessageKey("dkfriends.friend.remove");
+    public static MessageComponent<?> FRIEND_LOGIN = Text.ofMessageKey("dkfriends.friend.login");
+    public static MessageComponent<?> FRIEND_LOGOUT = Text.ofMessageKey("dkfriends.friend.logout");
+
 }

@@ -13,6 +13,8 @@ public interface Friend {
 
     UUID getFriendId();
 
+    DKFriendsPlayer getFriend();
+
 
     boolean isFavorite();
 

@@ -22,10 +22,8 @@ public class FriendCommand extends MainCommand {
         registerCommand(new ClearCommand(owner));
 
         registerCommand(new JumpCommand(owner));
-
-        MsgCommand msgCommand = new MsgCommand(owner);
-        registerCommand(msgCommand);
-        registerCommand(msgCommand);
+        registerCommand(new PartyCommand(owner));
+        registerCommand(new MsgCommand(owner));
     }
 
     @Override

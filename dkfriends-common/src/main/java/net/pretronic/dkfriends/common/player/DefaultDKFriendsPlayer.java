@@ -1,5 +1,6 @@
 package net.pretronic.dkfriends.common.player;
 
+import net.pretronic.databasequery.api.query.result.QueryResultEntry;
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanInvitation;
 import net.pretronic.dkfriends.api.event.friend.FriendAddEvent;
@@ -15,6 +16,11 @@ import net.pretronic.dkfriends.api.player.PlayerBlock;
 import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.dkfriends.common.event.friend.DefaultFriendAddEvent;
+import net.pretronic.dkfriends.common.event.friend.DefaultFriendRemoveEvent;
+import net.pretronic.dkfriends.common.event.friend.request.DefaultFriendRequestAcceptEvent;
+import net.pretronic.dkfriends.common.event.friend.request.DefaultFriendRequestDenyEvent;
+import net.pretronic.dkfriends.common.event.friend.request.DefaultFriendRequestSendEvent;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
 import net.pretronic.libraries.utility.Iterators;
@@ -64,7 +70,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
         Friend friend = new DefaultFriend(this,friendId,System.currentTimeMillis(),false,null);
 
-        FriendAddEvent event = null;
+        FriendAddEvent event = new DefaultFriendAddEvent(this,friend);
         dkFriends.getEventBus().callEvent(FriendAddEvent.class,event);
         if(event.isCancelled()) return null;
 
@@ -108,7 +114,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     public void removeFriend(Friend friend) {
         if(!friend.getPlayerId().equals(uniqueId)) throw new IllegalArgumentException("Friend does not belong to this player");
 
-        FriendRemoveEvent event = null;
+        FriendRemoveEvent event = new DefaultFriendRemoveEvent(this,friend);
         dkFriends.getEventBus().callEvent(FriendRemoveEvent.class,event);
         if(event.isCancelled()) return;
 
@@ -177,7 +183,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         if(!request.getReceiverId().equals(uniqueId)) throw new IllegalArgumentException("Request does not belong to this player");
         deleteRequest(request);
 
-        FriendRequestAcceptEvent event = null;
+        FriendRequestAcceptEvent event = new DefaultFriendRequestAcceptEvent(this,request);
         dkFriends.getEventBus().callEvent(FriendRequestAcceptEvent.class,event);
 
         addFriend(request.getRequesterId());
@@ -200,7 +206,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         if(!request.getReceiverId().equals(uniqueId)) throw new IllegalArgumentException("Request does not belong to this player");
         deleteRequest(request);
 
-        FriendRequestDenyEvent event = null;
+        FriendRequestDenyEvent event = new DefaultFriendRequestDenyEvent(this,request);
         dkFriends.getEventBus().callEvent(FriendRequestDenyEvent.class,event);
     }
 
@@ -219,7 +225,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
         FriendRequest request = new DefaultFriendRequest(uniqueId,requesterId,message,System.currentTimeMillis());
 
-        FriendRequestSendEvent event = null;
+        FriendRequestSendEvent event = new DefaultFriendRequestSendEvent(this,request);
         dkFriends.getEventBus().callEvent(FriendRequestSendEvent.class,event);
         if(event.isCancelled()) return null;
 
@@ -333,11 +339,16 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         throw new UnsupportedOperationException();
     }
 
-
     private Collection<Friend> getOrLoadFriends(){
         if(this.friends == null){
             this.friends = new ArrayList<>();
-            //@Todo load friends
+            dkFriends.getStorage().getFriends().find()
+                    .where("PlayerId",uniqueId)
+                    .execute().loadIn(this.friends, friend -> new DefaultFriend(DefaultDKFriendsPlayer.this
+                            ,friend.getUniqueId("FriendId")
+                            ,friend.getLong("Time")
+                            ,friend.getBoolean("Favorite")
+                            ,friend.getString("Relation")));
         }
         return this.friends;
     }
@@ -345,7 +356,13 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     private Collection<FriendRequest> getOrLoadFriendRequests(){
         if(this.friendRequests == null){
             this.friendRequests = new ArrayList<>();
-            //@Todo load friends
+            dkFriends.getStorage().getFriendRequests().find()
+                    .where("ReceiverId",uniqueId)
+                    .execute().loadIn(this.friendRequests, friend -> new DefaultFriendRequest(friend.getUniqueId("ReceiverId")
+                    ,friend.getUniqueId("RequesterId")
+                    ,friend.getString("Message")
+                    ,friend.getLong("Time")
+            ));
         }
         return this.friendRequests;
     }

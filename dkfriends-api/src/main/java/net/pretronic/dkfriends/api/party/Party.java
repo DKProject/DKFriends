@@ -1,5 +1,6 @@
 package net.pretronic.dkfriends.api.party;
 
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.libraries.document.Document;
 
 import java.util.Collection;
@@ -52,6 +53,8 @@ public interface Party {
 
     void leaveMember(UUID uniqueId);
 
+
+    PartyInvitation invite(DKFriendsPlayer inviter, UUID uniqueId);
 
 
     Document getProperties();
