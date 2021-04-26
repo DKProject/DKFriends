@@ -6,6 +6,7 @@ import net.pretronic.libraries.command.command.MainCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
+import org.mcnative.runtime.api.McNative;
 
 public class FriendCommand extends MainCommand {
 
@@ -15,16 +16,31 @@ public class FriendCommand extends MainCommand {
         registerCommand(new ListCommand(owner));
         registerCommand(new AddCommand(owner));
         registerCommand(new RemoveCommand(owner));
+        registerCommand(new RequestsCommand(owner));
         registerCommand(new AcceptCommand(owner));
         registerCommand(new AcceptAllCommand(owner));
         registerCommand(new DenyCommand(owner));
         registerCommand(new DenyAllCommand(owner));
         registerCommand(new ClearCommand(owner));
 
-        registerCommand(new JumpCommand(owner));
         registerCommand(new PartyCommand(owner));
-        registerCommand(new MsgCommand(owner));
+        registerCommand(new MessageCommand(owner));
+
+        if(McNative.getInstance().isNetworkAvailable()){
+            registerCommand(new JumpCommand(owner));
+        }
     }
+
+    /*
+    Favorite
+    Message
+    Respond
+
+    settings requests
+    settings notify
+    settings jump
+    settings status
+     */
 
     @Override
     public void execute(CommandSender sender, String[] args) {

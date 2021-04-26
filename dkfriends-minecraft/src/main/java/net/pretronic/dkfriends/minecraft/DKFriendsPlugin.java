@@ -25,6 +25,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
                 ,new DKFriendStorage(getDatabase())
                 ,getRuntime().getLocal().getEventBus());
 
+        DescriberRegistrar.register();
         registerListeners();
         registerCommands();
 

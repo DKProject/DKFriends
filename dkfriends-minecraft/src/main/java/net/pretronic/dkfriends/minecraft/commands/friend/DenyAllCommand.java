@@ -12,7 +12,7 @@ import org.mcnative.runtime.api.player.MinecraftPlayer;
 public class DenyAllCommand extends BasicCommand {
 
     public DenyAllCommand(ObjectOwner owner) {
-        super(owner, CommandConfiguration.name("clear"));
+        super(owner, CommandConfiguration.name("denyAll"));
     }
 
     @Override

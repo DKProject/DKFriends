@@ -1,5 +1,6 @@
 package net.pretronic.dkfriends.common.player.friend;
 
+import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
 
@@ -7,12 +8,17 @@ import java.util.UUID;
 
 public class DefaultFriendRequest implements FriendRequest {
 
+    private final DKFriends dkFriends;
     private final UUID receiverId;
     private final UUID requesterId;
     private final String message;
     private final long requestTime;
 
-    public DefaultFriendRequest(UUID receiverId, UUID requesterId, String message, long requestTime) {
+    private transient DKFriendsPlayer receiver;
+    private transient DKFriendsPlayer requester;
+
+    public DefaultFriendRequest(DKFriends dkFriends,UUID receiverId, UUID requesterId, String message, long requestTime) {
+        this.dkFriends = dkFriends;
         this.receiverId = receiverId;
         this.requesterId = requesterId;
         this.message = message;
@@ -26,7 +32,8 @@ public class DefaultFriendRequest implements FriendRequest {
 
     @Override
     public DKFriendsPlayer getReceiver() {
-        throw new UnsupportedOperationException();
+        if(receiver == null) receiver = dkFriends.getPlayerManager().getPlayer(receiverId);
+        return receiver;
     }
 
     @Override
@@ -36,7 +43,8 @@ public class DefaultFriendRequest implements FriendRequest {
 
     @Override
     public DKFriendsPlayer getRequester() {
-        throw new UnsupportedOperationException();
+        if(requester == null) requester = dkFriends.getPlayerManager().getPlayer(requesterId);
+        return requester;
     }
 
     @Override

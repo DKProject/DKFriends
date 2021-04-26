@@ -28,6 +28,7 @@ public class Messages {
     public static MessageComponent<?> PREFIX = Text.ofMessageKey("dkfriends.prefix");
 
     public static MessageComponent<?> ERROR_ONLY_PLAYER = Text.ofMessageKey("dkfriends.error.onlyPlayer");
+    public static MessageComponent<?> ERROR_NO_PAGE = Text.ofMessageKey("dkfriends.error.noPage");
     public static MessageComponent<?> ERROR_PLAYER_NOT_FOUND = Text.ofMessageKey("dkfriends.error.player.notFound");
     public static MessageComponent<?> ERROR_PLAYER_NOT_ONLINE = Text.ofMessageKey("dkfriends.error.player.notOnline");
     public static MessageComponent<?> ERROR_PLAYER_NOT_SELF = Text.ofMessageKey("dkfriends.error.player.notSelf");
@@ -40,6 +41,8 @@ public class Messages {
     public static MessageComponent<?> ERROR_FRIEND_REQUEST_EMPTY = Text.ofMessageKey("dkfriends.error.friend.request.empty");
 
     public static MessageComponent<?> COMMAND_FRIEND_ADD_SUCCESS = Text.ofMessageKey("dkfriends.command.friend.add.success");
+    public static MessageComponent<?> COMMAND_FRIEND_LIST = Text.ofMessageKey("dkfriends.command.friend.list");
+    public static MessageComponent<?> COMMAND_FRIEND_REQUESTS = Text.ofMessageKey("dkfriends.command.friend.requests");
 
     public static MessageComponent<?> COMMAND_FRIEND_JUMP_ALREADY = Text.ofMessageKey("dkfriends.command.friend.jump.already");
     public static MessageComponent<?> COMMAND_FRIEND_JUMP_SUCCESS = Text.ofMessageKey("dkfriends.command.friend.jump.success");
@@ -51,5 +54,11 @@ public class Messages {
     public static MessageComponent<?> FRIEND_REMOVE = Text.ofMessageKey("dkfriends.friend.remove");
     public static MessageComponent<?> FRIEND_LOGIN = Text.ofMessageKey("dkfriends.friend.login");
     public static MessageComponent<?> FRIEND_LOGOUT = Text.ofMessageKey("dkfriends.friend.logout");
+
+    public static MessageComponent<?> FRIEND_LOGIN_INFO_REQUESTS = Text.ofMessageKey("dkfriends.friend.loginInfo.requests");
+    public static MessageComponent<?> FRIEND_LOGIN_INFO_ONE = Text.ofMessageKey("dkfriends.friend.loginInfo.one");
+    public static MessageComponent<?> FRIEND_LOGIN_INFO_TWO = Text.ofMessageKey("dkfriends.friend.loginInfo.two");
+    public static MessageComponent<?> FRIEND_LOGIN_INFO_THREE = Text.ofMessageKey("dkfriends.friend.loginInfo.three");
+    public static MessageComponent<?> FRIEND_LOGIN_INFO_MORE = Text.ofMessageKey("dkfriends.friend.loginInfo.more");
 
 }

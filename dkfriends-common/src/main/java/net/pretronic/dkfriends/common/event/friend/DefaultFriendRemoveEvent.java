@@ -4,6 +4,8 @@ import net.pretronic.dkfriends.api.event.friend.FriendRemoveEvent;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.friend.Friend;
 
+import java.util.UUID;
+
 public class DefaultFriendRemoveEvent implements FriendRemoveEvent {
 
     private final DKFriendsPlayer player;
@@ -17,6 +19,11 @@ public class DefaultFriendRemoveEvent implements FriendRemoveEvent {
     }
 
     private boolean cancelled;
+
+    @Override
+    public UUID getPlayerId() {
+        return player.getId();
+    }
 
     @Override
     public DKFriendsPlayer getPlayer() {

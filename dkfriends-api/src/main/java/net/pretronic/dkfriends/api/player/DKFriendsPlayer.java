@@ -9,15 +9,20 @@ import net.pretronic.dkfriends.api.party.PartyInvitation;
 import net.pretronic.dkfriends.api.party.PartyMember;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public interface DKFriendsPlayer {
 
     UUID getId();
 
+    boolean isOnline();
 
 
     Collection<Friend> getFriends();
+
+    List<Friend> getSortedFriends();
+
 
     Friend getFriend(UUID friendId);
 
@@ -37,6 +42,7 @@ public interface DKFriendsPlayer {
 
 
     Collection<FriendRequest> getFriendRequests();
+
 
     FriendRequest getFriendRequest(UUID requesterId);
 

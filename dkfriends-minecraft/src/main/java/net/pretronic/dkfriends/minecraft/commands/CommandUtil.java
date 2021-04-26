@@ -17,6 +17,14 @@ public class CommandUtil {
         return false;
     }
 
+    public static boolean isSelfCheck(CommandSender sender,String target){
+        if(sender.getName().equalsIgnoreCase(target)){
+            sender.sendMessage(Messages.ERROR_PLAYER_NOT_SELF);
+            return true;
+        }
+        return false;
+    }
+
     public static MinecraftPlayer getPlayer(CommandSender sender, MessageComponent<?> prefix, String name){
         MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer(name);
         if(player == null) sender.sendMessage(Messages.ERROR_PLAYER_NOT_FOUND, VariableSet.create()

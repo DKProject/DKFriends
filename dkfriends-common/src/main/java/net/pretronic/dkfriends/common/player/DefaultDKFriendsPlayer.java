@@ -26,10 +26,8 @@ import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
 import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.annonations.Internal;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
@@ -50,8 +48,36 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     }
 
     @Override
+    public boolean isOnline() {
+        return false;
+    }
+
+    @Override
     public Collection<Friend> getFriends() {
         return Collections.unmodifiableCollection(getOrLoadFriends());
+    }
+
+    @Override
+    public List<Friend> getSortedFriends() {
+        List<Friend> friends = new ArrayList<>(getOrLoadFriends());
+        friends.sort((o1, o2) -> {
+            if(o1.getFriend().isOnline()){
+                if(o2.getFriend().isOnline()){
+                    if(o1.isFavorite()) return 1;
+                    else return -1;
+                }else{
+                    return 1;
+                }
+            }else{
+                if(o2.getFriend().isOnline()){
+                    return -1;
+                }else{
+                    if(o1.isFavorite()) return 1;
+                    else return -1;
+                }
+            }
+        });
+        return Collections.unmodifiableList(friends);
     }
 
     @Override
@@ -68,24 +94,32 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     public Friend addFriend(UUID friendId) {
         if(isFriend(friendId)) throw new IllegalArgumentException("Already friends");
 
-        Friend friend = new DefaultFriend(this,friendId,System.currentTimeMillis(),false,null);
+        Friend friend = new DefaultFriend(dkFriends,this,friendId,System.currentTimeMillis(),false,null);
 
         FriendAddEvent event = new DefaultFriendAddEvent(this,friend);
         dkFriends.getEventBus().callEvent(FriendAddEvent.class,event);
         if(event.isCancelled()) return null;
 
+        //@Todo optimize
         dkFriends.getStorage().getFriends().insert()
-                .set("PlayerId",uniqueId,friendId)
-                .set("FriendId",friendId,uniqueId)
-                .set("Favorite",friend.isFavorite(),friend.isFavorite())
-                .set("Relation",friend.getRelation(),friend.getRelation())
-                .set("Time",friend.getFriendSince(),friend.getFriendSince())
+                .set("PlayerId",uniqueId)
+                .set("FriendId",friendId)
+                .set("Favorite",friend.isFavorite())
+                .set("Relation",friend.getRelation())
+                .set("Time",friend.getFriendSince())
+                .execute();
+        dkFriends.getStorage().getFriends().insert()
+                .set("PlayerId",friendId)
+                .set("FriendId",uniqueId)
+                .set("Favorite",friend.isFavorite())
+                .set("Relation",friend.getRelation())
+                .set("Time",friend.getFriendSince())
                 .execute();
 
         this.friends.add(friend);
         DKFriendsPlayer player = dkFriends.getPlayerManager().getLoadedPlayer(friendId);
         if(player instanceof DefaultDKFriendsPlayer) {
-            ((DefaultDKFriendsPlayer) player).addFriend(new DefaultFriend(player, uniqueId
+            ((DefaultDKFriendsPlayer) player).addFriend(new DefaultFriend(dkFriends,player, uniqueId
                     ,friend.getFriendSince(),friend.isFavorite(),friend.getRelation()));
         }
 
@@ -118,12 +152,19 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         dkFriends.getEventBus().callEvent(FriendRemoveEvent.class,event);
         if(event.isCancelled()) return;
 
-        dkFriends.getStorage().getFriends().delete()
-                .or(or -> {
-                    or.and(and -> and.where("PlayerId",uniqueId).where("PlayerId",friend.getFriendId()));
-                    or.and(and -> and.where("PlayerId",friend.getFriendId()).where("PlayerId",uniqueId));
-                }).execute();
+        dkFriends.getStorage().getFriends().delete().where("PlayerId",uniqueId).where("FriendId",friend.getFriendId()).execute();
+        dkFriends.getStorage().getFriends().delete().where("PlayerId",friend.getFriendId()).where("FriendId",uniqueId).execute();
+
         this.friends.remove(friend);
+        DKFriendsPlayer player = dkFriends.getPlayerManager().getLoadedPlayer(friend.getFriendId());
+        if(player instanceof DefaultDKFriendsPlayer) {
+            ((DefaultDKFriendsPlayer)player).removeFriendInternal(friend.getFriendId());
+        }
+    }
+
+    @Internal
+    private void removeFriendInternal(UUID uniqueId){
+        Iterators.removeOne(this.friends, friend -> friend.getFriendId().equals(uniqueId));
     }
 
     @Override
@@ -223,7 +264,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         if(hasFriendRequest(requesterId)) throw new IllegalArgumentException("Has already a friend request");
         if(isFriend(requesterId)) throw new IllegalArgumentException("Already friend");
 
-        FriendRequest request = new DefaultFriendRequest(uniqueId,requesterId,message,System.currentTimeMillis());
+        FriendRequest request = new DefaultFriendRequest(dkFriends,uniqueId,requesterId,message,System.currentTimeMillis());
 
         FriendRequestSendEvent event = new DefaultFriendRequestSendEvent(this,request);
         dkFriends.getEventBus().callEvent(FriendRequestSendEvent.class,event);
@@ -344,7 +385,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
             this.friends = new ArrayList<>();
             dkFriends.getStorage().getFriends().find()
                     .where("PlayerId",uniqueId)
-                    .execute().loadIn(this.friends, friend -> new DefaultFriend(DefaultDKFriendsPlayer.this
+                    .execute().loadIn(this.friends, friend -> new DefaultFriend(dkFriends,DefaultDKFriendsPlayer.this
                             ,friend.getUniqueId("FriendId")
                             ,friend.getLong("Time")
                             ,friend.getBoolean("Favorite")
@@ -358,7 +399,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
             this.friendRequests = new ArrayList<>();
             dkFriends.getStorage().getFriendRequests().find()
                     .where("ReceiverId",uniqueId)
-                    .execute().loadIn(this.friendRequests, friend -> new DefaultFriendRequest(friend.getUniqueId("ReceiverId")
+                    .execute().loadIn(this.friendRequests, friend -> new DefaultFriendRequest(dkFriends,friend.getUniqueId("ReceiverId")
                     ,friend.getUniqueId("RequesterId")
                     ,friend.getString("Message")
                     ,friend.getLong("Time")

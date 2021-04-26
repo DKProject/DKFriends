@@ -5,6 +5,8 @@ import net.pretronic.dkfriends.api.event.friend.request.FriendRequestDenyEvent;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
 
+import java.util.UUID;
+
 public class DefaultFriendRequestAcceptEvent implements FriendRequestAcceptEvent {
 
     private final DKFriendsPlayer player;
@@ -13,6 +15,11 @@ public class DefaultFriendRequestAcceptEvent implements FriendRequestAcceptEvent
     public DefaultFriendRequestAcceptEvent(DKFriendsPlayer player, FriendRequest request) {
         this.player = player;
         this.request = request;
+    }
+
+    @Override
+    public UUID getPlayerId() {
+        return player.getId();
     }
 
     @Override

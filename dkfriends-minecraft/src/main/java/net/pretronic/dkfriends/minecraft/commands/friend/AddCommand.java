@@ -23,6 +23,7 @@ public class AddCommand extends BasicCommand {
             //@Todo help message
             return;
         }
+        if(CommandUtil.isSelfCheck(sender,arguments[0])) return;
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
         MinecraftPlayer target = CommandUtil.getPlayer(sender,Messages.PREFIX,arguments[0]);
@@ -46,7 +47,7 @@ public class AddCommand extends BasicCommand {
             return;
         }
 
-        targetFriend.sendFriendRequest(target.getUniqueId());
+        targetFriend.sendFriendRequest(player.getId());
         sender.sendMessage(Messages.COMMAND_FRIEND_ADD_SUCCESS, VariableSet.create()
                 .addDescribed("player",target));
 

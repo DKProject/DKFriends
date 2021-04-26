@@ -1,8 +1,10 @@
 package net.pretronic.dkfriends.common.party;
 
 import net.pretronic.dkfriends.api.party.Party;
+import net.pretronic.dkfriends.api.party.PartyInvitation;
 import net.pretronic.dkfriends.api.party.PartyMember;
 import net.pretronic.dkfriends.api.party.PartyRole;
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.libraries.document.Document;
 
 import java.util.Collection;
@@ -99,6 +101,11 @@ public class DefaultParty implements Party {
     @Override
     public void leaveMember(UUID uniqueId) {
 
+    }
+
+    @Override
+    public PartyInvitation invite(DKFriendsPlayer inviter, UUID uniqueId) {
+        return null;
     }
 
     @Override

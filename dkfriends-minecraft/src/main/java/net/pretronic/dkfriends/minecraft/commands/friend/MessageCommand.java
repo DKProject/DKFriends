@@ -11,9 +11,9 @@ import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 import org.mcnative.runtime.api.player.OnlineMinecraftPlayer;
 
-public class MsgCommand extends BasicCommand {
+public class MessageCommand extends BasicCommand {
 
-    public MsgCommand(ObjectOwner owner) {
+    public MessageCommand(ObjectOwner owner) {
         super(owner, CommandConfiguration.name("message","msg","m"));
     }
 

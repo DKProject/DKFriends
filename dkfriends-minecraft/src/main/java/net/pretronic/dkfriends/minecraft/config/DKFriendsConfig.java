@@ -5,7 +5,8 @@ import net.pretronic.libraries.command.command.configuration.CommandConfiguratio
 public class DKFriendsConfig {
 
     public static CommandConfiguration COMMAND_FRIENDS = CommandConfiguration.newBuilder()
-            .name("friends")
+            .name("friend")
+            .aliases("friends")
             .permission("dkbans.command.friends")
             .create();
 
