@@ -40,7 +40,7 @@ public class ListCommand extends BasicCommand {
 
         if(friends.size() < from){
             sender.sendMessage(Messages.ERROR_NO_PAGE, VariableSet.create()
-                    .add("prefix",Messages.PREFIX)
+                    .add("prefix",Messages.PREFIX_FRIEND)
                     .add("page",page));
             return;
         }

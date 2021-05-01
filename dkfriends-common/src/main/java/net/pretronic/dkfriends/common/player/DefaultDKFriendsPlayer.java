@@ -27,7 +27,6 @@ import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.annonations.Internal;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 

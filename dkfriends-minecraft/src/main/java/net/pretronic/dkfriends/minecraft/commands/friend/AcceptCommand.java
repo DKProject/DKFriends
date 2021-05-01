@@ -25,7 +25,7 @@ public class AcceptCommand extends BasicCommand {
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
-        MinecraftPlayer target = CommandUtil.getPlayer(sender, Messages.PREFIX,arguments[0]);
+        MinecraftPlayer target = CommandUtil.getPlayer(sender, Messages.PREFIX_FRIEND,arguments[0]);
         if(target == null) return;
 
         FriendRequest request = player.getFriendRequest(target.getUniqueId());

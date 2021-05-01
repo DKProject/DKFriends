@@ -1,20 +1,22 @@
-package net.pretronic.dkfriends.minecraft.commands.friend;
+package net.pretronic.dkfriends.minecraft.commands.party;
 
+import net.pretronic.dkfriends.api.party.Party;
+import net.pretronic.dkfriends.api.party.PartyMember;
+import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.BasicCommand;
-import net.pretronic.libraries.command.command.MainCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
 import net.pretronic.libraries.message.bml.variable.VariableSet;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 
-public class AddCommand extends BasicCommand {
+public class PromoteCommand extends BasicCommand {
 
-    public AddCommand(ObjectOwner owner) {
-        super(owner, CommandConfiguration.name("add","a"));
+    public PromoteCommand(ObjectOwner owner) {
+        super(owner, CommandConfiguration.name("promote","p"));
     }
 
     @Override
@@ -29,27 +31,27 @@ public class AddCommand extends BasicCommand {
         MinecraftPlayer target = CommandUtil.getPlayer(sender,Messages.PREFIX_FRIEND,arguments[0]);
         if(target == null) return;
 
-        if(player.isFriend(target.getUniqueId())){
-            sender.sendMessage(Messages.ERROR_FRIEND_ALREADY, VariableSet.create()
+        //Check if can invite
+
+        Party party = player.getParty();
+        if(party == null){
+            sender.sendMessage(Messages.ERROR_PARTY_NOT);
+            return;
+        }
+
+        PartyMember member = party.getMember(target.getUniqueId());
+        if(member == null){
+            sender.sendMessage(Messages.ERROR_PARTY_NOT_MEMBER,VariableSet.create()
                     .addDescribed("player",target));
             return;
         }
 
-        if(player.hasFriendRequest(target.getUniqueId())){
-            player.acceptFriendRequest(target.getUniqueId());
+        PartyMember own = party.getMember(player.getId());
+        if(own.getRole() == PartyRole.LEADER){
+            sender.sendMessage(Messages.ERROR_PARTY_NOT_ALLOWED);
             return;
         }
 
-        DKFriendsPlayer targetFriend = target.getAs(DKFriendsPlayer.class);
-        if(targetFriend.hasFriendRequest(player)){
-            sender.sendMessage(Messages.ERROR_FRIEND_REQUEST_ALREADY, VariableSet.create()
-                    .addDescribed("player",target));
-            return;
-        }
-
-        targetFriend.sendFriendRequest(player.getId());
-        sender.sendMessage(Messages.COMMAND_FRIEND_ADD_SUCCESS, VariableSet.create()
-                .addDescribed("player",target));
-
+        member.promote();
     }
 }

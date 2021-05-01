@@ -16,10 +16,14 @@ public interface PartyManager {
 
     PartyMember getPartyForPlayerAsMember(UUID playerId);
 
+    boolean isInParty(UUID playerId);
+
 
     Party createParty(UUID ownerId);
 
     void deleteParty(UUID partyId);
+
+    void deleteParty(Party party);
 
 
 }

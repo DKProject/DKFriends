@@ -8,6 +8,8 @@ import org.mcnative.runtime.api.player.MinecraftPlayer;
 import org.mcnative.runtime.api.player.OnlineMinecraftPlayer;
 import org.mcnative.runtime.api.text.components.MessageComponent;
 
+import java.util.Collection;
+
 public class CommandUtil {
 
     public static boolean isPlayerCheck(CommandSender sender, MessageComponent<?> prefix){

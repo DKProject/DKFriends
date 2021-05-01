@@ -8,17 +8,20 @@ import java.util.UUID;
 
 public interface Party {
 
+    String DEFAULT_MESSAGE_CHANNEL = "MESSAGE";
+
+    String DEFAULT_TELEPORT_TYPE = "SERVER";
+
+    String DEFAULT_LEAVE_CAUSE = "LEAVE";
+
+    String KICK_LEAVE_CAUSE = "KICK";
+
     UUID getId();
 
 
     boolean isPublic();
 
     void setPublic(boolean public0);
-
-
-    int getMaximumSize();
-
-    void setMaximumSize(int size);
 
 
     String getCategory();
@@ -47,14 +50,52 @@ public interface Party {
     PartyMember addMember(UUID uniqueId,PartyRole role);
 
 
-    void removeMember(PartyMember member);
+    void removeMember(PartyMember member,String cause);
 
-    void removeMember(UUID uniqueId);
+    void removeMember(UUID uniqueId,String cause);
 
-    void leaveMember(UUID uniqueId);
+    default void leaveMember(PartyMember member){
+        removeMember(member,DEFAULT_LEAVE_CAUSE);
+    }
+
+    default void leaveMember(UUID uniqueId){
+        removeMember(uniqueId,DEFAULT_LEAVE_CAUSE);
+    }
+
+    default void kickMember(PartyMember member){
+        removeMember(member,KICK_LEAVE_CAUSE);
+    }
+
+    default void kickMember(UUID uniqueId){
+        removeMember(uniqueId,KICK_LEAVE_CAUSE);
+    }
+
+    Collection<PartyInvitation> getInvitations();
+
+    PartyInvitation getInvitation(DKFriendsPlayer player);
+
+    PartyInvitation getInvitation(UUID uniqueId);
+
+    boolean hasInvitation(DKFriendsPlayer player);
+
+    boolean hasInvitation(UUID uniqueId);
 
 
     PartyInvitation invite(DKFriendsPlayer inviter, UUID uniqueId);
+
+
+    void acceptInvitation(UUID uniqueId);
+
+    void acceptInvitation(DKFriendsPlayer player);
+
+    void denyInvitation(UUID uniqueId);
+
+    void denyInvitation(DKFriendsPlayer player);
+
+
+    boolean canInteract(UUID uniqueId,UUID target);
+
+    boolean canInteract(DKFriendsPlayer player,DKFriendsPlayer target);
 
 
     Document getProperties();
@@ -62,6 +103,18 @@ public interface Party {
 
     long getCreationTime();
 
+
+    default void sendMessage(String message){
+        sendMessage(DEFAULT_MESSAGE_CHANNEL,message);
+    }
+
+    void sendMessage(String channel,String message);
+
+    default void teleport(String target){
+        teleport(DEFAULT_TELEPORT_TYPE,target);
+    }
+
+    void teleport(String type,String target);
 
     void delete();
 

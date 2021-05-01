@@ -17,6 +17,10 @@ public interface PartyMember {
 
     void setRole(PartyRole role);
 
+    void promote();
+
+    void demote();
+
 
     void leave();
 

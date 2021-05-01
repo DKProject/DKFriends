@@ -25,7 +25,9 @@ import org.mcnative.runtime.api.text.components.MessageComponent;
 
 public class Messages {
 
-    public static MessageComponent<?> PREFIX = Text.ofMessageKey("dkfriends.prefix");
+    public static MessageComponent<?> PREFIX_FRIEND = Text.ofMessageKey("dkfriends.prefix.friend");
+    public static MessageComponent<?> PREFIX_PARTY = Text.ofMessageKey("dkfriends.prefix.party");
+
 
     public static MessageComponent<?> ERROR_ONLY_PLAYER = Text.ofMessageKey("dkfriends.error.onlyPlayer");
     public static MessageComponent<?> ERROR_NO_PAGE = Text.ofMessageKey("dkfriends.error.noPage");
@@ -40,13 +42,21 @@ public class Messages {
     public static MessageComponent<?> ERROR_FRIEND_REQUEST_NOT = Text.ofMessageKey("dkfriends.error.friend.request.not");
     public static MessageComponent<?> ERROR_FRIEND_REQUEST_EMPTY = Text.ofMessageKey("dkfriends.error.friend.request.empty");
 
+    public static MessageComponent<?> ERROR_PARTY_NOT = Text.ofMessageKey("dkfriends.error.party.not");
+    public static MessageComponent<?> ERROR_PARTY_ALREADY = Text.ofMessageKey("dkfriends.error.party.already");
+    public static MessageComponent<?> ERROR_PARTY_NOT_ALLOWED = Text.ofMessageKey("dkfriends.error.party.notAllowed");
+    public static MessageComponent<?> ERROR_PARTY_NOT_MEMBER = Text.ofMessageKey("dkfriends.error.party.notMember");
+    public static MessageComponent<?> ERROR_PARTY_INVITATION_NOT = Text.ofMessageKey("dkfriends.error.party.invitation.not");
+
     public static MessageComponent<?> COMMAND_FRIEND_ADD_SUCCESS = Text.ofMessageKey("dkfriends.command.friend.add.success");
     public static MessageComponent<?> COMMAND_FRIEND_LIST = Text.ofMessageKey("dkfriends.command.friend.list");
     public static MessageComponent<?> COMMAND_FRIEND_REQUESTS = Text.ofMessageKey("dkfriends.command.friend.requests");
+    public static MessageComponent<?> COMMAND_FRIEND_FAVORITE_MARK = Text.ofMessageKey("dkfriends.command.friend.favorite.mark");
+    public static MessageComponent<?> COMMAND_FRIEND_FAVORITE_UNMARKT = Text.ofMessageKey("dkfriends.command.friend.favorite.unmark");
 
     public static MessageComponent<?> COMMAND_FRIEND_JUMP_ALREADY = Text.ofMessageKey("dkfriends.command.friend.jump.already");
     public static MessageComponent<?> COMMAND_FRIEND_JUMP_SUCCESS = Text.ofMessageKey("dkfriends.command.friend.jump.success");
-    public static MessageComponent<?> COMMAND_FRIEND_MSG = Text.ofMessageKey("dkfriends.command.msg");
+    public static MessageComponent<?> COMMAND_FRIEND_MSG = Text.ofMessageKey("dkfriends.command.friend.msg");
 
     public static MessageComponent<?> FRIEND_REQUEST = Text.ofMessageKey("dkfriends.friend.request");
     public static MessageComponent<?> FRIEND_DENY = Text.ofMessageKey("dkfriends.friend.deny");
@@ -60,5 +70,11 @@ public class Messages {
     public static MessageComponent<?> FRIEND_LOGIN_INFO_TWO = Text.ofMessageKey("dkfriends.friend.loginInfo.two");
     public static MessageComponent<?> FRIEND_LOGIN_INFO_THREE = Text.ofMessageKey("dkfriends.friend.loginInfo.three");
     public static MessageComponent<?> FRIEND_LOGIN_INFO_MORE = Text.ofMessageKey("dkfriends.friend.loginInfo.more");
+
+    public static MessageComponent<?> COMMAND_PARTY_CREATED = Text.ofMessageKey("dkfriends.command.party.created");
+    public static MessageComponent<?> COMMAND_PARTY_INVITED = Text.ofMessageKey("dkfriends.command.party.invited");
+    public static MessageComponent<?> COMMAND_PARTY_INFO = Text.ofMessageKey("dkfriends.command.party.info");
+
+    public static MessageComponent<?> PARTY_INVITE = Text.ofMessageKey("dkfriends.party.invite");
 
 }

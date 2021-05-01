@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.event.friend.FriendAddEvent;
 import net.pretronic.dkfriends.api.event.friend.FriendRemoveEvent;
 import net.pretronic.dkfriends.api.event.friend.request.FriendRequestDenyEvent;
 import net.pretronic.dkfriends.api.event.friend.request.FriendRequestSendEvent;
+import net.pretronic.dkfriends.api.event.party.PartyInviteEvent;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.event.EventPriority;
 import net.pretronic.libraries.event.Listener;
@@ -65,4 +66,14 @@ public class PerformListener {
         }
     }
 
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onPartyInvite(PartyInviteEvent event){
+        if(event.isCancelled()) return;
+        ConnectedMinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getPlayerId());
+        if(player !=  null){
+            player.sendMessage(Messages.PARTY_INVITE, VariableSet.create().addDescribed("player",event.getInvitation()));
+        }
+    }
 }

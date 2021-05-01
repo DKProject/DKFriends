@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.clan.ClanManager;
 import net.pretronic.dkfriends.api.party.PartyManager;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayerManager;
+import net.pretronic.dkfriends.common.party.DefaultPartyManager;
 import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayerManager;
 import net.pretronic.libraries.event.EventBus;
 
@@ -19,7 +20,7 @@ public class DefaultDKFriends implements DKFriends {
     public DefaultDKFriends(String version, DKFriendStorage storage, EventBus eventBus) {
         this.version = version;
         this.playerManager = new DefaultDKFriendsPlayerManager(this);
-        this.partyManager = null;
+        this.partyManager = new DefaultPartyManager(this);
         this.clanManager = null;
         this.storage = storage;
         this.eventBus = eventBus;

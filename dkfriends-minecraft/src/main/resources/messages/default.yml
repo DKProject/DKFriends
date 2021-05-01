@@ -27,10 +27,12 @@ messages:
   dkfriends.command.friend.jump.success: '${dkfriends.prefix} &7Connecting to server..'
   dkfriends.command.friend.list: '${dkfriends.prefix} &7Your friends &8| &7Page&8: &e{page} @for("friend" in {friends},${dkfriends.command.friend.list.loop},"\n","\n")'
   dkfriends.command.friend.list.loop: '@if({friend.online},${dkfriends.command.friend.list.loop.online},${dkfriends.command.friend.list.loop.offline})'
-  dkfriends.command.friend.list.loop.online: ' &8- &e{friend.displayName}&8: &aOnline &8(&efriend.server)'
-  dkfriends.command.friend.list.loop.offline: ' &8- &e{friend.displayName}&8: &cOffline &8(&7Last seen...&8)'
+  dkfriends.command.friend.list.loop.online: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &aOnline &8(&efriend.server)'
+  dkfriends.command.friend.list.loop.offline: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &cOffline &8(&7Last seen...&8)'
   dkfriends.command.friend.requests: '${dkfriends.prefix} &7Friend requests &8| &7Page&8: &e{page} @for("request" in {requests},${dkfriends.command.friend.requests.loop},"\n","\n")'
   dkfriends.command.friend.requests.loop: ' &8- &e{request.requester.displayName}&8: !["&8[&aACCEPT&8]"]("run:///friend accept {player.name}") !["&8[&cDENY&8]"]("run:///friend deny {player.name})"'
+  dkfriends.command.friend.favorite.mark: '${dkfriends.prefix} &7You marked {player.displayName} &7as favorite'
+  dkfriends.command.friend.favorite.unmark: '${dkfriends.prefix} &7You unmarked {player.displayName} &7as favorite'
 
   dkfriends.friend.request: '${dkfriends.prefix} &e{player.displayName} &7wants to be your friend
   ${dkfriends.prefix} &7Click&8: !["&8[&aACCEPT&8]"]("run:///friend accept {player.name}") !["&8[&cDENY&8]"]("run:///friend deny {player.name})"'

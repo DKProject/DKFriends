@@ -4,10 +4,16 @@ import net.pretronic.libraries.command.command.configuration.CommandConfiguratio
 
 public class DKFriendsConfig {
 
-    public static CommandConfiguration COMMAND_FRIENDS = CommandConfiguration.newBuilder()
+    public static CommandConfiguration COMMAND_FRIEND = CommandConfiguration.newBuilder()
             .name("friend")
             .aliases("friends")
-            .permission("dkbans.command.friends")
+            .permission("dkbans.command.friend")
+            .create();
+
+    public static CommandConfiguration COMMAND_PARTY = CommandConfiguration.newBuilder()
+            .name("party")
+            .aliases("parties")
+            .permission("dkbans.command.party")
             .create();
 
 }

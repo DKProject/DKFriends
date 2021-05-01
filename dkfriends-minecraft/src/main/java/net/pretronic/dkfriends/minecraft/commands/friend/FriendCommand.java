@@ -25,6 +25,7 @@ public class FriendCommand extends MainCommand {
 
         registerCommand(new PartyCommand(owner));
         registerCommand(new MessageCommand(owner));
+        registerCommand(new FavoriteCommand(owner));
 
         if(McNative.getInstance().isNetworkAvailable()){
             registerCommand(new JumpCommand(owner));
@@ -44,7 +45,7 @@ public class FriendCommand extends MainCommand {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(CommandUtil.isPlayerCheck(sender, Messages.PREFIX)){
+        if(CommandUtil.isPlayerCheck(sender, Messages.PREFIX_FRIEND)){
             super.execute(sender, args);
         }
     }

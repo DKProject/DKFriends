@@ -25,7 +25,7 @@ public class MessageCommand extends BasicCommand {
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
-        MinecraftPlayer target = CommandUtil.getPlayer(sender, Messages.PREFIX,arguments[0]);
+        MinecraftPlayer target = CommandUtil.getPlayer(sender, Messages.PREFIX_FRIEND,arguments[0]);
         if(target == null) return;
 
         if(!player.isFriend(target.getUniqueId())){
@@ -37,7 +37,7 @@ public class MessageCommand extends BasicCommand {
         OnlineMinecraftPlayer onlineTarget = target.getAsOnlinePlayer();
         if(onlineTarget == null){
             sender.sendMessage(Messages.ERROR_PLAYER_NOT_ONLINE, VariableSet.create()
-                    .addDescribed("prefix",Messages.PREFIX));
+                    .addDescribed("prefix",Messages.PREFIX_FRIEND));
             return;
         }
 

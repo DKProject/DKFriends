@@ -1,41 +1,46 @@
-package net.pretronic.dkfriends.minecraft.commands.friend;
+package net.pretronic.dkfriends.minecraft.commands.party;
 
+import net.pretronic.dkfriends.api.party.Party;
+import net.pretronic.dkfriends.api.party.PartyInvitation;
+import net.pretronic.dkfriends.api.party.PartyManager;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
-import net.pretronic.dkfriends.api.player.friend.FriendRequest;
-import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
-import net.pretronic.libraries.message.bml.variable.VariableSet;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 
+import java.util.UUID;
+
 public class DenyCommand extends BasicCommand {
 
+    private final PartyManager partyManager;
+
     public DenyCommand(ObjectOwner owner) {
-        super(owner, CommandConfiguration.name("deny"));
+        super(owner, CommandConfiguration.name("deny","d"));
     }
 
     @Override
     public void execute(CommandSender sender, String[] arguments) {
         if(arguments.length < 1){
-            //@Todo help message => Bessere Lösung
+            //@Todo help message
             return;
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
-        MinecraftPlayer target = CommandUtil.getPlayer(sender, Messages.PREFIX_FRIEND,arguments[0]);
-        if(target == null) return;
+        Party party = partyManager.getParty(UUID.fromString(arguments[0]));
+        if(party == null){
+            sender.sendMessage(Messages.ERROR_PARTY_INVITATION_NOT);
+            return;
+        }
+        PartyInvitation invitation = party.getInvitation(player.getId());
 
-        FriendRequest request = player.getFriendRequest(target.getUniqueId());
-
-        if(request == null){
-            sender.sendMessage(Messages.ERROR_FRIEND_REQUEST_NOT, VariableSet.create()
-                    .addDescribed("player",target));
+        if(invitation == null){
+            sender.sendMessage(Messages.ERROR_PARTY_INVITATION_NOT);
             return;
         }
 
-        player.denyFriendRequest(request);
+        invitation.deny();
     }
 }

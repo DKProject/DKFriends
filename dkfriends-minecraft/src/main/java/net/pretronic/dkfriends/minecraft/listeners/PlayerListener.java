@@ -1,5 +1,6 @@
 package net.pretronic.dkfriends.minecraft.listeners;
 
+import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.event.Listener;
@@ -8,6 +9,7 @@ import net.pretronic.libraries.message.bml.variable.VariableSet;
 import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.event.player.MinecraftPlayerLogoutEvent;
 import org.mcnative.runtime.api.event.player.login.MinecraftPlayerPostLoginEvent;
+import org.mcnative.runtime.api.event.server.MinecraftPlayerServerSwitchEvent;
 import org.mcnative.runtime.api.player.OnlineMinecraftPlayer;
 
 import java.util.ArrayList;
@@ -60,11 +62,22 @@ public class PlayerListener {
     public void onLogout(MinecraftPlayerLogoutEvent event){
         DKFriendsPlayer player = event.getPlayer().getAs(DKFriendsPlayer.class);
 
+        player.leaveParty();
+
         for (OnlineMinecraftPlayer online : getOnlinePlayers()) {
             if(player.isFriend(online.getUniqueId())){
                 online.sendMessage(Messages.FRIEND_LOGOUT, VariableSet.create()
                         .addDescribed("player",event.getOnlinePlayer()));
             }
+        }
+    }
+
+    @Listener(execution = ExecutionType.ASYNC)
+    public void onServerSwitch(MinecraftPlayerServerSwitchEvent event){
+        DKFriendsPlayer player = event.getPlayer().getAs(DKFriendsPlayer.class);
+        Party party = player.getParty();
+        if(party != null){
+            party.teleport(event.getTo().getName());
         }
     }
 

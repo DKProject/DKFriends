@@ -5,6 +5,7 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DKFriendStorage;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.minecraft.commands.friend.FriendCommand;
+import net.pretronic.dkfriends.minecraft.commands.party.PartyCommand;
 import net.pretronic.dkfriends.minecraft.config.DKFriendsConfig;
 import net.pretronic.dkfriends.minecraft.listeners.PerformListener;
 import net.pretronic.dkfriends.minecraft.listeners.PlayerListener;
@@ -49,6 +50,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
     }
 
     private void registerCommands(){
-        getRuntime().getLocal().getCommandManager().registerCommand(new FriendCommand(this,DKFriendsConfig.COMMAND_FRIENDS));
+        getRuntime().getLocal().getCommandManager().registerCommand(new FriendCommand(this,DKFriendsConfig.COMMAND_FRIEND));
+        getRuntime().getLocal().getCommandManager().registerCommand(new PartyCommand(this,DKFriendsConfig.COMMAND_PARTY));
     }
 }

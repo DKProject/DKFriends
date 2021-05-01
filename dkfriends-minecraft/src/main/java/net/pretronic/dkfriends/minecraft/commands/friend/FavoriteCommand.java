@@ -11,10 +11,10 @@ import net.pretronic.libraries.message.bml.variable.VariableSet;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 
-public class RemoveCommand extends BasicCommand {
+public class FavoriteCommand extends BasicCommand {
 
-    public RemoveCommand(ObjectOwner owner) {
-        super(owner, CommandConfiguration.name("remove","r"));
+    public FavoriteCommand(ObjectOwner owner) {
+        super(owner, CommandConfiguration.name("favorite"));
     }
 
     @Override
@@ -36,6 +36,14 @@ public class RemoveCommand extends BasicCommand {
             return;
         }
 
-        player.removeFriend(friend);
+        friend.setFavorite(!friend.isFavorite());
+
+        if(friend.isFavorite()){
+            sender.sendMessage(Messages.COMMAND_FRIEND_FAVORITE_MARK,VariableSet.create()
+                    .addDescribed("player",target));
+        }else{
+            sender.sendMessage(Messages.COMMAND_FRIEND_FAVORITE_UNMARKT,VariableSet.create()
+                    .addDescribed("player",target));
+        }
     }
 }

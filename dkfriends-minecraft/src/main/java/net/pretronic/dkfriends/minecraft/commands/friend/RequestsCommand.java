@@ -41,7 +41,7 @@ public class RequestsCommand extends BasicCommand {
 
         if(requests.size() < from){
             sender.sendMessage(Messages.ERROR_NO_PAGE, VariableSet.create()
-                    .add("prefix",Messages.PREFIX)
+                    .add("prefix",Messages.PREFIX_FRIEND)
                     .add("page",page));
             return;
         }
