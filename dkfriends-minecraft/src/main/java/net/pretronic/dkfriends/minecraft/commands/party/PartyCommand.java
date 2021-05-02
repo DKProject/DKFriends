@@ -1,5 +1,6 @@
 package net.pretronic.dkfriends.minecraft.commands.party;
 
+import net.pretronic.dkfriends.api.party.PartyManager;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.MainCommand;
@@ -9,14 +10,14 @@ import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 
 public class PartyCommand extends MainCommand {
 
-    public PartyCommand(ObjectOwner owner, CommandConfiguration configuration) {
+    public PartyCommand(ObjectOwner owner, CommandConfiguration configuration,PartyManager partyManager) {
         super(owner, configuration);
 
         registerCommand(new CreateCommand(owner));
         registerCommand(new InviteCommand(owner));
         registerCommand(new LeaveCommand(owner));
-        registerCommand(new AcceptCommand(owner));
-        registerCommand(new DenyCommand(owner));
+        registerCommand(new AcceptCommand(owner,partyManager));
+        registerCommand(new DenyCommand(owner,partyManager));
         registerCommand(new InfoCommand(owner));
         registerCommand(new PromoteCommand(owner));
         registerCommand(new DemoteCommand(owner));

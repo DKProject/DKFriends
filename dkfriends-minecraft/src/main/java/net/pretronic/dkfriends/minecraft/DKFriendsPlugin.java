@@ -22,13 +22,13 @@ public class DKFriendsPlugin extends MinecraftPlugin {
 
         getConfiguration().load(DKFriendsConfig.class);
 
-        DKFriends dkfriends = new DefaultDKFriends(getDescription().getVersion().getName()
+        DefaultDKFriends dkfriends = new DefaultDKFriends(getDescription().getVersion().getName()
                 ,new DKFriendStorage(getDatabase())
                 ,getRuntime().getLocal().getEventBus());
 
         DescriberRegistrar.register();
         registerListeners();
-        registerCommands();
+        registerCommands(dkfriends);
 
         getRuntime().getRegistry().registerService(this,DKFriends.class,dkfriends);
         getRuntime().getPlayerManager().registerPlayerAdapter(DKFriendsPlayer.class, player -> dkfriends.getPlayerManager().getPlayer(player.getUniqueId()));
@@ -49,8 +49,8 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         }
     }
 
-    private void registerCommands(){
+    private void registerCommands(DefaultDKFriends dkFriends){
         getRuntime().getLocal().getCommandManager().registerCommand(new FriendCommand(this,DKFriendsConfig.COMMAND_FRIEND));
-        getRuntime().getLocal().getCommandManager().registerCommand(new PartyCommand(this,DKFriendsConfig.COMMAND_PARTY));
+        getRuntime().getLocal().getCommandManager().registerCommand(new PartyCommand(this,DKFriendsConfig.COMMAND_PARTY,dkFriends.getPartyManager()));
     }
 }

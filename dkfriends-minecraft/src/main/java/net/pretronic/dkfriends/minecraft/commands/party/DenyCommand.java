@@ -17,8 +17,9 @@ public class DenyCommand extends BasicCommand {
 
     private final PartyManager partyManager;
 
-    public DenyCommand(ObjectOwner owner) {
+    public DenyCommand(ObjectOwner owner,PartyManager partyManager) {
         super(owner, CommandConfiguration.name("deny","d"));
+        this.partyManager = partyManager;
     }
 
     @Override

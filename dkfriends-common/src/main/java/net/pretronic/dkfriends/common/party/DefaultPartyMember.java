@@ -55,6 +55,16 @@ public class DefaultPartyMember implements PartyMember {
     }
 
     @Override
+    public void promote() {
+
+    }
+
+    @Override
+    public void demote() {
+
+    }
+
+    @Override
     public void leave() {
         getParty().leaveMember(this);
     }

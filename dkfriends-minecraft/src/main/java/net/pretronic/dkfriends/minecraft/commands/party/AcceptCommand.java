@@ -21,8 +21,9 @@ public class AcceptCommand extends BasicCommand {
 
     private final PartyManager partyManager;
 
-    public AcceptCommand(ObjectOwner owner) {
+    public AcceptCommand(ObjectOwner owner,PartyManager partyManager) {
         super(owner, CommandConfiguration.name("accept","a","join"));
+        this.partyManager = partyManager;
     }
 
     @Override

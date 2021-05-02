@@ -31,8 +31,6 @@ public class PromoteCommand extends BasicCommand {
         MinecraftPlayer target = CommandUtil.getPlayer(sender,Messages.PREFIX_FRIEND,arguments[0]);
         if(target == null) return;
 
-        //Check if can invite
-
         Party party = player.getParty();
         if(party == null){
             sender.sendMessage(Messages.ERROR_PARTY_NOT);

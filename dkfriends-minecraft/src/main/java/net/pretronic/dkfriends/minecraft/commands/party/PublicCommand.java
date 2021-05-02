@@ -23,8 +23,6 @@ public class PublicCommand extends BasicCommand {
     public void execute(CommandSender sender, String[] arguments) {
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
-        //Check if can invite
-
         Party party = player.getParty();
         if(party == null){
             sender.sendMessage(Messages.ERROR_PARTY_NOT);

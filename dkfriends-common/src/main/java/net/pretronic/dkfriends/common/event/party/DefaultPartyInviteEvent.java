@@ -15,10 +15,14 @@ public class DefaultPartyInviteEvent implements PartyInviteEvent {
     private final UUID partyId;
     private final PartyInvitation invitation;
 
+    private boolean cancelled;
+
     public DefaultPartyInviteEvent(DKFriends dkFriends, UUID partyId, PartyInvitation invitation) {
         this.dkFriends = dkFriends;
         this.partyId = partyId;
         this.invitation = invitation;
+
+        this.cancelled = false;
     }
 
     @Override
@@ -46,4 +50,13 @@ public class DefaultPartyInviteEvent implements PartyInviteEvent {
         return invitation;
     }
 
+    @Override
+    public boolean isCancelled() {
+        return this.cancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
 }

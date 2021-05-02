@@ -70,7 +70,7 @@ public class PerformListener {
     @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     public void onPartyInvite(PartyInviteEvent event){
-        if(event.isCancelled()) return;
+       // if(event.isCancelled()) return;
         ConnectedMinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getPlayerId());
         if(player !=  null){
             player.sendMessage(Messages.PARTY_INVITE, VariableSet.create().addDescribed("player",event.getInvitation()));
