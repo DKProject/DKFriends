@@ -1,4 +1,4 @@
-package net.pretronic.dkfriends.api.event.party;
+package net.pretronic.dkfriends.api.event.party.invitation;
 
 import net.pretronic.dkfriends.api.event.DKFriendsPlayerEvent;
 import net.pretronic.dkfriends.api.party.Party;
@@ -7,11 +7,7 @@ import net.pretronic.libraries.event.Cancellable;
 
 import java.util.UUID;
 
-public interface PartyInviteEvent extends DKFriendsPlayerEvent, Cancellable {
-
-    UUID getPartyId();
-
-    Party getParty();
+public interface PartyInvitationAcceptEvent extends DKFriendsPlayerEvent {
 
     PartyInvitation getInvitation();
 }

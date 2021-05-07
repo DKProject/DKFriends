@@ -20,7 +20,7 @@ public class RemoveCommand extends BasicCommand {
     @Override
     public void execute(CommandSender sender, String[] arguments) {
         if(arguments.length < 1){
-            //@Todo help message
+            sender.sendMessage(Messages.COMMAND_FRIEND_HELP);
             return;
         }
 

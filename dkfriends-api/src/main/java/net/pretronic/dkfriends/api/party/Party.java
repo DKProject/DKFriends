@@ -84,13 +84,18 @@ public interface Party {
     PartyInvitation invite(DKFriendsPlayer inviter, UUID uniqueId);
 
 
-    void acceptInvitation(UUID uniqueId);
+    PartyMember acceptInvitation(UUID uniqueId);
 
-    void acceptInvitation(DKFriendsPlayer player);
+    PartyMember acceptInvitation(DKFriendsPlayer player);
+
+    PartyMember acceptInvitation(PartyInvitation invitation);
+
 
     void denyInvitation(UUID uniqueId);
 
     void denyInvitation(DKFriendsPlayer player);
+
+    void denyInvitation(PartyInvitation invitation);
 
 
     boolean canInteract(UUID uniqueId,UUID target);
@@ -104,11 +109,11 @@ public interface Party {
     long getCreationTime();
 
 
-    default void sendMessage(String message){
-        sendMessage(DEFAULT_MESSAGE_CHANNEL,message);
+    default void sendMessage(DKFriendsPlayer sender,String message){
+        sendMessage(sender,DEFAULT_MESSAGE_CHANNEL,message);
     }
 
-    void sendMessage(String channel,String message);
+    void sendMessage(DKFriendsPlayer sender,String channel,String message);
 
     default void teleport(String target){
         teleport(DEFAULT_TELEPORT_TYPE,target);

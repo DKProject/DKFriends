@@ -25,7 +25,7 @@ public class DenyCommand extends BasicCommand {
     @Override
     public void execute(CommandSender sender, String[] arguments) {
         if(arguments.length < 1){
-            //@Todo help message
+            sender.sendMessage(Messages.COMMAND_PARTY_HELP);
             return;
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);

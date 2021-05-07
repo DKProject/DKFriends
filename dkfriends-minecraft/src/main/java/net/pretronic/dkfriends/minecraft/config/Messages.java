@@ -48,6 +48,7 @@ public class Messages {
     public static MessageComponent<?> ERROR_PARTY_NOT_MEMBER = Text.ofMessageKey("dkfriends.error.party.notMember");
     public static MessageComponent<?> ERROR_PARTY_INVITATION_NOT = Text.ofMessageKey("dkfriends.error.party.invitation.not");
 
+    public static MessageComponent<?> COMMAND_FRIEND_HELP= Text.ofMessageKey("dkfriends.command.friend.help");
     public static MessageComponent<?> COMMAND_FRIEND_ADD_SUCCESS = Text.ofMessageKey("dkfriends.command.friend.add.success");
     public static MessageComponent<?> COMMAND_FRIEND_LIST = Text.ofMessageKey("dkfriends.command.friend.list");
     public static MessageComponent<?> COMMAND_FRIEND_REQUESTS = Text.ofMessageKey("dkfriends.command.friend.requests");
@@ -71,10 +72,16 @@ public class Messages {
     public static MessageComponent<?> FRIEND_LOGIN_INFO_THREE = Text.ofMessageKey("dkfriends.friend.loginInfo.three");
     public static MessageComponent<?> FRIEND_LOGIN_INFO_MORE = Text.ofMessageKey("dkfriends.friend.loginInfo.more");
 
+    public static MessageComponent<?> COMMAND_PARTY_HELP = Text.ofMessageKey("dkfriends.command.party.help");
     public static MessageComponent<?> COMMAND_PARTY_CREATED = Text.ofMessageKey("dkfriends.command.party.created");
     public static MessageComponent<?> COMMAND_PARTY_INVITED = Text.ofMessageKey("dkfriends.command.party.invited");
     public static MessageComponent<?> COMMAND_PARTY_INFO = Text.ofMessageKey("dkfriends.command.party.info");
 
     public static MessageComponent<?> PARTY_INVITE = Text.ofMessageKey("dkfriends.party.invite");
+    public static MessageComponent<?> PARTY_JOIN = Text.ofMessageKey("dkfriends.party.join");
+    public static MessageComponent<?> PARTY_LEAVE = Text.ofMessageKey("dkfriends.party.leave");
+    public static MessageComponent<?> PARTY_DELETE = Text.ofMessageKey("dkfriends.party.delete");
+    public static MessageComponent<?> PARTY_MESSAGE = Text.ofMessageKey("dkfriends.party.message");
+    public static MessageComponent<?> PARTY_TELEPORT = Text.ofMessageKey("dkfriends.party.teleport");
 
 }

@@ -2,6 +2,9 @@ package net.pretronic.dkfriends.minecraft;
 
 import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
+import net.pretronic.dkfriends.common.party.DefaultParty;
+import net.pretronic.dkfriends.common.party.DefaultPartyInvitation;
+import net.pretronic.dkfriends.common.party.DefaultPartyMember;
 import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayer;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
@@ -14,6 +17,11 @@ public class DescriberRegistrar {
     public static void register(){
         VariableDescriberRegistry.registerDescriber(Friend.class);
         VariableDescriberRegistry.registerDescriber(DefaultFriendRequest.class);
+        VariableDescriberRegistry.registerDescriber(DefaultParty.class);
+        VariableDescriberRegistry.registerDescriber(DefaultPartyInvitation.class);
+
+        VariableDescriber<DefaultPartyMember> memberDescriber = VariableDescriberRegistry.registerDescriber(DefaultPartyMember.class);
+        memberDescriber.setForwardFunction(DefaultPartyMember::getPlayer);
 
         VariableDescriber<DefaultFriend> friendDescriber = VariableDescriberRegistry.registerDescriber(DefaultFriend.class);
         friendDescriber.setForwardFunction(DefaultFriend::getFriend);

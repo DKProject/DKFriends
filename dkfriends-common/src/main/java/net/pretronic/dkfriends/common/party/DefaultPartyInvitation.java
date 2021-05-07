@@ -61,11 +61,11 @@ public class DefaultPartyInvitation implements PartyInvitation {
 
     @Override
     public PartyMember accept() {
-        return null;
+        return getParty().acceptInvitation(this);
     }
 
     @Override
     public void deny() {
-
+        getParty().denyInvitation(this);
     }
 }

@@ -5,7 +5,11 @@ import net.pretronic.dkfriends.api.event.party.PartyDeleteEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyManager;
 import net.pretronic.dkfriends.api.party.PartyMember;
+import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.dkfriends.common.event.party.DefaultPartyCreateEvent;
+import net.pretronic.dkfriends.common.event.party.DefaultPartyDeleteEvent;
+import net.pretronic.libraries.document.type.DocumentFileType;
 import net.pretronic.libraries.utility.Iterators;
 
 import java.util.ArrayList;
@@ -60,14 +64,23 @@ public class DefaultPartyManager implements PartyManager {
     @Override
     public Party createParty(UUID ownerId) {
         if(isInParty(ownerId)) throw new IllegalArgumentException("Player is already in a party");
-        Party party = new DefaultParty(dkFriends,UUID.randomUUID(),ownerId);
+        DefaultParty party = new DefaultParty(dkFriends,UUID.randomUUID(),ownerId);
 
-        PartyCreateEvent event = null;
+        PartyCreateEvent event = new DefaultPartyCreateEvent(dkFriends,party,ownerId);
         dkFriends.getEventBus().callEvent(PartyCreateEvent.class,event);
         if(event.isCancelled()) return null;
 
+        dkFriends.getStorage().getParties().insert()
+                .set("Id",party.getId())
+                .set("Public",party.isPublic())
+                .set("Category",party.getCategory())
+                .set("Topic",party.getTopic())
+                .set("Properties", DocumentFileType.JSON.getWriter().write(party.getProperties(),false))
+                .set("Time",party.getCreationTime())
+                .execute();
         this.parties.add(party);
-        //@Todo storage
+
+        party.addInternal(new DefaultPartyMember(dkFriends,party.getId(),ownerId,party.getCreationTime(),PartyRole.LEADER));
 
         return party;
     }
@@ -81,22 +94,22 @@ public class DefaultPartyManager implements PartyManager {
     public void deleteParty(Party party) {
         this.parties.remove(party);
 
-        PartyDeleteEvent event = null;
+        PartyDeleteEvent event = new DefaultPartyDeleteEvent(dkFriends,party);
         dkFriends.getEventBus().callEvent(PartyDeleteEvent.class,event);
         if(event.isCancelled()) return;
 
         dkFriends.getStorage().getParties().delete()
-                .where("PartyId",party.getId())
+                .where("Id",party.getId())
                 .execute();
 
         this.dkFriends.getStorage().getParties().delete().where("Id",party.getId()).execute();
-        this.parties.remove(event);
-
+        this.parties.remove(party);
     }
 
     private Collection<Party> getOrLoadParties(){
         if(this.parties == null){
             this.parties = new ArrayList<>();
+            //@Todo load parites
         }
         return this.parties;
     }

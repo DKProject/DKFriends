@@ -2,13 +2,14 @@ package net.pretronic.dkfriends.minecraft.commands.friend;
 
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.command.NotFindable;
 import net.pretronic.libraries.command.command.MainCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.McNative;
 
-public class FriendCommand extends MainCommand {
+public class FriendCommand extends MainCommand implements NotFindable {
 
     public FriendCommand(ObjectOwner owner, CommandConfiguration configuration) {
         super(owner, configuration);
@@ -48,5 +49,10 @@ public class FriendCommand extends MainCommand {
         if(CommandUtil.isPlayerCheck(sender, Messages.PREFIX_FRIEND)){
             super.execute(sender, args);
         }
+    }
+
+    @Override
+    public void commandNotFound(CommandSender sender, String s, String[] strings) {
+        sender.sendMessage(Messages.COMMAND_FRIEND_HELP);
     }
 }

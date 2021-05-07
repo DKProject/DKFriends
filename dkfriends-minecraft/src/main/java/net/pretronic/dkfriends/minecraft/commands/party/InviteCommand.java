@@ -20,7 +20,7 @@ public class InviteCommand extends BasicCommand {
     @Override
     public void execute(CommandSender sender, String[] arguments) {
         if(arguments.length < 1){
-            //@Todo help message
+            sender.sendMessage(Messages.COMMAND_PARTY_HELP);
             return;
         }
         if(CommandUtil.isSelfCheck(sender,arguments[0])) return;
@@ -28,6 +28,13 @@ public class InviteCommand extends BasicCommand {
 
         MinecraftPlayer target = CommandUtil.getPlayer(sender,Messages.PREFIX_FRIEND,arguments[0]);
         if(target == null) return;
+
+        if(!target.isOnline()){
+            sender.sendMessage(Messages.ERROR_PLAYER_NOT_ONLINE, VariableSet.create()
+                    .addDescribed("player",target)
+                    .addDescribed("prefix",Messages.PREFIX_PARTY));
+            return;
+        }
 
         //Check if can invite
 
@@ -38,6 +45,8 @@ public class InviteCommand extends BasicCommand {
                 return;
             }
         }else party = player.createParty();
+
+        if(party == null) return;
 
         party.invite(player,target.getUniqueId());
         sender.sendMessage(Messages.COMMAND_PARTY_INVITED,VariableSet.create()

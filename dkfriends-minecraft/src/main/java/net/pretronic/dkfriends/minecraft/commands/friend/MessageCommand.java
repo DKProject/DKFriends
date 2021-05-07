@@ -19,8 +19,8 @@ public class MessageCommand extends BasicCommand {
 
     @Override
     public void execute(CommandSender sender, String[] arguments) {
-        if(arguments.length < 2){
-            //@Todo help message
+        if(arguments.length < 1){
+            sender.sendMessage(Messages.COMMAND_FRIEND_HELP);
             return;
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);

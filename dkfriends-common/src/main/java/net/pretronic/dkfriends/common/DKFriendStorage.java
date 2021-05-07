@@ -68,14 +68,14 @@ public class DKFriendStorage {
 
         partiesInvitations = database.createCollection("dkfriends_parties_invitations")
                 .field("PartyId", DataType.UUID,FieldOption.NOT_NULL)
-                .field("PlayerId", DataType.BOOLEAN,FieldOption.NOT_NULL)
-                .field("InviterId", DataType.BOOLEAN,FieldOption.NOT_NULL)
+                .field("PlayerId", DataType.UUID,FieldOption.NOT_NULL)
+                .field("InviterId", DataType.UUID,FieldOption.NOT_NULL)
                 .field("Time", DataType.LONG,64,FieldOption.NOT_NULL)
                 .create();
 
         partiesMembers = database.createCollection("dkfriends_parties_members")
                 .field("PartyId", DataType.UUID,FieldOption.NOT_NULL)
-                .field("PlayerId", DataType.BOOLEAN,FieldOption.NOT_NULL)
+                .field("PlayerId", DataType.UUID,FieldOption.NOT_NULL)
                 .field("Role", DataType.STRING)
                 .field("Time", DataType.LONG,64,FieldOption.NOT_NULL)
                 .create();

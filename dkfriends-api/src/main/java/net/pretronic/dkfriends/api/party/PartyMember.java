@@ -1,5 +1,7 @@
 package net.pretronic.dkfriends.api.party;
 
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+
 import java.util.UUID;
 
 public interface PartyMember {
@@ -8,7 +10,10 @@ public interface PartyMember {
 
     Party getParty();
 
+
     UUID getPlayerId();
+
+    DKFriendsPlayer getPlayer();
 
     long getJoinTime();
 

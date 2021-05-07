@@ -1,5 +1,6 @@
 package net.pretronic.dkfriends.minecraft.commands.friend;
 
+import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
@@ -13,8 +14,8 @@ public class SettingsCommand extends BasicCommand {
 
     @Override
     public void execute(CommandSender sender, String[] arguments) {
-        if(arguments.length < 2){
-            //@Todo help message
+        if(arguments.length < 1){
+            sender.sendMessage(Messages.COMMAND_FRIEND_HELP);
             return;
         }
         String setting = arguments[0];

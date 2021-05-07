@@ -18,13 +18,13 @@ import org.mcnative.runtime.api.player.OnlineMinecraftPlayer;
 public class JumpCommand extends BasicCommand {
 
     public JumpCommand(ObjectOwner owner) {
-        super(owner, CommandConfiguration.name("message","m"));
+        super(owner, CommandConfiguration.name("jump","j"));
     }
 
     @Override
     public void execute(CommandSender sender, String[] arguments) {
         if(arguments.length < 1){
-            //@Todo help message
+            sender.sendMessage(Messages.COMMAND_PARTY_HELP);
             return;
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);

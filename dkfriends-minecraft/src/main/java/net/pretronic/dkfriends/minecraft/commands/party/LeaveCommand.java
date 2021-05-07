@@ -21,10 +21,6 @@ public class LeaveCommand extends BasicCommand {
 
     @Override
     public void execute(CommandSender sender, String[] arguments) {
-        if(arguments.length < 1){
-            //@Todo help message
-            return;
-        }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
         Party party = player.getParty();

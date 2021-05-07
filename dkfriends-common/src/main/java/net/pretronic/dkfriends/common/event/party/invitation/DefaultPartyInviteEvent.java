@@ -1,8 +1,7 @@
-package net.pretronic.dkfriends.common.event.party;
+package net.pretronic.dkfriends.common.event.party.invitation;
 
 import net.pretronic.dkfriends.api.DKFriends;
-import net.pretronic.dkfriends.api.event.party.PartyInviteEvent;
-import net.pretronic.dkfriends.api.event.party.PartyMessageEvent;
+import net.pretronic.dkfriends.api.event.party.invitation.PartyInviteEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyInvitation;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
