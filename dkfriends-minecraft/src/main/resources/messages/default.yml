@@ -114,15 +114,15 @@ messages:
   &8» &7Status&8: &e{clan.status}
 
   &8» &7Members&8(&7{clan.size}&8): @for("member" in {clan.members},${dkfriends.command.clan.info.loop},"\n","\n")'
-  dkfriends.command.clan.info.loop: '&8- &7{member.name} &8(&7{member.role}&8)'
+  dkfriends.command.clan.info.loop: '&8- &7{member.displayName} &8(&7{member.role}&8)'
 
   dkfriends.command.clan.delete: '${dkfriends.prefix.clan} &7You have deleted your clan'
 
-  dkfriends.command.clan.promote: '${dkfriends.prefix.clan} &7You have promoted &e{member.name} &7to &e{member.role}'
+  dkfriends.command.clan.promote: '${dkfriends.prefix.clan} &7You have promoted &e{member.displayName} &7to &e{member.role}'
 
-  dkfriends.command.clan.demote: '${dkfriends.prefix.clan} &7You have demoted &e{member.name} &7to &e{member.role}'
+  dkfriends.command.clan.demote: '${dkfriends.prefix.clan} &7You have demoted &e{member.displayName} &7to &e{member.role}'
 
-  dkfriends.command.clan.kick: '${dkfriends.prefix.clan} &7You have kicked &e{member.name}'
+  dkfriends.command.clan.kick: '${dkfriends.prefix.clan} &7You have kicked &e{member.displayName}'
 
   dkfriends.command.clan.rename: '${dkfriends.prefix.clan} &7You have renamed the clan to &e{clan.name}'
 
