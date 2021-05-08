@@ -1,6 +1,7 @@
 package net.pretronic.dkfriends.api.player;
 
 import net.pretronic.dkfriends.api.clan.Clan;
+import net.pretronic.dkfriends.api.clan.ClanMember;
 import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
 import net.pretronic.dkfriends.api.clan.ClanInvitation;
@@ -109,12 +110,14 @@ public interface DKFriendsPlayer {
 
     Collection<ClanInvitation> getClanInvitations();
 
+    ClanInvitation getClanInvitation(String clanName);
+
     Clan getClan();
+
+    ClanMember getClanMember();
 
     boolean isInClan();
 
-    void setClan(Clan clan);
-
-    void leaveClan();
+    boolean leaveClan();
 
 }

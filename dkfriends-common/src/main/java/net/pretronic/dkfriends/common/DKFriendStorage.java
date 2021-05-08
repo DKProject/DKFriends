@@ -4,6 +4,7 @@ import net.pretronic.databasequery.api.Database;
 import net.pretronic.databasequery.api.collection.DatabaseCollection;
 import net.pretronic.databasequery.api.collection.field.FieldOption;
 import net.pretronic.databasequery.api.datatype.DataType;
+import net.pretronic.databasequery.api.query.ForeignKey;
 
 public class DKFriendStorage {
 
@@ -15,6 +16,10 @@ public class DKFriendStorage {
     private DatabaseCollection parties;
     private DatabaseCollection partiesInvitations;
     private DatabaseCollection partiesMembers;
+
+    private DatabaseCollection clans;
+    private DatabaseCollection clanMembers;
+    private DatabaseCollection clanInvitations;
 
     public DKFriendStorage(Database database) {
         this.database = database;
@@ -39,6 +44,18 @@ public class DKFriendStorage {
 
     public DatabaseCollection getFriendRequests() {
         return friendRequests;
+    }
+
+    public DatabaseCollection getClans() {
+        return clans;
+    }
+
+    public DatabaseCollection getClanMembers() {
+        return clanMembers;
+    }
+
+    public DatabaseCollection getClanInvitations() {
+        return clanInvitations;
     }
 
     private void createCollections(){
@@ -78,6 +95,29 @@ public class DKFriendStorage {
                 .field("PlayerId", DataType.UUID,FieldOption.NOT_NULL)
                 .field("Role", DataType.STRING)
                 .field("Time", DataType.LONG,64,FieldOption.NOT_NULL)
+                .create();
+
+
+        this.clans = this.database.createCollection("dkfriends_clans")
+                .field("Id", DataType.UUID, FieldOption.NOT_NULL, FieldOption.PRIMARY_KEY)
+                .field("Name", DataType.STRING, FieldOption.UNIQUE)
+                .field("Tag", DataType.STRING, FieldOption.UNIQUE)
+                .field("Status", DataType.STRING)
+                .field("Properties", DataType.LONG_TEXT, -1, "{}")
+                .create();
+
+        this.clanMembers = this.database.createCollection("dkfriends_clans_members")
+                .field("ClanId", DataType.UUID, ForeignKey.of(this.clans, "Id", ForeignKey.Option.CASCADE), FieldOption.NOT_NULL)
+                .field("PlayerId", DataType.UUID, FieldOption.NOT_NULL)
+                .field("Role", DataType.STRING, FieldOption.NOT_NULL)
+                .field("Joined", DataType.LONG, FieldOption.NOT_NULL)
+                .create();
+
+        this.clanInvitations = this.database.createCollection("dkfriends_clans_invitations")
+                .field("ClanId", DataType.UUID, ForeignKey.of(this.clans, "Id", ForeignKey.Option.CASCADE), FieldOption.NOT_NULL)
+                .field("PlayerId", DataType.UUID, FieldOption.NOT_NULL)
+                .field("InvitedByPlayerId", DataType.UUID, FieldOption.NOT_NULL)
+                .field("Time", DataType.LONG, FieldOption.NOT_NULL)
                 .create();
     }
 

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>DKFriends</artifactId>
         <groupId>net.pretronic.dkfriends</groupId>
-        <version>1.0.4.13-SNAPSHOT</version>
+        <version>1.0.5.15-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -42,6 +42,13 @@
             <artifactId>pretroniclibraries-document</artifactId>
             <version>${dependency.pretronic.libraries}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.pretronic.libraries</groupId>
+            <artifactId>pretroniclibraries-caching</artifactId>
+            <version>${dependency.pretronic.libraries}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
