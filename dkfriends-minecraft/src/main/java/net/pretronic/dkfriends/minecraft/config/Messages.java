@@ -78,8 +78,10 @@ public class Messages {
     public static MessageComponent<?> COMMAND_PARTY_INFO = Text.ofMessageKey("dkfriends.command.party.info");
 
     public static MessageComponent<?> PARTY_INVITE = Text.ofMessageKey("dkfriends.party.invite");
+    public static MessageComponent<?> PARTY_DENIED = Text.ofMessageKey("dkfriends.party.denied");
     public static MessageComponent<?> PARTY_JOIN = Text.ofMessageKey("dkfriends.party.join");
     public static MessageComponent<?> PARTY_LEAVE = Text.ofMessageKey("dkfriends.party.leave");
+    public static MessageComponent<?> PARTY_KICK = Text.ofMessageKey("dkfriends.party.kick");
     public static MessageComponent<?> PARTY_DELETE = Text.ofMessageKey("dkfriends.party.delete");
     public static MessageComponent<?> PARTY_MESSAGE = Text.ofMessageKey("dkfriends.party.message");
     public static MessageComponent<?> PARTY_TELEPORT = Text.ofMessageKey("dkfriends.party.teleport");

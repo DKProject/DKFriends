@@ -5,6 +5,7 @@ import net.pretronic.dkfriends.api.event.friend.FriendRemoveEvent;
 import net.pretronic.dkfriends.api.event.friend.request.FriendRequestDenyEvent;
 import net.pretronic.dkfriends.api.event.friend.request.FriendRequestSendEvent;
 import net.pretronic.dkfriends.api.event.party.*;
+import net.pretronic.dkfriends.api.event.party.invitation.PartyInvitationDenyEvent;
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInviteEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyMember;
@@ -18,6 +19,7 @@ import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.network.component.server.MinecraftServer;
 import org.mcnative.runtime.api.player.ConnectedMinecraftPlayer;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
+import org.mcnative.runtime.api.text.components.MessageComponent;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -88,6 +90,16 @@ public class PerformListener {
 
     @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onParty(PartyInvitationDenyEvent event) {
+        ConnectedMinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getInvitation().getInviterId());
+        if(player != null){
+            player.sendMessage(Messages.PARTY_DENIED, VariableSet.create()
+                    .addDescribed("player",event.getPlayer()));
+        }
+    }
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     public void onParty(PartyJoinEvent event){
         if(event.isCancelled()) return;
 
@@ -115,9 +127,13 @@ public class PerformListener {
         Collection<ConnectedMinecraftPlayer> players = getConnectedPartyPlayers(event.getParty());
         if(!players.isEmpty()){
             MinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getPlayerId());
-            VariableSet variables = VariableSet.create().addDescribed("player",player);
+            VariableSet variables = VariableSet.create()
+                    .addDescribed("executor",event.getExecutor())
+                    .addDescribed("player",player);
+            MessageComponent<?> message = Messages.PARTY_LEAVE;
+            if(event.getCause().equals(Party.KICK_LEAVE_CAUSE)) message = Messages.PARTY_KICK;
             for (ConnectedMinecraftPlayer member : players) {
-                member.sendMessage(Messages.PARTY_LEAVE,variables);
+                member.sendMessage(message,variables);
             }
         }
     }

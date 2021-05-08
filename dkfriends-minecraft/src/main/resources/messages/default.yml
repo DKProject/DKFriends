@@ -52,7 +52,7 @@ messages:
   dkfriends.command.friend.favorite.mark: '${dkfriends.prefix.friend} &7You marked {player.displayName} &7as favorite'
   dkfriends.command.friend.favorite.unmark: '${dkfriends.prefix.friend} &7You unmarked {player.displayName} &7as favorite'
 
-  dkfriends.command.party.help: '${dkfriends.prefix.friend} &7Available commands
+  dkfriends.command.party.help: '${dkfriends.prefix.party} &7Available commands
   &7/party create &8- &7Create a party
   &7/party delete &8- &7Delete the party
   &7/party invite <player> &8- &7Invite a player
@@ -66,10 +66,10 @@ messages:
   ${dkfriends.prefix.party} !["&8[&aInvite your friends&8]"]("run:///friend party") ${dkfriends.prefix.party} !["&e[&aMake public&8]"]("run:///party public")'
   dkfriends.command.party.invited: '${dkfriends.prefix.party} &e{player.displayName} &7was invited to your party'
   dkfriends.command.party.info: '${dkfriends.prefix.party}
-  &8»Public: {party.public}
-  &8»Category: {party.category}
-  &8»Topic: {party.topic}
-  &8»Members: &e{party.size} {party.topic} @for("member" in {party.members},${dkfriends.command.party.info.loop},"\n","\n")'
+  &8» &7Public: &e{party.public}
+  &8» &7Category: &e{party.category}
+  &8» &7Topic: &e{party.topic}
+  &8» &eMembers: &e{party.size} {party.topic} @for("member" in {party.members},${dkfriends.command.party.info.loop},"\n","\n")'
   dkfriends.command.party.info.loop: ' &8- &e{member.displayName} &8(&7{member.role}&8)'
 
   dkfriends.friend.request: '${dkfriends.prefix.friend} &e{player.displayName} &7wants to be your friend
@@ -87,8 +87,10 @@ messages:
 
   dkfriends.party.invite: '${dkfriends.prefix.party} &e{invitation.inviter.displayName} &7invited you to a party
   ${dkfriends.prefix.party} &7Click&8: !["&8[&aACCEPT&8]"]("run:///party accept {invitation.partyId}") !["&8[&cDENY&8]"]("run:///party deny {invitation.partyId}")"'
+  dkfriends.party.denied: '${dkfriends.prefix.party} &e{player.displayName} &cdenied your party invitation'
   dkfriends.party.join: '${dkfriends.prefix.party} &e{player.displayName} &7joined the party'
-  dkfriends.party.leaved: '${dkfriends.prefix.party} &e{player.displayName} &7left the party'
+  dkfriends.party.leave: '${dkfriends.prefix.party} &e{player.displayName} &7left the party'
+  dkfriends.party.kick: '${dkfriends.prefix.party} &e{player.displayName} &7was kicked by &e{executor.displayName}'
   dkfriends.party.delete: '${dkfriends.prefix.party} &7The party was deleted'
   dkfriends.party.message: '${dkfriends.prefix.party} &e{player.displayName}&8: &7{message}'
   dkfriends.party.teleport: '${dkfriends.prefix.party} &7Connecting to &e{target.name}'

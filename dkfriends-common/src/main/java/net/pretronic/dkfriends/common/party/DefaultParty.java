@@ -1,6 +1,9 @@
 package net.pretronic.dkfriends.common.party;
 
-import net.pretronic.dkfriends.api.event.party.*;
+import net.pretronic.dkfriends.api.event.party.PartyJoinEvent;
+import net.pretronic.dkfriends.api.event.party.PartyLeaveEvent;
+import net.pretronic.dkfriends.api.event.party.PartyMessageEvent;
+import net.pretronic.dkfriends.api.event.party.PartyTeleportEvent;
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInvitationAcceptEvent;
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInvitationDenyEvent;
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInviteEvent;
@@ -12,21 +15,19 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.event.party.DefaultPartyJoinEvent;
 import net.pretronic.dkfriends.common.event.party.DefaultPartyLeaveEvent;
+import net.pretronic.dkfriends.common.event.party.DefaultPartyMessageEvent;
+import net.pretronic.dkfriends.common.event.party.DefaultPartyTeleportEvent;
 import net.pretronic.dkfriends.common.event.party.invitation.DefaultPartyInvitationAcceptEvent;
 import net.pretronic.dkfriends.common.event.party.invitation.DefaultPartyInvitationDenyEvent;
 import net.pretronic.dkfriends.common.event.party.invitation.DefaultPartyInviteEvent;
-import net.pretronic.dkfriends.common.event.party.DefaultPartyMessageEvent;
-import net.pretronic.dkfriends.common.event.party.DefaultPartyTeleportEvent;
 import net.pretronic.libraries.document.Document;
 import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.annonations.Internal;
-import net.pretronic.libraries.utility.exception.OperationFailedException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public class DefaultParty implements Party {
 
@@ -100,6 +101,11 @@ public class DefaultParty implements Party {
     }
 
     @Override
+    public int getSize() {
+        return members.size();
+    }
+
+    @Override
     public PartyMember getMember(UUID uniqueId) {
         return Iterators.findOne(this.members, member -> member.getPlayerId().equals(uniqueId));
     }
@@ -136,10 +142,10 @@ public class DefaultParty implements Party {
     }
 
     @Override
-    public void removeMember(PartyMember member, String cause) {
+    public void removeMember(PartyMember member, String cause,DKFriendsPlayer executor) {
         if(!member.getPartyId().equals(id)) throw new IllegalArgumentException("Member belongs not to this party");
 
-        PartyLeaveEvent event = new DefaultPartyLeaveEvent(member,cause);
+        PartyLeaveEvent event = new DefaultPartyLeaveEvent(dkfriends,member,cause,executor != null ? executor.getId() : null);
         dkfriends.getEventBus().callEvent(PartyLeaveEvent.class,event);
         if(event.isCancelled()) return;
 
@@ -157,8 +163,8 @@ public class DefaultParty implements Party {
     }
 
     @Override
-    public void removeMember(UUID uniqueId, String cause) {
-        removeMember(getMember(uniqueId),cause);
+    public void removeMember(UUID uniqueId, String cause,DKFriendsPlayer executor) {
+        removeMember(getMember(uniqueId),cause,executor);
     }
 
     @Override

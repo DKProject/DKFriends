@@ -38,6 +38,8 @@ public interface Party {
 
     Collection<PartyMember> getMembers();
 
+    int getSize();
+
     PartyMember getMember(UUID uniqueId);
 
     boolean isMember(UUID uniqueId);
@@ -50,9 +52,17 @@ public interface Party {
     PartyMember addMember(UUID uniqueId,PartyRole role);
 
 
-    void removeMember(PartyMember member,String cause);
+    default void removeMember(PartyMember member,String cause){
+        removeMember(member,cause);
+    }
 
-    void removeMember(UUID uniqueId,String cause);
+    void removeMember(PartyMember member,String cause,DKFriendsPlayer executor);
+
+    void removeMember(UUID uniqueId,String cause,DKFriendsPlayer executor);
+
+    default void removeMember(UUID uniqueId,String cause){
+        removeMember(uniqueId, cause);
+    }
 
     default void leaveMember(PartyMember member){
         removeMember(member,DEFAULT_LEAVE_CAUSE);

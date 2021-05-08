@@ -12,13 +12,17 @@ import net.pretronic.libraries.message.bml.variable.describer.VariableDescriber;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriberRegistry;
 import org.mcnative.runtime.api.McNative;
 
+import java.util.function.Function;
+
 public class DescriberRegistrar {
 
     public static void register(){
         VariableDescriberRegistry.registerDescriber(Friend.class);
         VariableDescriberRegistry.registerDescriber(DefaultFriendRequest.class);
-        VariableDescriberRegistry.registerDescriber(DefaultParty.class);
         VariableDescriberRegistry.registerDescriber(DefaultPartyInvitation.class);
+
+        VariableDescriber<DefaultParty> partyDescriber = VariableDescriberRegistry.registerDescriber(DefaultParty.class);
+        partyDescriber.registerFunction("public", DefaultParty::isPublic);
 
         VariableDescriber<DefaultPartyMember> memberDescriber = VariableDescriberRegistry.registerDescriber(DefaultPartyMember.class);
         memberDescriber.setForwardFunction(DefaultPartyMember::getPlayer);

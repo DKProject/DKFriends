@@ -30,7 +30,7 @@ public class DeleteCommand extends BasicCommand {
         }
 
         PartyMember own = party.getMember(player.getId());
-        if(own.getRole() == PartyRole.LEADER){
+        if(own.getRole() != PartyRole.LEADER){
             sender.sendMessage(Messages.ERROR_PARTY_NOT_ALLOWED);
             return;
         }
