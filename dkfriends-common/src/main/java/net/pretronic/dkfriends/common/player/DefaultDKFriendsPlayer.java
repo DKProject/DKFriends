@@ -3,6 +3,7 @@ package net.pretronic.dkfriends.common.player;
 import net.pretronic.databasequery.api.query.result.QueryResultEntry;
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanInvitation;
+import net.pretronic.dkfriends.api.clan.ClanMember;
 import net.pretronic.dkfriends.api.event.friend.FriendAddEvent;
 import net.pretronic.dkfriends.api.event.friend.FriendRemoveEvent;
 import net.pretronic.dkfriends.api.event.friend.request.FriendRequestAcceptEvent;
@@ -15,6 +16,7 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.PlayerBlock;
 import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
+import net.pretronic.dkfriends.common.DKFriendStorage;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.event.friend.DefaultFriendAddEvent;
 import net.pretronic.dkfriends.common.event.friend.DefaultFriendRemoveEvent;
@@ -360,23 +362,35 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     }
 
     @Override
+    public ClanInvitation getClanInvitation(String clanName) {
+        Clan clan = this.dkFriends.getClanManager().getClan(clanName);
+        if(clan == null) return null;
+        return clan.getInvitation(getId());
+    }
+
+    @Override
     public Clan getClan() {
-        throw new UnsupportedOperationException();
+        return this.dkFriends.getClanManager().getClanByPlayer(this.uniqueId);
+    }
+
+    @Override
+    public ClanMember getClanMember() {
+        Clan clan = getClan();
+        if(clan == null) return null;
+        return clan.getMember(this.uniqueId);
     }
 
     @Override
     public boolean isInClan() {
-        throw new UnsupportedOperationException();
+        return getClan() != null;
     }
 
     @Override
-    public void setClan(Clan clan) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void leaveClan() {
-        throw new UnsupportedOperationException();
+    public boolean leaveClan() {
+        ClanMember member = getClanMember();
+        if(member == null) return false;
+        member.leave();
+        return true;
     }
 
     private Collection<Friend> getOrLoadFriends(){

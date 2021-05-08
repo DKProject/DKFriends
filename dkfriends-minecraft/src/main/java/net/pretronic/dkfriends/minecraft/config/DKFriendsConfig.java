@@ -16,4 +16,8 @@ public class DKFriendsConfig {
             .permission("dkbans.command.party")
             .create();
 
+    public static CommandConfiguration COMMAND_CLAN = CommandConfiguration.newBuilder()
+            .name("clan")
+            .permission("dkbans.command.clan")
+            .create();
 }

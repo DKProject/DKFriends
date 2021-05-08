@@ -15,12 +15,16 @@ public interface ClanManager {
 
     Clan getClanByPlayer(UUID playerId);
 
-
+    /*
+    Returns null, if clan already exists.
+     */
     Clan createClan(String name, String tag);
+
+    boolean existClan(String name, String tag);
 
 
     void deleteClan(UUID clanId);
 
-    void deleteClan(Clan clan);
+    boolean deleteClan(Clan clan);
 
 }

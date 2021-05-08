@@ -92,3 +92,81 @@ messages:
   dkfriends.party.delete: '${dkfriends.prefix.party} &7The party was deleted'
   dkfriends.party.message: '${dkfriends.prefix.party} &e{player.displayName}&8: &7{message}'
   dkfriends.party.teleport: '${dkfriends.prefix.party} &7Connecting to &e{target.name}'
+
+  dkfriends.command.clan.create.help: '${dkfriends.prefix.clan}'
+  dkfriends.command.clan.create.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the name &e{name} &cand/or tag &e{tag} &calready exists.'
+  dkfriends.command.clan.create: '${dkfriends.prefix.clan} &7You have created the clan &e{clan.name} &7with the tag &e{clan.tag}'
+
+  dkfriends.command.clan.invite: '${dkfriends.prefix.clan} &7You have successfully invited &e{target.name}'
+
+  dkfriends.clan.invite: '${dkfriends.prefix.clan} &e{invitation.inviter.displayName} &7invited you to the clan &e{invitation.clan.name}
+  ${dkfriends.prefix.clan} &7Click&8: !["&8[&aACCEPT&8]"]("run:///clan accept {invitation.clan.name}") !["&8[&cDENY&8]"]("run:///clan deny {invitation.clan.name}")"'
+
+  dkfriends.command.clan.leave: '${dkfriends.prefix.clan} &7You have left your clan'
+
+  dkfriends.command.clan.party: '${dkfriends.prefix.clan} &7You have invited all your online clan members'
+
+  dkfriends.command.clan.info: '${dkfriends.prefix.clan} &7Clan information
+  &8» &7Name&8: &e{clan.name}
+  &8» &7Tag&8: &e{clan.tag}
+  &8» &7Status&8: &e{clan.status}
+
+  &8» &7Members&8(&7{clan.size}&8): @for("member" in {clan.members},${dkfriends.command.clan.info.loop},"\n","\n")'
+  dkfriends.command.clan.info.loop: '&8- &7{member.name} &8(&7{member.role}&8)'
+
+  dkfriends.command.clan.delete: '${dkfriends.prefix.clan} &7You have deleted your clan'
+
+  dkfriends.command.clan.promote: '${dkfriends.prefix.clan} &7You have promoted &e{member.name} &7to &e{member.role}'
+
+  dkfriends.command.clan.demote: '${dkfriends.prefix.clan} &7You have demoted &e{member.name} &7to &e{member.role}'
+
+  dkfriends.command.clan.kick: '${dkfriends.prefix.clan} &7You have kicked &e{member.name}'
+
+  dkfriends.command.clan.rename: '${dkfriends.prefix.clan} &7You have renamed the clan to &e{clan.name}'
+
+  dkfriends.command.clan.retag: '${dkfriends.prefix.clan} &7You have retagged the clan to &e{clan.tag}'
+
+  dkfriends.command.clan.accept: '${dkfriends.prefix.clan} &7You have accepted the invitation of the clan &e{clan.name}'
+
+  dkfriends.command.clan.deny: '${dkfriends.prefix.clan} &7You have denied the invitation of the clan &e{clan.name}'
+
+  dkfriends.error.clan.name.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the name &e{name} &calready exists'
+  dkfriends.error.clan.tag.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the tag &e{tag} &calready exists'
+
+  dkfriends.error.clan.notInClan: '${dkfriends.prefix.clan} &cYou are not in a clan'
+  dkfriends.error.clan.alreadyInClan.self: '${dkfriends.prefix.clan} &cYou are already in a clan'
+  dkfriends.error.clan.alreadyInClan.target: '${dkfriends.prefix.clan} &e{target.name} is already in a clan'
+  dkfriends.error.clan.member.notAllowed: '${dkfriends.prefix.clan} &cYou are not allowed to perform this action'
+  dkfriends.error.clan.notExists: '${dkfriends.prefix.clan} &cA clan with the name or tag &e{value} &cdoes not exist'
+  dkfriends.error.clan.notSameClan: '${dkfriends.prefix.clan} &e{target.name} &7is not in your clan'
+  dkfriends.error.clan.member.noInvitationSpecific: '${dkfriends.prefix.clan} &cYou do not have a invitation for the clan &e{name}'
+  dkfriends.error.clan.member.alreadyInvited: '${dkfriends.prefix.clan} &e{target.displayName} &7is already invited to your clan'
+
+  dkfriends.clan.kick: '${dkfriends.prefix.clan} &cYou were kicked from your clan.'
+  dkfriends.clan.kick.other: '${dkfriends.prefix.clan} &e{member.displayName} &7was kicked from the clan'
+
+  dkfriends.clan.promote: '${dkfriends.prefix.clan} &7You were promoted in your clan.'
+  dkfriends.clan.promote.other: '${dkfriends.prefix.clan} &e{member.displayName} &7was promoted in the clan'
+
+  dkfriends.clan.demote: '${dkfriends.prefix.clan} &7You were demoted in your clan.'
+  dkfriends.clan.demote.other: '${dkfriends.prefix.clan} &e{member.displayName} &7was demoted in the clan'
+
+  dkfriends.clan.join: '${dkfriends.prefix.clan} &e{member.displayName} &7has joined your clan'
+
+  dkfriends.command.clan.help: '${dkfriends.prefix.clan} &7Available commands
+  &7/clan accept <clan> &8- &7Accept a clan invitation
+  &7/clan deny <clan> &8- &7Deny a clan invitation
+  &7/clan create <name> <tag> &8- &7Create a new clan
+  &7/clan delete &8- &7Delete your clan
+  &7/clan info [name/tag] &8- &7Show information
+  &7/clan invite <player> &8- &7Invite a player
+  &7/clan jump <player> &8- &7Jump to a player
+  &7/clan kick <player> &8- &7Kick a player
+  &7/clan leave &8- &7Leave your clan
+  &7/clan message <text> &8- &7Send a clan message
+  &7/clan party &8- &7Invite all clan members to your party
+  &7/clan promote <player> &8- &7Promote a player
+  &7/clan demote <player> &8- &7Demote a player
+  &7/clan rename <newName> &8- &7Rename the clan
+  &7/clan retag <newTag> &8- &7Retag the clan
+  &7/clan userinfo <player> &8- &7Show clan information of the player'

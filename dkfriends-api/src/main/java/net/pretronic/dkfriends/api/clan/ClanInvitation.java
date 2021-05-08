@@ -1,5 +1,7 @@
 package net.pretronic.dkfriends.api.clan;
 
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+
 import java.util.UUID;
 
 public interface ClanInvitation {
@@ -8,13 +10,18 @@ public interface ClanInvitation {
 
     Clan getClan();
 
+    DKFriendsPlayer getPlayer();
+
     UUID getPlayerId();
+
+    DKFriendsPlayer getInviter();
 
     UUID getInviterId();
 
     long getInvitationTime();
 
 
-    ClanMember join();
+    ClanMember accept();
 
+    void deny();
 }

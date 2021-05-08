@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DKFriendStorage;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.dkfriends.minecraft.commands.clan.ClanCommand;
 import net.pretronic.dkfriends.minecraft.commands.friend.FriendCommand;
 import net.pretronic.dkfriends.minecraft.commands.party.PartyCommand;
 import net.pretronic.dkfriends.minecraft.config.DKFriendsConfig;
@@ -23,7 +24,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         getConfiguration().load(DKFriendsConfig.class);
 
         DefaultDKFriends dkfriends = new DefaultDKFriends(getDescription().getVersion().getName()
-                ,new DKFriendStorage(getDatabase())
+                ,new DKFriendStorage(getDatabaseOrCreate())
                 ,getRuntime().getLocal().getEventBus());
 
         DescriberRegistrar.register();
@@ -51,6 +52,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
 
     private void registerCommands(DefaultDKFriends dkFriends){
         getRuntime().getLocal().getCommandManager().registerCommand(new FriendCommand(this,DKFriendsConfig.COMMAND_FRIEND));
+        getRuntime().getLocal().getCommandManager().registerCommand(new ClanCommand(dkFriends, this, DKFriendsConfig.COMMAND_CLAN));
         getRuntime().getLocal().getCommandManager().registerCommand(new PartyCommand(this,DKFriendsConfig.COMMAND_PARTY,dkFriends.getPartyManager()));
     }
 }
