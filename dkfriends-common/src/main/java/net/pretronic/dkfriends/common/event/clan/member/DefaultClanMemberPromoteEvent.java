@@ -10,10 +10,12 @@ import java.util.UUID;
 public class DefaultClanMemberPromoteEvent extends DefaultClanMemberEvent implements ClanMemberPromoteEvent {
 
     private final ClanRole newRole;
+    private final ClanMember executor;
 
-    public DefaultClanMemberPromoteEvent(Clan clan, ClanMember member, ClanRole newRole) {
+    public DefaultClanMemberPromoteEvent(Clan clan, ClanMember member, ClanRole newRole, ClanMember executor) {
         super(clan, member);
         this.newRole = newRole;
+        this.executor = executor;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class DefaultClanMemberPromoteEvent extends DefaultClanMemberEvent implem
 
     @Override
     public ClanMember getExecutor() {
-        return null;
+        return this.executor;
     }
 
     @Override

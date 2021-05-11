@@ -22,13 +22,13 @@ public interface ClanMember {
     ClanRole setRole(ClanRole role);
 
     //Returns promoted role or null if not possible
-    ClanRole promote(ClanMember player);
+    ClanRole promote(ClanMember executor);
 
-    ClanRole demote(ClanMember player);
+    ClanRole demote(ClanMember executor);
 
-    boolean canDemote(ClanMember player);
+    boolean canDemote(ClanMember executor);
 
-    boolean canPromote(ClanMember player);
+    boolean canPromote(ClanMember executor);
 
     boolean leave();
 

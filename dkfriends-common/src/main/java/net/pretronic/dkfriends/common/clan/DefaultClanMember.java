@@ -73,51 +73,51 @@ public class DefaultClanMember implements ClanMember {
     }
 
     @Override
-    public ClanRole promote(ClanMember player) {
-        Validate.notNull(player);
-        if(!player.getClan().getId().equals(getClan().getId())) {
-            throw new IllegalArgumentException("Member (Id:"+player.getPlayerId() + "; ClanId: "+player.getClan().getId()
+    public ClanRole promote(ClanMember executor) {
+        Validate.notNull(executor);
+        if(!executor.getClan().getId().equals(getClan().getId())) {
+            throw new IllegalArgumentException("Member (Id:"+executor.getPlayerId() + "; ClanId: "+executor.getClan().getId()
                     +") belongs not to this clan (" + getClan().getId() + ")");
         }
-        if(canPromote(player)) {
+        if(canPromote(executor)) {
             ClanRole newRole;
             if(getRole() == ClanRole.GUEST) newRole = ClanRole.MODERATOR;
             else if(getRole() == ClanRole.MODERATOR) newRole = ClanRole.LEADER;
             else {
-                throw new IllegalArgumentException("Clan member (" + player.getPlayerId() + ") can not promote player " + getPlayerId() + ". New role can not be get.");
+                throw new IllegalArgumentException("Clan member (" + executor.getPlayerId() + ") can not promote player " + getPlayerId() + ". New role can not be get.");
             }
-            ClanMemberPromoteEvent event = new DefaultClanMemberPromoteEvent(getClan(), this, newRole);
+            ClanMemberPromoteEvent event = new DefaultClanMemberPromoteEvent(getClan(), this, newRole, executor);
             this.clan.dkFriends.getEventBus().callEvent(ClanMemberPromoteEvent.class, event);
 
             newRole = setRole(newRole);
 
             if(newRole == ClanRole.LEADER) {
-                player.setRole(ClanRole.MODERATOR);
+                executor.setRole(ClanRole.MODERATOR);
             }
             return newRole;
         }
-        throw new IllegalArgumentException("Clan member (" + player.getPlayerId() + ") can not promote player " + getPlayerId());
+        throw new IllegalArgumentException("Clan member (" + executor.getPlayerId() + ") can not promote player " + getPlayerId());
     }
 
     @Override
-    public ClanRole demote(ClanMember player) {
-        Validate.notNull(player);
-        if(!player.getClan().getId().equals(getClan().getId())) {
-            throw new IllegalArgumentException("Member (Id:"+player.getPlayerId() + "; ClanId: "+player.getClan().getId()
+    public ClanRole demote(ClanMember executor) {
+        Validate.notNull(executor);
+        if(!executor.getClan().getId().equals(getClan().getId())) {
+            throw new IllegalArgumentException("Member (Id:"+executor.getPlayerId() + "; ClanId: "+executor.getClan().getId()
                     +") belongs not to this clan (" + getClan().getId() + ")");
         }
-        if(canDemote(player)) {
+        if(canDemote(executor)) {
             ClanRole newRole;
             if(getRole() == ClanRole.MODERATOR) newRole = ClanRole.GUEST;
             else {
-                throw new IllegalArgumentException("Clan member (" + player.getPlayerId() + ") can not demote player " + getPlayerId() + ". New role can not be get.");
+                throw new IllegalArgumentException("Clan member (" + executor.getPlayerId() + ") can not demote player " + getPlayerId() + ". New role can not be get.");
             }
 
-            ClanMemberDemoteEvent event = new DefaultClanMemberDemoteEvent(getClan(), this, newRole);
+            ClanMemberDemoteEvent event = new DefaultClanMemberDemoteEvent(getClan(), this, newRole, executor);
             this.clan.dkFriends.getEventBus().callEvent(ClanMemberDemoteEvent.class, event);
             return setRole(newRole);
         }
-        throw new IllegalArgumentException("Clan member (" + player.getPlayerId() + ") can not demote player " + getPlayerId());
+        throw new IllegalArgumentException("Clan member (" + executor.getPlayerId() + ") can not demote player " + getPlayerId());
     }
 
     @Override
