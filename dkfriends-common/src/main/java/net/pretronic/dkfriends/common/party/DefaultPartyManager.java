@@ -1,5 +1,8 @@
 package net.pretronic.dkfriends.common.party;
 
+import net.pretronic.databasequery.api.collection.DatabaseCollection;
+import net.pretronic.databasequery.api.query.SearchOrder;
+import net.pretronic.databasequery.api.query.result.QueryResultEntry;
 import net.pretronic.dkfriends.api.event.party.PartyCreateEvent;
 import net.pretronic.dkfriends.api.event.party.PartyDeleteEvent;
 import net.pretronic.dkfriends.api.party.Party;
@@ -16,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public class DefaultPartyManager implements PartyManager {
 
@@ -64,7 +66,7 @@ public class DefaultPartyManager implements PartyManager {
     @Override
     public Party createParty(UUID ownerId) {
         if(isInParty(ownerId)) throw new IllegalArgumentException("Player is already in a party");
-        DefaultParty party = new DefaultParty(dkFriends,UUID.randomUUID(),ownerId);
+        DefaultParty party = new DefaultParty(dkFriends,UUID.randomUUID(),"Unset","Unset",false);
 
         PartyCreateEvent event = new DefaultPartyCreateEvent(dkFriends,party,ownerId);
         dkFriends.getEventBus().callEvent(PartyCreateEvent.class,event);
@@ -107,9 +109,28 @@ public class DefaultPartyManager implements PartyManager {
     }
 
     private Collection<Party> getOrLoadParties(){
-        if(this.parties == null){
+        if(this.parties == null){//@Todo maybe optimize
             this.parties = new ArrayList<>();
-            //@Todo load parites
+
+            DatabaseCollection parties = dkFriends.getStorage().getParties();
+            DatabaseCollection members = dkFriends.getStorage().getPartiesMembers();
+
+            for (QueryResultEntry entry : parties.find().execute()) {
+                this.parties.add(new DefaultParty(dkFriends,entry.getUniqueId("Id")
+                        ,entry.getString("Topic")
+                        ,entry.getString("Category")
+                        ,entry.getBoolean("Public")));
+            }
+
+            DefaultParty party = null;
+
+            for (QueryResultEntry entry : members.find().orderBy("PartyId", SearchOrder.ASC).execute()) {
+                UUID partyId = entry.getUniqueId("PartyId");
+                if(party == null || !party.getId().equals(partyId)) party = (DefaultParty) Iterators.findOne(this.parties, party1 -> party1.getId().equals(partyId));
+                party.addInternal(new DefaultPartyMember(dkFriends,partyId,entry.getUniqueId("PlayerId")
+                        ,entry.getLong("Time")
+                        ,PartyRole.valueOf(entry.getString("Role"))));
+            }
         }
         return this.parties;
     }

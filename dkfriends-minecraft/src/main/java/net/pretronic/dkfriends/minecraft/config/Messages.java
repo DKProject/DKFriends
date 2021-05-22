@@ -84,55 +84,39 @@ public class Messages {
     public static MessageComponent<?> FRIEND_LOGIN_INFO_THREE = Text.ofMessageKey("dkfriends.friend.loginInfo.three");
     public static MessageComponent<?> FRIEND_LOGIN_INFO_MORE = Text.ofMessageKey("dkfriends.friend.loginInfo.more");
 
-
-
-    public static final MessageComponent<?> CLAN_INVITE = Text.ofMessageKey("dkfriends.clan.invite");
-
-    public static final MessageComponent<?> CLAN_KICK = Text.ofMessageKey("dkfriends.clan.kick");
-    public static final MessageComponent<?> CLAN_KICK_OTHER = Text.ofMessageKey("dkfriends.clan.kick.other");
-
-    public static final MessageComponent<?> CLAN_PROMOTE = Text.ofMessageKey("dkfriends.clan.promote");
-    public static final MessageComponent<?> CLAN_PROMOTE_OTHER = Text.ofMessageKey("dkfriends.clan.promote.other");
-
-    public static final MessageComponent<?> CLAN_DEMOTE = Text.ofMessageKey("dkfriends.clan.promote");
-    public static final MessageComponent<?> CLAN_DEMOTE_OTHER = Text.ofMessageKey("dkfriends.clan.promote.other");
-
-    public static final MessageComponent<?> CLAN_JOIN = Text.ofMessageKey("dkfriends.clan.join");
-
-
     public static final MessageComponent<?> COMMAND_CLAN_HELP = Text.ofMessageKey("dkfriends.command.clan.help");
-
     public static final MessageComponent<?> COMMAND_CLAN_CREATE_ALREADY_EXISTS = Text.ofMessageKey("dkfriends.command.clan.create.alreadyExists");
     public static final MessageComponent<?> COMMAND_CLAN_CREATE = Text.ofMessageKey("dkfriends.command.clan.create");
-
     public static final MessageComponent<?> COMMAND_CLAN_INVITE = Text.ofMessageKey("dkfriends.command.clan.invite");
-
     public static final MessageComponent<?> COMMAND_CLAN_LEAVE = Text.ofMessageKey("dkfriends.command.clan.leave");
-
     public static final MessageComponent<?> COMMAND_CLAN_PARTY = Text.ofMessageKey("dkfriends.command.clan.party");
-
     public static final MessageComponent<?> COMMAND_CLAN_INFO = Text.ofMessageKey("dkfriends.command.clan.info");
-
     public static final MessageComponent<?> COMMAND_CLAN_DELETE = Text.ofMessageKey("dkfriends.command.clan.delete");
-
     public static final MessageComponent<?> COMMAND_CLAN_PROMOTE = Text.ofMessageKey("dkfriends.command.clan.promote");
-
     public static final MessageComponent<?> COMMAND_CLAN_DEMOTE = Text.ofMessageKey("dkfriends.command.clan.demote");
-
     public static final MessageComponent<?> COMMAND_CLAN_KICK = Text.ofMessageKey("dkfriends.command.clan.kick");
-
     public static final MessageComponent<?> COMMAND_CLAN_RENAME = Text.ofMessageKey("dkfriends.command.clan.rename");
-
     public static final MessageComponent<?> COMMAND_CLAN_RETAG = Text.ofMessageKey("dkfriends.command.clan.retag");
-
     public static final MessageComponent<?> COMMAND_CLAN_ACCEPT = Text.ofMessageKey("dkfriends.command.clan.accept");
-
     public static final MessageComponent<?> COMMAND_CLAN_DENY = Text.ofMessageKey("dkfriends.command.clan.deny");
+
+    public static final MessageComponent<?> CLAN_INVITE = Text.ofMessageKey("dkfriends.clan.invite");
+    public static final MessageComponent<?> CLAN_KICK = Text.ofMessageKey("dkfriends.clan.kick");
+    public static final MessageComponent<?> CLAN_KICK_OTHER = Text.ofMessageKey("dkfriends.clan.kick.other");
+    public static final MessageComponent<?> CLAN_PROMOTE = Text.ofMessageKey("dkfriends.clan.promote");
+    public static final MessageComponent<?> CLAN_PROMOTE_OTHER = Text.ofMessageKey("dkfriends.clan.promote.other");
+    public static final MessageComponent<?> CLAN_DEMOTE = Text.ofMessageKey("dkfriends.clan.promote");
+    public static final MessageComponent<?> CLAN_DEMOTE_OTHER = Text.ofMessageKey("dkfriends.clan.promote.other");
+    public static final MessageComponent<?> CLAN_JOIN = Text.ofMessageKey("dkfriends.clan.join");
 
     public static MessageComponent<?> COMMAND_PARTY_HELP = Text.ofMessageKey("dkfriends.command.party.help");
     public static MessageComponent<?> COMMAND_PARTY_CREATED = Text.ofMessageKey("dkfriends.command.party.created");
     public static MessageComponent<?> COMMAND_PARTY_INVITED = Text.ofMessageKey("dkfriends.command.party.invited");
     public static MessageComponent<?> COMMAND_PARTY_INFO = Text.ofMessageKey("dkfriends.command.party.info");
+    public static MessageComponent<?> COMMAND_PARTY_PUBLIC = Text.ofMessageKey("dkfriends.command.party.public");
+    public static MessageComponent<?> COMMAND_PARTY_PRIVATE = Text.ofMessageKey("dkfriends.command.party.private");
+    public static MessageComponent<?> COMMAND_PARTY_PUBLIC_EMPTY = Text.ofMessageKey("dkfriends.command.party.public.empty");
+    public static MessageComponent<?> COMMAND_PARTY_PUBLIC_LIST = Text.ofMessageKey("dkfriends.command.party.public.list");
 
     public static MessageComponent<?> PARTY_INVITE = Text.ofMessageKey("dkfriends.party.invite");
     public static MessageComponent<?> PARTY_DENIED = Text.ofMessageKey("dkfriends.party.denied");

@@ -43,13 +43,17 @@ public class DefaultParty implements Party {
     private String category;
     private boolean public0;
 
-    public DefaultParty(DefaultDKFriends dkfriends,UUID id,UUID owner) {
+    public DefaultParty(DefaultDKFriends dkfriends,UUID id,String topic, String category,boolean public0) {
         this.dkfriends = dkfriends;
         this.id = id;
         this.creationTime = System.currentTimeMillis();
         this.members = new ArrayList<>();
         this.invitations = new ArrayList<>();
         this.properties = Document.newDocument();
+
+        this.topic = topic;
+        this.category = category;
+        this.public0 = public0;
     }
 
     @Override

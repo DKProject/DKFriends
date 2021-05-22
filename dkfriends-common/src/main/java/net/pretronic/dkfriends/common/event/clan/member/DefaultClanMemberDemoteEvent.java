@@ -25,4 +25,5 @@ public class DefaultClanMemberDemoteEvent extends DefaultClanMemberEvent impleme
     public ClanMember getExecutor() {
         return this.executor;
     }
+
 }

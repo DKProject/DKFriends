@@ -14,6 +14,7 @@ public class PartyCommand extends MainCommand implements NotFindable {
     public PartyCommand(ObjectOwner owner, CommandConfiguration configuration,PartyManager partyManager) {
         super(owner, configuration);
 
+        registerCommand(new ListCommand(owner,partyManager));
         registerCommand(new CreateCommand(owner));
         registerCommand(new DeleteCommand(owner));
         registerCommand(new InviteCommand(owner));

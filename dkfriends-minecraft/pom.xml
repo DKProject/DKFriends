@@ -111,6 +111,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.mcnative.runtime.api</groupId>
+            <artifactId>mcnative-runtime-api-service</artifactId>
+            <version>${dependency.mcnative.api}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.mcnative.licensing</groupId>
             <artifactId>mcnative-licensing</artifactId>
             <version>${dependency.mcnative.licensing}</version>

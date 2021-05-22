@@ -1,8 +1,5 @@
 package net.pretronic.dkfriends.minecraft;
 
-import net.pretronic.dkfriends.api.clan.Clan;
-import net.pretronic.dkfriends.api.player.friend.Friend;
-import net.pretronic.dkfriends.api.player.friend.FriendRequest;
 import net.pretronic.dkfriends.common.clan.DefaultClan;
 import net.pretronic.dkfriends.common.clan.DefaultClanInvitation;
 import net.pretronic.dkfriends.common.clan.DefaultClanMember;
@@ -15,8 +12,6 @@ import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriber;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriberRegistry;
 import org.mcnative.runtime.api.McNative;
-
-import java.util.function.Function;
 
 public class DescriberRegistrar {
 
