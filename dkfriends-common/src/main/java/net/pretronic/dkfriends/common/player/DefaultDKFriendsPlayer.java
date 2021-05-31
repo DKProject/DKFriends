@@ -351,8 +351,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     @Override
     public void leaveParty() {
         Party party = getParty();
-        if(party == null) throw new IllegalArgumentException("Player is not in a party");
-        party.leaveMember(uniqueId);
+        if(party != null) party.leaveMember(uniqueId);
     }
 
 
