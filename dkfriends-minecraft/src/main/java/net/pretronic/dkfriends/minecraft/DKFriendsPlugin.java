@@ -60,4 +60,5 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         getRuntime().getLocal().getCommandManager().registerCommand(new ClanCommand(dkFriends, this, DKFriendsConfig.COMMAND_CLAN));
         getRuntime().getLocal().getCommandManager().registerCommand(new PartyCommand(this,DKFriendsConfig.COMMAND_PARTY,dkFriends.getPartyManager()));
     }
+
 }
