@@ -19,9 +19,12 @@ public class DefaultPartyInvitation implements PartyInvitation {
     private final UUID inviterId;
     private final long invitationTime;
 
-    public DefaultPartyInvitation(DKFriends dkfriends, UUID partyId, UUID playerId, UUID inviterId, long invitationTime) {
+    private transient Party party;
+
+    public DefaultPartyInvitation(DKFriends dkfriends,Party party, UUID playerId, UUID inviterId, long invitationTime) {
         this.dkfriends = dkfriends;
-        this.partyId = partyId;
+        this.party = party;
+        this.partyId = party.getId();
         this.playerId = playerId;
         this.inviterId = inviterId;
         this.invitationTime = invitationTime;
@@ -34,7 +37,8 @@ public class DefaultPartyInvitation implements PartyInvitation {
 
     @Override
     public Party getParty() {
-        return dkfriends.getPartyManager().getParty(partyId);
+        if(party == null) party = dkfriends.getPartyManager().getParty(partyId);
+        return party;
     }
 
     @Override

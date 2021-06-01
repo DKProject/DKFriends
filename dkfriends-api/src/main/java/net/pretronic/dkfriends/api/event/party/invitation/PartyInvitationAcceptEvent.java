@@ -9,5 +9,7 @@ import java.util.UUID;
 
 public interface PartyInvitationAcceptEvent extends DKFriendsPlayerEvent {
 
+    Party getParty();
+
     PartyInvitation getInvitation();
 }

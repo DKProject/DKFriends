@@ -21,9 +21,12 @@ public class DefaultPartyMember implements PartyMember {
     private final long joinTime;
     private PartyRole role;
 
-    public DefaultPartyMember(DefaultDKFriends dkFriends, UUID partyId, UUID playerId, long joinTime, PartyRole role) {
+    private transient Party party;
+
+    public DefaultPartyMember(DefaultDKFriends dkFriends,Party party, UUID playerId, long joinTime, PartyRole role) {
         this.dkFriends = dkFriends;
-        this.partyId = partyId;
+        this.party = party;
+        this.partyId = party.getId();
         this.playerId = playerId;
         this.joinTime = joinTime;
         this.role = role;
@@ -36,7 +39,8 @@ public class DefaultPartyMember implements PartyMember {
 
     @Override
     public Party getParty() {
-        return dkFriends.getPartyManager().getParty(partyId);
+        if(party == null) party = dkFriends.getPartyManager().getParty(partyId);
+        return party;
     }
 
     @Override

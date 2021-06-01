@@ -1,22 +1,25 @@
 package net.pretronic.dkfriends.common.event.party;
 
 import net.pretronic.dkfriends.api.DKFriends;
-import net.pretronic.dkfriends.api.event.party.PartyCreateEvent;
 import net.pretronic.dkfriends.api.event.party.PartyDeleteEvent;
 import net.pretronic.dkfriends.api.party.Party;
-import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;
 
 public class DefaultPartyDeleteEvent implements PartyDeleteEvent {
 
+    @Inject
     private final DKFriends dkFriends;
-    private final Party party;
 
-    private boolean cancelled;
+    private final UUID partyId;
 
-    public DefaultPartyDeleteEvent(DKFriends dkFriends, Party party) {
+    private transient Party party;
+    private transient boolean cancelled;
+
+    public DefaultPartyDeleteEvent(DKFriends dkFriends,Party party) {
         this.dkFriends = dkFriends;
+        this.partyId = party.getId();
         this.party = party;
         this.cancelled = false;
     }
@@ -28,6 +31,7 @@ public class DefaultPartyDeleteEvent implements PartyDeleteEvent {
 
     @Override
     public Party getParty() {
+        if(party == null) party = dkFriends.getPartyManager().getParty(partyId);
         return party;
     }
 

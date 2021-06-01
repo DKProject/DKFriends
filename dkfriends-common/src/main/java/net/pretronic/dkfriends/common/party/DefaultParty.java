@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class DefaultParty implements Party {
 
@@ -44,7 +45,7 @@ public class DefaultParty implements Party {
     private String category;
     private boolean public0;
 
-    public DefaultParty(DefaultDKFriends dkfriends,UUID id,String topic, String category,boolean public0) {
+    public DefaultParty(DefaultDKFriends dkfriends, UUID id, String topic, String category, boolean public0) {
         this.dkfriends = dkfriends;
         this.id = id;
         this.creationTime = System.currentTimeMillis();
@@ -124,7 +125,7 @@ public class DefaultParty implements Party {
     public PartyMember addMember(UUID uniqueId, PartyRole role) {
         if(isMember(uniqueId)) throw new IllegalArgumentException("Already a member of this party");
 
-        PartyMember member = new DefaultPartyMember(dkfriends,this.id,uniqueId,System.currentTimeMillis(),PartyRole.GUEST);
+        PartyMember member = new DefaultPartyMember(dkfriends,this,uniqueId,System.currentTimeMillis(),PartyRole.GUEST);
 
         PartyJoinEvent event = new DefaultPartyJoinEvent(member);
         dkfriends.getEventBus().callEvent(PartyJoinEvent.class,event);
@@ -217,8 +218,8 @@ public class DefaultParty implements Party {
         if(hasInvitation(uniqueId)) throw new IllegalArgumentException("Player has already an invitation to this party");
         if(isMember(uniqueId)) throw new IllegalArgumentException("Player is already an member of this party");
 
-        PartyInvitation invitation = new DefaultPartyInvitation(dkfriends,this.id,uniqueId,inviter.getId(),System.currentTimeMillis());
-        PartyInviteEvent event = new DefaultPartyInviteEvent(dkfriends,uniqueId,invitation);
+        PartyInvitation invitation = new DefaultPartyInvitation(dkfriends,this,uniqueId,inviter.getId(),System.currentTimeMillis());
+        PartyInviteEvent event = new DefaultPartyInviteEvent(dkfriends,this,invitation);
         dkfriends.getEventBus().callEvent(PartyInviteEvent.class,event);
         if(event.isCancelled()) return null;
 
@@ -302,12 +303,37 @@ public class DefaultParty implements Party {
 
     @Override
     public void teleport(String type, String target) {
-        PartyTeleportEvent event = new DefaultPartyTeleportEvent(this,type,target);
+        PartyTeleportEvent event = new DefaultPartyTeleportEvent(dkfriends,this,type,target);
         dkfriends.getEventBus().callEvent(PartyTeleportEvent.class,event);
     }
 
     @Override
     public void delete() {
         dkfriends.getPartyManager().deleteParty(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Party && ((Party) obj).getId().equals(id);
+    }
+
+    @Internal
+    public void addInvitation(PartyInvitation invitation){
+        this.invitations.add(invitation);
+    }
+
+    @Internal
+    public void removeInvitation(PartyInvitation invitation){
+        Iterators.removeSilent(this.invitations, member1 -> member1.getPlayerId().equals(invitation.getPlayerId()));
+    }
+
+    @Internal
+    public void addMember(PartyMember member){
+        this.members.add(member);
+    }
+
+    @Internal
+    public void removeMember(PartyMember member){
+        Iterators.removeSilent(this.members, member1 -> member1.getPlayerId().equals(member1.getPlayerId()));
     }
 }

@@ -1,6 +1,7 @@
 package net.pretronic.dkfriends.common.event.party.invitation;
 
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInvitationAcceptEvent;
+import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyInvitation;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 
@@ -22,6 +23,11 @@ public class DefaultPartyInvitationAcceptEvent implements PartyInvitationAcceptE
     @Override
     public DKFriendsPlayer getPlayer() {
         return invitation.getPlayer();
+    }
+
+    @Override
+    public Party getParty() {
+        return invitation.getParty();
     }
 
     @Override

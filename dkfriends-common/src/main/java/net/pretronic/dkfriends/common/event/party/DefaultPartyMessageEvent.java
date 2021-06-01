@@ -4,21 +4,27 @@ import net.pretronic.dkfriends.api.event.party.PartyMessageEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;
 
 public class DefaultPartyMessageEvent implements PartyMessageEvent {
 
-    private final DefaultDKFriends dkFriends;
-    private final Party party;
+    @Inject
+    private transient final DefaultDKFriends dkFriends;
+
+    private final UUID partyId;
     private final UUID senderId;
     private String channel;
     private String message;
-    private boolean cancelled;
+
+    private transient Party party;
+    private transient boolean cancelled;
 
     public DefaultPartyMessageEvent(DefaultDKFriends dkFriends,Party party, UUID senderId, String channel, String message) {
         this.dkFriends = dkFriends;
         this.party = party;
+        this.partyId = party.getId();
         this.senderId = senderId;
         this.channel = channel;
         this.message = message;
@@ -28,6 +34,7 @@ public class DefaultPartyMessageEvent implements PartyMessageEvent {
 
     @Override
     public Party getParty() {
+        if(party == null) party = dkFriends.getPartyManager().getParty(partyId);
         return party;
     }
 

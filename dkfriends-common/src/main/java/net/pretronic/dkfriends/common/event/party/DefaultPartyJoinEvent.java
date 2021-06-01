@@ -11,7 +11,7 @@ public class DefaultPartyJoinEvent implements PartyJoinEvent {
 
     private final PartyMember member;
 
-    private boolean cancelled;
+    private transient boolean cancelled;
 
     public DefaultPartyJoinEvent(PartyMember member) {
         this.member = member;

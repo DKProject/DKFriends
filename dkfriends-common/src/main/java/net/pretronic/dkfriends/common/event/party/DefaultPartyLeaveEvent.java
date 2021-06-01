@@ -5,17 +5,20 @@ import net.pretronic.dkfriends.api.event.party.PartyLeaveEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyMember;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;
 
 public class DefaultPartyLeaveEvent implements PartyLeaveEvent {
 
-    private final DKFriends dkFriends;
+    @Inject
+    private transient final DKFriends dkFriends;
+
     private final PartyMember member;
     private final String cause;
     private final UUID executorId;
 
-    private boolean cancelled;
+    private transient boolean cancelled;
 
     public DefaultPartyLeaveEvent(DKFriends dkFriends,PartyMember member,String cause,UUID executorId) {
         this.dkFriends = dkFriends;

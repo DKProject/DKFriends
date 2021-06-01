@@ -14,6 +14,7 @@ import net.pretronic.dkfriends.common.event.party.DefaultPartyCreateEvent;
 import net.pretronic.dkfriends.common.event.party.DefaultPartyDeleteEvent;
 import net.pretronic.libraries.document.type.DocumentFileType;
 import net.pretronic.libraries.utility.Iterators;
+import net.pretronic.libraries.utility.annonations.Internal;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,7 +83,7 @@ public class DefaultPartyManager implements PartyManager {
                 .execute();
         this.parties.add(party);
 
-        party.addInternal(new DefaultPartyMember(dkFriends,party.getId(),ownerId,party.getCreationTime(),PartyRole.LEADER));
+        party.addInternal(new DefaultPartyMember(dkFriends,party,ownerId,party.getCreationTime(),PartyRole.LEADER));
 
         return party;
     }
@@ -127,11 +128,21 @@ public class DefaultPartyManager implements PartyManager {
             for (QueryResultEntry entry : members.find().orderBy("PartyId", SearchOrder.ASC).execute()) {
                 UUID partyId = entry.getUniqueId("PartyId");
                 if(party == null || !party.getId().equals(partyId)) party = (DefaultParty) Iterators.findOne(this.parties, party1 -> party1.getId().equals(partyId));
-                party.addInternal(new DefaultPartyMember(dkFriends,partyId,entry.getUniqueId("PlayerId")
+                party.addInternal(new DefaultPartyMember(dkFriends,party,entry.getUniqueId("PlayerId")
                         ,entry.getLong("Time")
                         ,PartyRole.valueOf(entry.getString("Role"))));
             }
         }
         return this.parties;
+    }
+
+    @Internal
+    public void addParty(Party party){
+        if(parties != null) parties.add(party);
+    }
+
+    @Internal
+    public void removeParty(Party party){
+        if(parties != null) parties.remove(party);
     }
 }

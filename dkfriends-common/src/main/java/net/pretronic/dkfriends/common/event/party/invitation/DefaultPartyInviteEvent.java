@@ -5,23 +5,28 @@ import net.pretronic.dkfriends.api.event.party.invitation.PartyInviteEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyInvitation;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;
 
 public class DefaultPartyInviteEvent implements PartyInviteEvent {
 
-    private final DKFriends dkFriends;
+    @Inject
+    private final transient DKFriends dkfriends;
+
     private final UUID partyId;
     private final PartyInvitation invitation;
 
-    private boolean cancelled;
+    private transient boolean cancelled;
+    private transient Party party;
 
-    public DefaultPartyInviteEvent(DKFriends dkFriends, UUID partyId, PartyInvitation invitation) {
-        this.dkFriends = dkFriends;
-        this.partyId = partyId;
+    public DefaultPartyInviteEvent(DKFriends dkfriends, Party party, PartyInvitation invitation) {
+        this.dkfriends = dkfriends;
+        this.partyId = party.getId();
         this.invitation = invitation;
 
         this.cancelled = false;
+        this.party = party;
     }
 
     @Override
@@ -41,7 +46,8 @@ public class DefaultPartyInviteEvent implements PartyInviteEvent {
 
     @Override
     public Party getParty() {
-        return dkFriends.getPartyManager().getParty(partyId);
+        if(party == null) party = dkfriends.getPartyManager().getParty(partyId);
+        return party;
     }
 
     @Override

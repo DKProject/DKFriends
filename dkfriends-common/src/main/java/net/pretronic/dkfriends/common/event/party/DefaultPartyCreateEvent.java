@@ -4,20 +4,25 @@ import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.event.party.PartyCreateEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;
 
 public class DefaultPartyCreateEvent implements PartyCreateEvent {
 
+    @Inject
     private final DKFriends dkFriends;
-    private final Party party;
+
+    private final UUID partyId;
     private final UUID ownerId;
 
-    private boolean cancelled;
+    private transient Party party;
+    private transient boolean cancelled;
 
     public DefaultPartyCreateEvent(DKFriends dkFriends, Party party,UUID ownerId) {
         this.dkFriends = dkFriends;
         this.party = party;
+        this.partyId = party.getId();
         this.ownerId = ownerId;
 
         this.cancelled = false;
@@ -40,6 +45,7 @@ public class DefaultPartyCreateEvent implements PartyCreateEvent {
 
     @Override
     public Party getParty() {
+        if(party == null) party = dkFriends.getPartyManager().getParty(partyId);
         return party;
     }
 
