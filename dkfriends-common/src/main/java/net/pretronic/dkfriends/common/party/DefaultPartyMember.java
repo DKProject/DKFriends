@@ -1,6 +1,5 @@
 package net.pretronic.dkfriends.common.party;
 
-import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.event.party.PartyRoleChangeEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyMember;
@@ -8,12 +7,15 @@ import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.event.party.DefaultPartyRoleChangeEvent;
+import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;
 
 public class DefaultPartyMember implements PartyMember {
 
+    @Inject
     private final DefaultDKFriends dkFriends;
+
     private final UUID partyId;
     private final UUID playerId;
     private final long joinTime;

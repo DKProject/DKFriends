@@ -8,26 +8,22 @@ import java.util.UUID;
 
 public class DefaultFriendRequestSendEvent implements FriendRequestSendEvent {
 
-    private final DKFriendsPlayer player;
     private final FriendRequest request;
+    private transient boolean cancelled;
 
-    private boolean cancelled;
-
-    public DefaultFriendRequestSendEvent(DKFriendsPlayer player, FriendRequest request) {
-        this.player = player;
+    public DefaultFriendRequestSendEvent(FriendRequest request) {
         this.request = request;
-
         this.cancelled = false;
     }
 
     @Override
     public UUID getPlayerId() {
-        return player.getId();
+        return request.getReceiverId();
     }
 
     @Override
     public DKFriendsPlayer getPlayer() {
-        return player;
+        return request.getReceiver();
     }
 
     @Override

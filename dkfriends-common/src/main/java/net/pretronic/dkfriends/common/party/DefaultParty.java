@@ -32,6 +32,7 @@ import java.util.UUID;
 public class DefaultParty implements Party {
 
     private final DefaultDKFriends dkfriends;
+
     private final UUID id;
     private final long creationTime;
     private final Document properties;

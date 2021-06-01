@@ -5,12 +5,15 @@ import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyInvitation;
 import net.pretronic.dkfriends.api.party.PartyMember;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;
 
 public class DefaultPartyInvitation implements PartyInvitation {
 
+    @Inject
     private final DKFriends dkfriends;
+
     private final UUID partyId;
     private final UUID playerId;
     private final UUID inviterId;

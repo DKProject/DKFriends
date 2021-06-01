@@ -1,6 +1,5 @@
 package net.pretronic.dkfriends.common.player;
 
-import net.pretronic.databasequery.api.query.result.QueryResultEntry;
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanInvitation;
 import net.pretronic.dkfriends.api.clan.ClanMember;
@@ -16,7 +15,6 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.PlayerBlock;
 import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
-import net.pretronic.dkfriends.common.DKFriendStorage;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.event.friend.DefaultFriendAddEvent;
 import net.pretronic.dkfriends.common.event.friend.DefaultFriendRemoveEvent;
@@ -29,6 +27,7 @@ import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.annonations.Internal;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
@@ -131,8 +130,8 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     }
 
     @Internal
-    private void addFriend(Friend friend){
-        this.friends.add(friend);
+    public void addFriend(Friend friend){
+        if(friends != null) this.friends.add(friend);
     }
 
     @Override
@@ -164,8 +163,8 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     }
 
     @Internal
-    private void removeFriendInternal(UUID uniqueId){
-        Iterators.removeOne(this.friends, friend -> friend.getFriendId().equals(uniqueId));
+    public void removeFriendInternal(UUID uniqueId){
+        if(this.friends != null) Iterators.removeOne(this.friends, friend -> friend.getFriendId().equals(uniqueId));
     }
 
     @Override
@@ -205,7 +204,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
     @Override
     public FriendRequest sendFriendRequest(DKFriendsPlayer player, String message) {
-        return sendFriendRequest(player.getId(),null);
+        return sendFriendRequest(player.getId(),message);
     }
 
     @Override
@@ -265,9 +264,9 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         if(hasFriendRequest(requesterId)) throw new IllegalArgumentException("Has already a friend request");
         if(isFriend(requesterId)) throw new IllegalArgumentException("Already friend");
 
-        FriendRequest request = new DefaultFriendRequest(dkFriends,uniqueId,requesterId,message,System.currentTimeMillis());
+        FriendRequest request = new DefaultFriendRequest(dkFriends,this,requesterId,message,System.currentTimeMillis());
 
-        FriendRequestSendEvent event = new DefaultFriendRequestSendEvent(this,request);
+        FriendRequestSendEvent event = new DefaultFriendRequestSendEvent(request);
         dkFriends.getEventBus().callEvent(FriendRequestSendEvent.class,event);
         if(event.isCancelled()) return null;
 
@@ -392,6 +391,16 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         return true;
     }
 
+    @Internal
+    public void addFriendRequest(FriendRequest request){
+        if(this.friendRequests != null) this.friendRequests.add(request);
+    }
+
+    @Internal
+    public void removeFriendRequest(FriendRequest request){
+        if(this.friendRequests != null) Iterators.remove(this.friendRequests, request0 -> request0.getRequesterId().equals(request.getRequesterId()));
+    }
+
     private Collection<Friend> getOrLoadFriends(){
         if(this.friends == null){
             this.friends = new ArrayList<>();
@@ -411,7 +420,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
             this.friendRequests = new ArrayList<>();
             dkFriends.getStorage().getFriendRequests().find()
                     .where("ReceiverId",uniqueId)
-                    .execute().loadIn(this.friendRequests, friend -> new DefaultFriendRequest(dkFriends,friend.getUniqueId("ReceiverId")
+                    .execute().loadIn(this.friendRequests, friend -> new DefaultFriendRequest(dkFriends,this
                     ,friend.getUniqueId("RequesterId")
                     ,friend.getString("Message")
                     ,friend.getLong("Time")

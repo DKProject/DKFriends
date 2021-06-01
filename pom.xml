@@ -19,7 +19,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Dependency version -->
-        <dependency.pretronic.libraries>1.2.69.208-SNAPSHOT</dependency.pretronic.libraries>
+        <dependency.pretronic.libraries>1.2.97.238-SNAPSHOT</dependency.pretronic.libraries>
         <dependency.pretronic.databasequery>1.2.38.65-SNAPSHOT</dependency.pretronic.databasequery>
 
         <dependency.mcnative.api>1.4.26.130-SNAPSHOT</dependency.mcnative.api>
