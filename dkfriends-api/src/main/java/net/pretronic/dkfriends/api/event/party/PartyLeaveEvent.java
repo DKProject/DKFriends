@@ -5,9 +5,11 @@ import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyMember;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.libraries.event.Cancellable;
+import net.pretronic.libraries.event.network.NetworkEvent;
 
 import java.util.UUID;
 
+@NetworkEvent(ignoreNetworkException = true)
 public interface PartyLeaveEvent extends DKFriendsPlayerEvent, Cancellable {
 
     UUID getPartyId();
