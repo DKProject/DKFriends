@@ -29,14 +29,14 @@ public class DKFriendsPlugin extends MinecraftPlugin {
                 ,new DKFriendStorage(getDatabaseOrCreate())
                 ,getRuntime().getLocal().getEventBus());
 
+        getRuntime().getRegistry().registerService(this,DKFriends.class,dkfriends);
+        getRuntime().getPlayerManager().registerPlayerAdapter(DKFriendsPlayer.class, player -> dkfriends.getPlayerManager().getPlayer(player.getUniqueId()));
+
         DescriberRegistrar.register();
         registerListeners();
         registerCommands(dkfriends);
 
-        getRuntime().getRegistry().registerService(this,DKFriends.class,dkfriends);
-        getRuntime().getPlayerManager().registerPlayerAdapter(DKFriendsPlayer.class, player -> dkfriends.getPlayerManager().getPlayer(player.getUniqueId()));
-
-        DKFriendsGui.register();
+       // DKFriendsGui.register();
 
         getLogger().info("DKFriends started successfully");
     }
