@@ -31,6 +31,7 @@ public class SyncListener {
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
     public void onRequestSend(FriendRequestSendEvent event) {
+        System.out.println("SYNC FRIEND REQUESTS");
         DKFriendsPlayer player = dkfriends.getPlayerManager().getLoadedPlayer(event.getPlayerId());
         if(player != null){
             ((DefaultDKFriendsPlayer)player).addFriendRequest(event.getRequest());
