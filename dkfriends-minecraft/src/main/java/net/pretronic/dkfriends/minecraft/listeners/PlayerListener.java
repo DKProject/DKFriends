@@ -3,6 +3,7 @@ package net.pretronic.dkfriends.minecraft.listeners;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.event.EventPriority;
 import net.pretronic.libraries.event.Listener;
 import net.pretronic.libraries.event.execution.ExecutionType;
 import net.pretronic.libraries.message.bml.variable.VariableSet;
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class PlayerListener {
 
-    @Listener(execution = ExecutionType.ASYNC)
+    @Listener(execution = ExecutionType.ASYNC,priority = EventPriority.HIGHEST)
     public void onJoin(MinecraftPlayerPostLoginEvent event){
         DKFriendsPlayer player = event.getPlayer().getAs(DKFriendsPlayer.class);
 
