@@ -118,11 +118,19 @@
         </dependency>
 
         <dependency>
+            <groupId>net.pretronic.libraries</groupId>
+            <artifactId>pretroniclibraries-injection</artifactId>
+            <version>${dependency.pretronic.libraries}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.mcnative.licensing</groupId>
             <artifactId>mcnative-licensing</artifactId>
             <version>${dependency.mcnative.licensing}</version>
             <scope>compile</scope>
         </dependency>
+
 
     </dependencies>
 
