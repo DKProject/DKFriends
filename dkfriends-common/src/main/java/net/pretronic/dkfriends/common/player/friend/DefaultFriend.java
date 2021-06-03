@@ -34,7 +34,7 @@ public class DefaultFriend implements Friend {
 
     @Override
     public UUID getPlayerId() {
-        return player.getId();
+        return playerId;
     }
 
     @Override
