@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DKFriendStorage;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayerManager;
 import net.pretronic.dkfriends.minecraft.commands.DKFriendsCommand;
 import net.pretronic.dkfriends.minecraft.commands.clan.ClanCommand;
 import net.pretronic.dkfriends.minecraft.commands.friend.FriendCommand;
@@ -15,7 +16,10 @@ import net.pretronic.dkfriends.minecraft.listeners.PlayerListener;
 import net.pretronic.dkfriends.minecraft.listeners.SyncListener;
 import net.pretronic.libraries.plugin.lifecycle.Lifecycle;
 import net.pretronic.libraries.plugin.lifecycle.LifecycleState;
+import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.plugin.MinecraftPlugin;
+
+import java.util.UUID;
 
 public class DKFriendsPlugin extends MinecraftPlugin {
 
@@ -35,6 +39,11 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         DescriberRegistrar.register();
         registerListeners();
         registerCommands(dkfriends);
+
+        if(McNative.getInstance().isNetworkAvailable()){
+            getRuntime().getNetwork().registerStatusCallback(this,((DefaultDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
+            getRuntime().getNetwork().getMessenger().registerSynchronizingChannel("dkbans_players", this, UUID.class,((DefaultDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
+        }
 
        // DKFriendsGui.register();
 

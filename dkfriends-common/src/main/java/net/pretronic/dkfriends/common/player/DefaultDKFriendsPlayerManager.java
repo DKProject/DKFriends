@@ -29,6 +29,10 @@ public class DefaultDKFriendsPlayerManager implements DKFriendsPlayerManager {
         this.players.setSkipOnDisconnect(true);
     }
 
+    public SynchronizableCache<DefaultDKFriendsPlayer, UUID> getPlayerCache() {
+        return players;
+    }
+
     @Override
     public DKFriendsPlayer getPlayer(UUID uniqueId) {
         return this.players.get("get", uniqueId);
