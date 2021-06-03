@@ -51,7 +51,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
 
         if(McNative.getInstance().isNetworkAvailable()){
             getRuntime().getNetwork().registerStatusCallback(this,((DefaultDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
-            getRuntime().getNetwork().getMessenger().registerSynchronizingChannel("dkbans_players", this, UUID.class,((DefaultDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
+            getRuntime().getNetwork().getMessenger().registerSynchronizingChannel("dkfriends_players", this, UUID.class,((DefaultDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
         }
 
        // DKFriendsGui.register();
