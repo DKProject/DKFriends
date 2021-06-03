@@ -36,7 +36,6 @@ public class PerformListener {
     @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     public void onFriendRequestSend(FriendRequestSendEvent event){
-        System.out.println("FRIEND ADD " +event.getRequest().getReceiverId());
         if(event.isCancelled()) return;
         ConnectedMinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getRequest().getReceiverId());
         if(player !=  null){

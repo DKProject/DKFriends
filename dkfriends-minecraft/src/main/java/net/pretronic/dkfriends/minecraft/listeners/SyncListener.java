@@ -21,17 +21,18 @@ import net.pretronic.dkfriends.common.party.DefaultPartyManager;
 import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayer;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.libraries.event.EventPriority;
-import net.pretronic.libraries.event.injection.annotations.Inject;
 import net.pretronic.libraries.event.network.NetworkListener;
 
 public class SyncListener {
 
-    @Inject
-    private DKFriends dkfriends;
+    private final DKFriends dkfriends;
+
+    public SyncListener(DKFriends dkfriends) {
+        this.dkfriends = dkfriends;
+    }
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
     public void onRequestSend(FriendRequestSendEvent event) {
-        System.out.println("SYNC FRIEND REQUESTS");
         DKFriendsPlayer player = dkfriends.getPlayerManager().getLoadedPlayer(event.getPlayerId());
         if(player != null){
             ((DefaultDKFriendsPlayer)player).addFriendRequest(event.getRequest());

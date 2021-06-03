@@ -45,7 +45,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         getRuntime().getPlayerManager().registerPlayerAdapter(DKFriendsPlayer.class, player -> dkfriends.getPlayerManager().getPlayer(player.getUniqueId()));
 
         DescriberRegistrar.register();
-        registerListeners();
+        registerListeners(dkfriends);
         registerCommands(dkfriends);
         registerDocumentAdapters();
 
@@ -59,9 +59,9 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         getLogger().info("DKFriends started successfully");
     }
 
-    private void registerListeners(){
+    private void registerListeners(DKFriends dkfriends){
         if(getRuntime().isNetworkAvailable()){
-            getRuntime().getNetwork().getEventBus().subscribe(this,new SyncListener());
+            getRuntime().getNetwork().getEventBus().subscribe(this,new SyncListener(dkfriends));
             if(getRuntime().getPlatform().isProxy()){
                 getRuntime().getLocal().getEventBus().subscribe(this,new PlayerListener());
                 getRuntime().getNetwork().getEventBus().subscribe(this,new PerformListener());
