@@ -31,7 +31,7 @@ public class DefaultDKFriendsPlayerManager implements DKFriendsPlayerManager {
 
     @Override
     public DKFriendsPlayer getPlayer(UUID uniqueId) {
-        return new DefaultDKFriendsPlayer(dkFriends,uniqueId);
+        return this.players.get("get", uniqueId);
     }
 
     @Override
