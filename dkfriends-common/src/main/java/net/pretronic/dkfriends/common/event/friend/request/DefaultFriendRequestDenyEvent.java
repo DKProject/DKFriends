@@ -4,27 +4,27 @@ import net.pretronic.dkfriends.api.event.friend.request.FriendRequestDenyEvent;
 import net.pretronic.dkfriends.api.event.friend.request.FriendRequestSendEvent;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
+import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;
 
 public class DefaultFriendRequestDenyEvent implements FriendRequestDenyEvent {
 
-    private final DKFriendsPlayer player;
     private final FriendRequest request;
 
-    public DefaultFriendRequestDenyEvent(DKFriendsPlayer player, FriendRequest request) {
-        this.player = player;
+    public DefaultFriendRequestDenyEvent(FriendRequest request) {
         this.request = request;
     }
 
     @Override
     public UUID getPlayerId() {
-        return player.getId();
+        return request.getReceiverId();
     }
 
     @Override
     public DKFriendsPlayer getPlayer() {
-        return player;
+        return request.getReceiver();
     }
 
     @Override

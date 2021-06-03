@@ -8,11 +8,9 @@ import java.util.UUID;
 
 public class DefaultFriendRemoveEvent implements FriendRemoveEvent {
 
-    private final DKFriendsPlayer player;
     private final Friend friend;
 
-    public DefaultFriendRemoveEvent(DKFriendsPlayer player, Friend friend) {
-        this.player = player;
+    public DefaultFriendRemoveEvent(Friend friend) {
         this.friend = friend;
 
         this.cancelled = false;
@@ -22,12 +20,12 @@ public class DefaultFriendRemoveEvent implements FriendRemoveEvent {
 
     @Override
     public UUID getPlayerId() {
-        return player.getId();
+        return friend.getPlayerId();
     }
 
     @Override
     public DKFriendsPlayer getPlayer() {
-        return player;
+        return friend.getPlayer();
     }
 
     @Override

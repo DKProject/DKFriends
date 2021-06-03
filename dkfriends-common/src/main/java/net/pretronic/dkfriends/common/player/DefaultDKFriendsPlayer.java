@@ -96,7 +96,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
         Friend friend = new DefaultFriend(dkFriends,this,friendId,System.currentTimeMillis(),false,null);
 
-        FriendAddEvent event = new DefaultFriendAddEvent(this,friend);
+        FriendAddEvent event = new DefaultFriendAddEvent(friend);
         dkFriends.getEventBus().callEvent(FriendAddEvent.class,event);
         if(event.isCancelled()) return null;
 
@@ -148,7 +148,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     public void removeFriend(Friend friend) {
         if(!friend.getPlayerId().equals(uniqueId)) throw new IllegalArgumentException("Friend does not belong to this player");
 
-        FriendRemoveEvent event = new DefaultFriendRemoveEvent(this,friend);
+        FriendRemoveEvent event = new DefaultFriendRemoveEvent(friend);
         dkFriends.getEventBus().callEvent(FriendRemoveEvent.class,event);
         if(event.isCancelled()) return;
 
@@ -224,7 +224,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         if(!request.getReceiverId().equals(uniqueId)) throw new IllegalArgumentException("Request does not belong to this player");
         deleteRequest(request);
 
-        FriendRequestAcceptEvent event = new DefaultFriendRequestAcceptEvent(this,request);
+        FriendRequestAcceptEvent event = new DefaultFriendRequestAcceptEvent(request);
         dkFriends.getEventBus().callEvent(FriendRequestAcceptEvent.class,event);
 
         addFriend(request.getRequesterId());
@@ -247,7 +247,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         if(!request.getReceiverId().equals(uniqueId)) throw new IllegalArgumentException("Request does not belong to this player");
         deleteRequest(request);
 
-        FriendRequestDenyEvent event = new DefaultFriendRequestDenyEvent(this,request);
+        FriendRequestDenyEvent event = new DefaultFriendRequestDenyEvent(request);
         dkFriends.getEventBus().callEvent(FriendRequestDenyEvent.class,event);
     }
 
