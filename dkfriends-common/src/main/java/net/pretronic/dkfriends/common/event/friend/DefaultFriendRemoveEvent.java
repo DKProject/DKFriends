@@ -9,14 +9,12 @@ import java.util.UUID;
 public class DefaultFriendRemoveEvent implements FriendRemoveEvent {
 
     private final Friend friend;
+    private transient boolean cancelled;
 
     public DefaultFriendRemoveEvent(Friend friend) {
         this.friend = friend;
-
         this.cancelled = false;
     }
-
-    private boolean cancelled;
 
     @Override
     public UUID getPlayerId() {
