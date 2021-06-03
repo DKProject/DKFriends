@@ -10,7 +10,7 @@ import java.util.UUID;
 public class DefaultFriendRequest implements FriendRequest {
 
     @Inject
-    private final DKFriends dkfriends;
+    private final transient DKFriends dkfriends;
 
     private final UUID receiverId;
     private final UUID requesterId;

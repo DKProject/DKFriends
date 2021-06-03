@@ -10,7 +10,7 @@ import java.util.UUID;
 public class DefaultFriend implements Friend {
 
     @Inject
-    private final DKFriends dkfriends;
+    private final transient DKFriends dkfriends;
 
     private final UUID playerId;
     private final UUID friendId;

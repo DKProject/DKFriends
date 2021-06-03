@@ -12,7 +12,7 @@ import java.util.UUID;
 public class DefaultPartyInvitation implements PartyInvitation {
 
     @Inject
-    private final DKFriends dkfriends;
+    private final transient DKFriends dkfriends;
 
     private final UUID partyId;
     private final UUID playerId;

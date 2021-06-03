@@ -10,7 +10,7 @@ import java.util.UUID;
 public class DefaultPartyDeleteEvent implements PartyDeleteEvent {
 
     @Inject
-    private final DKFriends dkFriends;
+    private final transient DKFriends dkFriends;
 
     private final UUID partyId;
 

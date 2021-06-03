@@ -11,7 +11,7 @@ import java.util.UUID;
 public class DefaultPartyCreateEvent implements PartyCreateEvent {
 
     @Inject
-    private final DKFriends dkFriends;
+    private final transient DKFriends dkFriends;
 
     private final UUID partyId;
     private final UUID ownerId;
