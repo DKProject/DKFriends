@@ -74,8 +74,8 @@ messages:
   &8» &7Public: &e{party.public}
   &8» &7Category: &e{party.category}
   &8» &7Topic: &e{party.topic}
-  &8» &eMembers: &e{party.size} @for("member" in {party.members},${dkfriends.command.party.info.loop},"\n","\n")'
-  dkfriends.command.party.info.loop: ' &8- &e{member.displayName} &8(&7{member.role}&8)'
+  &8» &7Members: &e{party.size} @for("member" in {party.members},${dkfriends.command.party.info.loop},"\n","\n")'
+  dkfriends.command.party.info.loop: '  F&8- &e{member.displayName} &8(&7{member.role}&8)'
   dkfriends.command.party.public: '${dkfriends.prefix.party} &7is now public'
   dkfriends.command.party.private: '${dkfriends.prefix.party} &7is now private'
   dkfriends.command.party.public.empty: '${dkfriends.prefix.party} &7There are currently no public parties'

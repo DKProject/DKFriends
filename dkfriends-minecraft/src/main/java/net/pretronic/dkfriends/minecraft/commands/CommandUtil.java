@@ -22,9 +22,9 @@ public class CommandUtil {
         return false;
     }
 
-    public static boolean isSelfCheck(CommandSender sender,String target){
+    public static boolean isSelfCheck(MessageComponent<?> prefix,CommandSender sender,String target){
         if(sender.getName().equalsIgnoreCase(target)){
-            sender.sendMessage(Messages.ERROR_PLAYER_NOT_SELF);
+            sender.sendMessage(Messages.ERROR_PLAYER_NOT_SELF,VariableSet.create().add("prefix",prefix));
             return true;
         }
         return false;

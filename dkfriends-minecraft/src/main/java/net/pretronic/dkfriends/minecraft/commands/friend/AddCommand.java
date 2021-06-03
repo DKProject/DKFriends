@@ -23,7 +23,7 @@ public class AddCommand extends BasicCommand {
             sender.sendMessage(Messages.COMMAND_FRIEND_HELP);
             return;
         }
-        if(CommandUtil.isSelfCheck(sender,arguments[0])) return;
+        if(CommandUtil.isSelfCheck(Messages.PREFIX_FRIEND,sender,arguments[0])) return;
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
         MinecraftPlayer target = CommandUtil.getPlayer(sender,Messages.PREFIX_FRIEND,arguments[0]);

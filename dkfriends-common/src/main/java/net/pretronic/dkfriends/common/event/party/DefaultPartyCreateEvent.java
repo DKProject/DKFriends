@@ -40,7 +40,7 @@ public class DefaultPartyCreateEvent implements PartyCreateEvent {
 
     @Override
     public UUID getPartyId() {
-        return party.getId();
+        return partyId;
     }
 
     @Override

@@ -14,10 +14,12 @@ import net.pretronic.dkfriends.api.event.party.invitation.PartyInvitationAcceptE
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInvitationDenyEvent;
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInviteEvent;
 import net.pretronic.dkfriends.api.party.Party;
+import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.party.DefaultParty;
 import net.pretronic.dkfriends.common.party.DefaultPartyManager;
+import net.pretronic.dkfriends.common.party.DefaultPartyMember;
 import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayer;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.libraries.event.EventPriority;
@@ -85,8 +87,9 @@ public class SyncListener {
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
     public void onPartyCreate(PartyCreateEvent event) {
-        ((DefaultPartyManager)dkfriends.getPartyManager()).addParty(new DefaultParty((DefaultDKFriends) dkfriends
-                ,event.getPartyId(),"Unset","Unset",false));
+        DefaultParty party = new DefaultParty((DefaultDKFriends) dkfriends,event.getPartyId(),"Unset","Unset",false);
+        party.addInternal(new DefaultPartyMember((DefaultDKFriends) dkfriends,party,event.getPlayerId(),party.getCreationTime(), PartyRole.LEADER));
+        ((DefaultPartyManager)dkfriends.getPartyManager()).addParty(party);
     }
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)

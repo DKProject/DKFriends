@@ -25,7 +25,7 @@ public class DemoteCommand extends BasicCommand {
             sender.sendMessage(Messages.COMMAND_PARTY_HELP);
             return;
         }
-        if(CommandUtil.isSelfCheck(sender,arguments[0])) return;
+        if(CommandUtil.isSelfCheck(Messages.PREFIX_PARTY,sender,arguments[0])) return;
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
         MinecraftPlayer target = CommandUtil.getPlayer(sender,Messages.PREFIX_FRIEND,arguments[0]);

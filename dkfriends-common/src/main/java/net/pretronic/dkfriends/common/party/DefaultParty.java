@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public class DefaultParty implements Party {
 
