@@ -53,7 +53,7 @@ public interface Party {
 
 
     default void removeMember(PartyMember member,String cause){
-        removeMember(member,cause);
+        removeMember(member,cause,null);
     }
 
     void removeMember(PartyMember member,String cause,DKFriendsPlayer executor);
@@ -61,7 +61,7 @@ public interface Party {
     void removeMember(UUID uniqueId,String cause,DKFriendsPlayer executor);
 
     default void removeMember(UUID uniqueId,String cause){
-        removeMember(uniqueId, cause);
+        removeMember(uniqueId, cause,null);
     }
 
     default void leaveMember(PartyMember member){
