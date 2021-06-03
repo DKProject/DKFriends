@@ -10,7 +10,6 @@ import java.util.UUID;
 public class DefaultPartyJoinEvent implements PartyJoinEvent {
 
     private final PartyMember member;
-
     private transient boolean cancelled;
 
     public DefaultPartyJoinEvent(PartyMember member) {

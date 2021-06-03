@@ -3,7 +3,11 @@ package net.pretronic.dkfriends.common.clan;
 import net.pretronic.databasequery.api.query.result.QueryResultEntry;
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanManager;
+import net.pretronic.dkfriends.api.event.clan.ClanCreateEvent;
+import net.pretronic.dkfriends.api.event.clan.ClanDeleteEvent;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.dkfriends.common.event.clan.DefaultClanCreateEvent;
+import net.pretronic.dkfriends.common.event.clan.DefaultClanDeleteEvent;
 import net.pretronic.libraries.caching.ArrayCache;
 import net.pretronic.libraries.caching.Cache;
 import net.pretronic.libraries.caching.CacheQuery;
@@ -14,11 +18,11 @@ import net.pretronic.libraries.utility.Validate;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 
 public class DefaultClanManager implements ClanManager {
 
     private final DefaultDKFriends dkFriends;
-
     private final Cache<Clan> clanCache;
 
     public DefaultClanManager(DefaultDKFriends dkFriends) {
@@ -65,6 +69,10 @@ public class DefaultClanManager implements ClanManager {
 
         if(existClan(name, tag)) return null;
 
+        DefaultClanCreateEvent event = new DefaultClanCreateEvent(clanId,name,tag);
+        dkFriends.getEventBus().callEvent(ClanCreateEvent.class,event);
+        if(event.isCancelled()) return null;
+
         this.dkFriends.getStorage().getClans().insert()
                 .set("Id", clanId)
                 .set("Name", name)
@@ -88,6 +96,10 @@ public class DefaultClanManager implements ClanManager {
     public void deleteClan(UUID clanId) {
         Validate.notNull(clanId);
 
+        DefaultClanDeleteEvent event = new DefaultClanDeleteEvent(dkFriends,clanId);
+        dkFriends.getEventBus().callEvent(ClanDeleteEvent.class,event);
+        if(event.isCancelled()) return;
+
         this.dkFriends.getStorage().getClans().delete()
                 .where("Id", clanId)
                 .execute();
@@ -110,6 +122,14 @@ public class DefaultClanManager implements ClanManager {
                 resultEntry.getString("Tag"),
                 resultEntry.getString("Status"),
                 DocumentFileType.JSON.getReader().read(resultEntry.getString("Properties")));
+    }
+
+    public DefaultClan getCachedClan(UUID clanId){
+        return (DefaultClan) this.clanCache.get(clan -> clan.getId().equals(clanId));
+    }
+
+    public void removeClanInternal(UUID clanId){
+        this.clanCache.remove(clan -> clan.getId().equals(clanId));
     }
 
     private class ByIdCacheQuery implements CacheQuery<Clan> {

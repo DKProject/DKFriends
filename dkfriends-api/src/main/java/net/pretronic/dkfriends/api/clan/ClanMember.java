@@ -6,6 +6,8 @@ import java.util.UUID;
 
 public interface ClanMember {
 
+    UUID getClanId();
+
     Clan getClan();
 
 
@@ -19,7 +21,11 @@ public interface ClanMember {
 
     ClanRole getRole();
 
-    ClanRole setRole(ClanRole role);
+    default ClanRole setRole(ClanRole role){
+        return setRole(role,null);
+    }
+
+    ClanRole setRole(ClanRole role,String cause);
 
     //Returns promoted role or null if not possible
     ClanRole promote(ClanMember executor);

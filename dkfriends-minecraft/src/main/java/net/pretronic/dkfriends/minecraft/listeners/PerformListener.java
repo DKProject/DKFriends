@@ -2,11 +2,9 @@ package net.pretronic.dkfriends.minecraft.listeners;
 
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanMember;
-import net.pretronic.dkfriends.api.event.clan.ClanInviteEvent;
-import net.pretronic.dkfriends.api.event.clan.member.ClanMemberDemoteEvent;
+import net.pretronic.dkfriends.api.event.clan.member.ClanMemberInviteEvent;
 import net.pretronic.dkfriends.api.event.clan.member.ClanMemberJoinEvent;
-import net.pretronic.dkfriends.api.event.clan.member.ClanMemberKickEvent;
-import net.pretronic.dkfriends.api.event.clan.member.ClanMemberPromoteEvent;
+import net.pretronic.dkfriends.api.event.clan.member.ClanMemberRoleUpdateEvent;
 import net.pretronic.dkfriends.api.event.friend.FriendAddEvent;
 import net.pretronic.dkfriends.api.event.friend.FriendRemoveEvent;
 import net.pretronic.dkfriends.api.event.friend.request.FriendRequestDenyEvent;
@@ -80,90 +78,6 @@ public class PerformListener {
         ConnectedMinecraftPlayer player2 = McNative.getInstance().getLocal().getConnectedPlayer(event.getFriend().getFriendId());
         if(player2 !=  null){
             player2.sendMessage(Messages.FRIEND_REMOVE, VariableSet.create().addDescribed("player",event.getPlayer()));
-        }
-    }
-
-    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    public void onClanInvite(ClanInviteEvent event) {
-        ConnectedMinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getInvitation().getPlayerId());
-        if(player != null) {
-            player.sendMessage(Messages.CLAN_INVITE, VariableSet.create().addDescribed("invitation", event.getInvitation()));
-        }
-    }
-
-    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    public void onClanMemberKick(ClanMemberKickEvent event) {
-        if(event.isCancelled()) return;
-
-        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
-        if(!players.isEmpty()){
-            VariableSet variables = VariableSet.create()
-                    .addDescribed("member", event.getMember())
-                    .addDescribed("executor", event.getExecutor());
-
-            for (ConnectedMinecraftPlayer connectedMinecraftPlayer : players) {
-                if(connectedMinecraftPlayer.getUniqueId().equals(event.getMemberId())) {
-                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_KICK, variables);
-                } else {
-                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_KICK_OTHER, variables);
-                }
-            }
-        }
-    }
-
-    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    public void onClanMemberPromote(ClanMemberPromoteEvent event) {
-        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
-        if(!players.isEmpty()){
-            VariableSet variables = VariableSet.create()
-                    .addDescribed("member", event.getMember())
-                    .addDescribed("executor", event.getExecutor());
-
-            for (ConnectedMinecraftPlayer connectedMinecraftPlayer : players) {
-                if(connectedMinecraftPlayer.getUniqueId().equals(event.getMemberId())) {
-                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_PROMOTE, variables);
-                } else {
-                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_PROMOTE_OTHER, variables);
-                }
-            }
-        }
-    }
-
-    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    public void onClanMemberDemote(ClanMemberDemoteEvent event) {
-        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
-        if(!players.isEmpty()) {
-            VariableSet variables = VariableSet.create()
-                    .addDescribed("member", event.getMember())
-                    .addDescribed("executor", event.getExecutor());
-
-            for (ConnectedMinecraftPlayer connectedMinecraftPlayer : players) {
-                if(connectedMinecraftPlayer.getUniqueId().equals(event.getMemberId())) {
-                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_DEMOTE, variables);
-                } else {
-                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_DEMOTE_OTHER, variables);
-                }
-            }
-        }
-    }
-
-    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    public void onClanMemberJoin(ClanMemberJoinEvent event) {
-        if(event.isCancelled()) return;
-
-        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getMember().getClan());
-        if(!players.isEmpty()){
-            VariableSet variables = VariableSet.create()
-                    .addDescribed("member", event.getMember());
-
-            for (ConnectedMinecraftPlayer member : players) {
-                member.sendMessage(Messages.CLAN_JOIN,variables);
-            }
         }
     }
 
@@ -279,6 +193,91 @@ public class PerformListener {
             if(player != null) players.add(player);
         }
         return players;
+    }
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onClanInvite(ClanMemberInviteEvent event) {
+        ConnectedMinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getInvitation().getPlayerId());
+        if(player != null) {
+            player.sendMessage(Messages.CLAN_INVITE, VariableSet.create().addDescribed("invitation", event.getInvitation()));
+        }
+    }
+
+   /*
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onClanMemberKick(ClanMemberKickEvent event) {
+        if(event.isCancelled()) return;
+
+        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
+        if(!players.isEmpty()){
+            VariableSet variables = VariableSet.create()
+                    .addDescribed("member", event.getMember())
+                    .addDescribed("executor", event.getExecutor());
+
+            for (ConnectedMinecraftPlayer connectedMinecraftPlayer : players) {
+                if(connectedMinecraftPlayer.getUniqueId().equals(event.getMemberId())) {
+                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_KICK, variables);
+                } else {
+                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_KICK_OTHER, variables);
+                }
+            }
+        }
+    }
+
+    */
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onClanMemberJoin(ClanMemberJoinEvent event) {
+        if(event.isCancelled()) return;
+
+        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getMember().getClan());
+        if(!players.isEmpty()){
+            VariableSet variables = VariableSet.create()
+                    .addDescribed("member", event.getMember());
+
+            for (ConnectedMinecraftPlayer member : players) {
+                member.sendMessage(Messages.CLAN_JOIN,variables);
+            }
+        }
+    }
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onClanMemberDemote(ClanMemberRoleUpdateEvent event) {
+        if(event.getCause().equals("DEMOTE")){
+            Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
+            if(!players.isEmpty()) {
+                VariableSet variables = VariableSet.create()
+                        .addDescribed("member", event.getMember());
+
+                for (ConnectedMinecraftPlayer connectedMinecraftPlayer : players) {
+                    if(connectedMinecraftPlayer.getUniqueId().equals(event.getMember().getPlayerId())) {
+                        connectedMinecraftPlayer.sendMessage(Messages.CLAN_DEMOTE, variables);
+                    } else {
+                        connectedMinecraftPlayer.sendMessage(Messages.CLAN_DEMOTE_OTHER, variables);
+                    }
+                }
+            }
+        }else if(event.getCause().equals("PROMOTE")) {
+            Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
+            if (!players.isEmpty()) {
+                VariableSet variables = VariableSet.create()
+                        .addDescribed("member", event.getMember());
+
+                for (ConnectedMinecraftPlayer connectedMinecraftPlayer : players) {
+                    if (connectedMinecraftPlayer.getUniqueId().equals(event.getMember().getPlayerId())) {
+                        connectedMinecraftPlayer.sendMessage(Messages.CLAN_PROMOTE, variables);
+                    } else {
+                        connectedMinecraftPlayer.sendMessage(Messages.CLAN_PROMOTE_OTHER, variables);
+                    }
+                }
+            } else {
+                //Clan leave message
+            }
+        }
     }
 
     private Collection<ConnectedMinecraftPlayer> getConnectedClanPlayers(Clan clan){

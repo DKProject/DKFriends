@@ -1,6 +1,11 @@
 package net.pretronic.dkfriends.minecraft.listeners;
 
 import net.pretronic.dkfriends.api.DKFriends;
+import net.pretronic.dkfriends.api.event.clan.ClanDeleteEvent;
+import net.pretronic.dkfriends.api.event.clan.member.*;
+import net.pretronic.dkfriends.api.event.clan.change.ClanChangeNameEvent;
+import net.pretronic.dkfriends.api.event.clan.change.ClanChangeStatusEvent;
+import net.pretronic.dkfriends.api.event.clan.change.ClanChangeTagEvent;
 import net.pretronic.dkfriends.api.event.friend.FriendAddEvent;
 import net.pretronic.dkfriends.api.event.friend.FriendRemoveEvent;
 import net.pretronic.dkfriends.api.event.friend.request.FriendRequestAcceptEvent;
@@ -17,6 +22,8 @@ import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.dkfriends.common.clan.DefaultClan;
+import net.pretronic.dkfriends.common.clan.DefaultClanManager;
 import net.pretronic.dkfriends.common.party.DefaultParty;
 import net.pretronic.dkfriends.common.party.DefaultPartyManager;
 import net.pretronic.dkfriends.common.party.DefaultPartyMember;
@@ -127,5 +134,65 @@ public class SyncListener {
         Party party = event.getParty();
         if(party != null) ((DefaultParty)party).removeMember(event.getMember());
     }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanDelete(ClanDeleteEvent event) {
+        ((DefaultClanManager)dkfriends.getClanManager()).removeClanInternal(event.getClanId());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanChangeName(ClanChangeNameEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.setNameInternal(event.getNewName());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanChangeTag(ClanChangeTagEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.setTagInternal(event.getNewTag());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanChangeStatus(ClanChangeStatusEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.setStatusInternal(event.getNewStatus());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanInvite(ClanMemberInviteEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.addInvitation(event.getInvitation());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanInviteAccept(ClanMemberInvitationAcceptEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.removeInvitation(event.getInvitation().getPlayerId());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanInviteDeny(ClanMemberInvitationDenyEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.removeInvitation(event.getInvitation().getPlayerId());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanJoinEvent(ClanMemberJoinEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.addMember(event.getMember());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanLeaveEvent(ClanMemberJoinEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.removeMember(event.getMember().getPlayerId());
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanLeaveEvent(ClanMemberRoleUpdateEvent event) {
+        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
+        if(clan != null) clan.updateRole(event.getMember().getPlayerId(),event.getNewRole());
+    }
+
 
 }

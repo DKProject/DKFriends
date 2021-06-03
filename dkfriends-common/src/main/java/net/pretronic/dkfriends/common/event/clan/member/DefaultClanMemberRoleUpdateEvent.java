@@ -7,13 +7,23 @@ import net.pretronic.dkfriends.api.event.clan.member.ClanMemberRoleUpdateEvent;
 
 import java.util.UUID;
 
-public class DefaultClanMemberRoleUpdateEvent extends DefaultClanMemberCancelAbleEvent implements ClanMemberRoleUpdateEvent {
+public class DefaultClanMemberRoleUpdateEvent implements ClanMemberRoleUpdateEvent {
 
+    private final ClanMember member;
     private final ClanRole newRole;
+    public final String cause;
+    public transient boolean cancelled;
 
-    public DefaultClanMemberRoleUpdateEvent(Clan clan, ClanMember member, ClanRole newRole) {
-        super(clan, member);
+    public DefaultClanMemberRoleUpdateEvent(ClanMember member, ClanRole newRole,String cause) {
+        this.member = member;
         this.newRole = newRole;
+        this.cause = cause;
+        this.cancelled = false;
+    }
+
+    @Override
+    public String getCause() {
+        return cause;
     }
 
     @Override
@@ -22,7 +32,27 @@ public class DefaultClanMemberRoleUpdateEvent extends DefaultClanMemberCancelAbl
     }
 
     @Override
-    public UUID getMemberId() {
-        return getMember().getPlayerId();
+    public UUID getClanId() {
+        return member.getClanId();
+    }
+
+    @Override
+    public Clan getClan() {
+        return member.getClan();
+    }
+
+    @Override
+    public ClanMember getMember() {
+        return member;
+    }
+
+    @Override
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    @Override
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 }

@@ -8,6 +8,4 @@ import java.util.UUID;
 public interface ClanMemberEvent extends ClanEvent {
 
     ClanMember getMember();
-
-    UUID getMemberId();
 }

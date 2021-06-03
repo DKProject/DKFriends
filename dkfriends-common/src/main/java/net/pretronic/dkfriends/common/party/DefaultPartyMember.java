@@ -14,7 +14,7 @@ import java.util.UUID;
 public class DefaultPartyMember implements PartyMember {
 
     @Inject
-    private final DefaultDKFriends dkFriends;
+    private transient final DefaultDKFriends dkFriends;
 
     private final UUID partyId;
     private final UUID playerId;

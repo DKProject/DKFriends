@@ -4,13 +4,13 @@ import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanInvitation;
 import net.pretronic.dkfriends.api.clan.ClanMember;
 import net.pretronic.dkfriends.api.clan.ClanRole;
-import net.pretronic.dkfriends.api.event.clan.ClanInviteEvent;
+import net.pretronic.dkfriends.api.event.clan.member.ClanMemberInviteEvent;
 import net.pretronic.dkfriends.api.event.clan.ClanMessageEvent;
 import net.pretronic.dkfriends.api.event.clan.change.ClanChangeNameEvent;
 import net.pretronic.dkfriends.api.event.clan.change.ClanChangeStatusEvent;
 import net.pretronic.dkfriends.api.event.clan.change.ClanChangeTagEvent;
-import net.pretronic.dkfriends.api.event.clan.member.ClanMemberAcceptEvent;
-import net.pretronic.dkfriends.api.event.clan.member.ClanMemberDenyEvent;
+import net.pretronic.dkfriends.api.event.clan.member.ClanMemberInvitationAcceptEvent;
+import net.pretronic.dkfriends.api.event.clan.member.ClanMemberInvitationDenyEvent;
 import net.pretronic.dkfriends.api.event.clan.member.ClanMemberJoinEvent;
 import net.pretronic.dkfriends.api.event.clan.member.ClanMemberLeaveEvent;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
@@ -27,14 +27,16 @@ import net.pretronic.dkfriends.common.event.clan.member.DefaultClanMemberLeaveEv
 import net.pretronic.libraries.document.Document;
 import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.Validate;
+import net.pretronic.libraries.utility.annonations.Internal;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.function.Predicate;
 
 public class DefaultClan implements Clan {
 
-    protected final DefaultDKFriends dkFriends;
+    private final DefaultDKFriends dkFriends;
 
     private final UUID id;
     private String name;
@@ -69,7 +71,7 @@ public class DefaultClan implements Clan {
 
     @Override
     public boolean setName(String name) {
-        ClanChangeNameEvent event = new DefaultClanChangeNameEvent(this, name);
+        ClanChangeNameEvent event = new DefaultClanChangeNameEvent(dkFriends,this, name);
         this.dkFriends.getEventBus().callEvent(ClanChangeNameEvent.class, event);
         if(event.isCancelled()) return false;
 
@@ -88,7 +90,7 @@ public class DefaultClan implements Clan {
 
     @Override
     public boolean setTag(String tag) {
-        ClanChangeTagEvent event = new DefaultClanChangeTagEvent(this, tag);
+        ClanChangeTagEvent event = new DefaultClanChangeTagEvent(dkFriends,this, tag);
         this.dkFriends.getEventBus().callEvent(ClanChangeTagEvent.class, event);
         if(event.isCancelled()) return false;
 
@@ -107,7 +109,7 @@ public class DefaultClan implements Clan {
 
     @Override
     public boolean setStatus(String status) {
-        ClanChangeStatusEvent event = new DefaultClanChangeStatusEvent(this, tag);
+        ClanChangeStatusEvent event = new DefaultClanChangeStatusEvent(dkFriends,this, tag);
         this.dkFriends.getEventBus().callEvent(ClanChangeStatusEvent.class, event);
         if(event.isCancelled()) return false;
 
@@ -166,9 +168,9 @@ public class DefaultClan implements Clan {
         if(isMember(playerId)) throw new IllegalArgumentException("Already a member of this clan (" + getId() + ")");
 
         long time = System.currentTimeMillis();
-        ClanMember member = new DefaultClanMember(this,playerId, time, role);
+        ClanMember member = new DefaultClanMember(dkFriends,this,playerId, time, role);
 
-        ClanMemberJoinEvent event = new DefaultClanMemberJoinEvent(this, member);
+        ClanMemberJoinEvent event = new DefaultClanMemberJoinEvent(member);
         this.dkFriends.getEventBus().callEvent(ClanMemberJoinEvent.class, event);
         if(event.isCancelled()) return null;
 
@@ -192,7 +194,7 @@ public class DefaultClan implements Clan {
                     +") belongs not to this clan (" + getId() + ")");
         }
 
-        ClanMemberLeaveEvent event = new DefaultClanMemberLeaveEvent(this, member);
+        ClanMemberLeaveEvent event = new DefaultClanMemberLeaveEvent(member);
         this.dkFriends.getEventBus().callEvent(ClanMemberLeaveEvent.class, event);
         if(event.isCancelled()) return false;
 
@@ -210,8 +212,8 @@ public class DefaultClan implements Clan {
         if(invitation.getClanId() != getId()) {
             throw new IllegalArgumentException("Invitation is not from this clan (" + getId() + ")");
         }
-        ClanMemberAcceptEvent event = new DefaultClanMemberAcceptEvent(this, invitation);
-        this.dkFriends.getEventBus().callEvent(ClanMemberAcceptEvent.class, event);
+        ClanMemberInvitationAcceptEvent event = new DefaultClanMemberAcceptEvent(invitation);
+        this.dkFriends.getEventBus().callEvent(ClanMemberInvitationAcceptEvent.class, event);
 
         ClanMember member = addMember(invitation.getPlayerId());
         if(member == null) return null;
@@ -229,8 +231,8 @@ public class DefaultClan implements Clan {
         if(invitation.getClanId() != getId()) {
             throw new IllegalArgumentException("Invitation is not from this clan (" + getId() + ")");
         }
-        ClanMemberDenyEvent event = new DefaultClanMemberDenyEvent(this, invitation);
-        this.dkFriends.getEventBus().callEvent(ClanMemberDenyEvent.class, event);
+        ClanMemberInvitationDenyEvent event = new DefaultClanMemberDenyEvent(this, invitation);
+        this.dkFriends.getEventBus().callEvent(ClanMemberInvitationDenyEvent.class, event);
 
         getInvitationsOrLoad().remove(invitation);
         this.dkFriends.getStorage().getClanInvitations().delete()
@@ -265,8 +267,8 @@ public class DefaultClan implements Clan {
         long time = System.currentTimeMillis();
         DefaultClanInvitation invitation = new DefaultClanInvitation(this.dkFriends, getId(), playerId, inviter.getId(), time);
 
-        ClanInviteEvent event = new DefaultClanInviteEvent(invitation);
-        this.dkFriends.getEventBus().callEvent(ClanInviteEvent.class, event);
+        ClanMemberInviteEvent event = new DefaultClanInviteEvent(invitation);
+        this.dkFriends.getEventBus().callEvent(ClanMemberInviteEvent.class, event);
         if(event.isCancelled()) return null;
 
         this.dkFriends.getStorage().getClanInvitations().insert()
@@ -281,7 +283,7 @@ public class DefaultClan implements Clan {
 
     @Override
     public void sendMessage(String channel, String message) {
-        ClanMessageEvent event = new DefaultClanMessageEvent(this,channel,message);
+        ClanMessageEvent event = new DefaultClanMessageEvent(dkFriends,this,channel,message);
         this.dkFriends.getEventBus().callEvent(event);
     }
 
@@ -303,11 +305,54 @@ public class DefaultClan implements Clan {
         if(this.members == null) {
             this.members = new ArrayList<>();
             this.dkFriends.getStorage().getClanMembers().find().where("ClanId", this.id).execute().loadIn(this.members,
-                    resultEntry -> new DefaultClanMember(this,
+                    resultEntry -> new DefaultClanMember(dkFriends,this,
                             resultEntry.getUniqueId("PlayerId"),
                             resultEntry.getLong("Joined"),
                             ClanRole.valueOf(resultEntry.getString("Role"))));
         }
         return this.members;
+    }
+
+    @Internal
+    public void setNameInternal(String name){
+        this.name = name;
+    }
+
+    @Internal
+    public void setTagInternal(String tag){
+        this.tag = tag;
+    }
+
+    @Internal
+    public void setStatusInternal(String status){
+        this.status = status;
+    }
+
+    @Internal
+    public void addInvitation(ClanInvitation invitation){
+        if(invitations != null) invitations.add(invitation);
+    }
+
+    @Internal
+    public void removeInvitation(UUID playerId){
+        if(invitations != null) Iterators.removeOne(this.invitations, invitation -> invitation.getPlayerId().equals(playerId));
+    }
+
+    @Internal
+    public void addMember(ClanMember member){
+        if(members != null) members.add(member);
+    }
+
+    @Internal
+    public void removeMember(UUID playerId){
+        if(members != null) Iterators.removeOne(this.members, invitation -> invitation.getPlayerId().equals(playerId));
+    }
+
+    @Internal
+    public void updateRole(UUID playerId,ClanRole role){
+        if(members != null) {
+            ClanMember member = Iterators.findOne(this.members, invitation -> invitation.getPlayerId().equals(playerId));
+            if(member != null) member.setRole(role);
+        }
     }
 }
