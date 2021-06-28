@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.command.Completable;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
@@ -11,7 +12,9 @@ import net.pretronic.libraries.message.bml.variable.VariableSet;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 
-public class RemoveCommand extends BasicCommand {
+import java.util.Collection;
+
+public class RemoveCommand extends BasicCommand implements Completable {
 
     public RemoveCommand(ObjectOwner owner) {
         super(owner, CommandConfiguration.name("remove","r"));
@@ -37,5 +40,10 @@ public class RemoveCommand extends BasicCommand {
         }
 
         player.removeFriend(friend);
+    }
+
+    @Override
+    public Collection<String> complete(CommandSender sender, String[] args) {
+        return CommandUtil.completeFriends(sender,args);
     }
 }

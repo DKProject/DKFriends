@@ -4,14 +4,19 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.command.Completable;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
 import net.pretronic.libraries.message.bml.variable.VariableSet;
+import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 
-public class DenyCommand extends BasicCommand {
+import java.util.Collection;
+import java.util.Collections;
+
+public class DenyCommand extends BasicCommand implements Completable {
 
     public DenyCommand(ObjectOwner owner) {
         super(owner, CommandConfiguration.name("deny"));
@@ -37,5 +42,18 @@ public class DenyCommand extends BasicCommand {
         }
 
         player.denyFriendRequest(request);
+    }
+
+    @Override
+    public Collection<String> complete(CommandSender sender, String[] args) {
+        DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
+        if(args.length == 0){
+            return Iterators.map(player.getFriendRequests(), request -> request.getRequester().getName());
+        }else  if(args.length == 1){
+            return Iterators.map(player.getFriendRequests(), request -> request.getRequester().getName()
+                    , request -> request.getRequester().getName().toLowerCase().startsWith(args[0].toLowerCase()));
+        }else {
+            return Collections.emptyList();
+        }
     }
 }

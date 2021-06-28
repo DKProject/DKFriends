@@ -17,6 +17,8 @@ public interface DKFriendsPlayer {
 
     UUID getId();
 
+    String getName();
+
     boolean isOnline();
 
     boolean hasPermission(String permission);

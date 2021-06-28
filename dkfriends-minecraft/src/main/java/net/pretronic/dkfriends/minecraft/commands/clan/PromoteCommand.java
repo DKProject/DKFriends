@@ -5,6 +5,7 @@ import net.pretronic.dkfriends.api.clan.ClanMember;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.command.Completable;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
@@ -12,7 +13,9 @@ import net.pretronic.libraries.message.bml.variable.VariableSet;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 
-public class PromoteCommand extends BasicCommand {
+import java.util.Collection;
+
+public class PromoteCommand extends BasicCommand implements Completable {
 
     public PromoteCommand(ObjectOwner owner) {
         super(owner, CommandConfiguration.name("promote"));
@@ -44,5 +47,10 @@ public class PromoteCommand extends BasicCommand {
                 }
             }
         }
+    }
+
+    @Override
+    public Collection<String> complete(CommandSender sender, String[] args) {
+        return CommandUtil.completeClanMembers(sender,args);
     }
 }

@@ -6,6 +6,7 @@ import net.pretronic.dkfriends.api.party.PartyManager;
 import net.pretronic.dkfriends.api.party.PartyMember;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.command.Completable;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;

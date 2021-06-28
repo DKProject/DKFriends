@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.command.Completable;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
@@ -14,7 +15,9 @@ import org.mcnative.runtime.api.player.ConnectedMinecraftPlayer;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 import org.mcnative.runtime.api.player.OnlineMinecraftPlayer;
 
-public class JumpCommand extends BasicCommand {
+import java.util.Collection;
+
+public class JumpCommand extends BasicCommand implements Completable {
 
     public JumpCommand(ObjectOwner owner) {
         super(owner, CommandConfiguration.name("jump","j"));
@@ -61,5 +64,10 @@ public class JumpCommand extends BasicCommand {
 
         sender.sendMessage(Messages.COMMAND_FRIEND_JUMP_SUCCESS);
         ((ConnectedMinecraftPlayer)sender).connect(server);
+    }
+
+    @Override
+    public Collection<String> complete(CommandSender sender, String[] args) {
+        return CommandUtil.completeOnlineFriends(sender,args);
     }
 }

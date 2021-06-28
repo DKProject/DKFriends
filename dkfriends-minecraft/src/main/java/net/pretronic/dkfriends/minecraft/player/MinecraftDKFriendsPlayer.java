@@ -29,6 +29,11 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
     }
 
     @Override
+    public String getName() {
+        return player.getName();
+    }
+
+    @Override
     public boolean isOnline() {
         return player.isOnline();
     }

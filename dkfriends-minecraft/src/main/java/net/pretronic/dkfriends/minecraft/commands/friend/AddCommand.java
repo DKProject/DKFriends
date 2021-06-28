@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.command.Completable;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.MainCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
@@ -12,7 +13,9 @@ import net.pretronic.libraries.message.bml.variable.VariableSet;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 
-public class AddCommand extends BasicCommand {
+import java.util.Collection;
+
+public class AddCommand extends BasicCommand implements Completable {
 
     public AddCommand(ObjectOwner owner) {
         super(owner, CommandConfiguration.name("add","a"));
@@ -58,5 +61,10 @@ public class AddCommand extends BasicCommand {
         sender.sendMessage(Messages.COMMAND_FRIEND_ADD_SUCCESS, VariableSet.create()
                 .addDescribed("player",target));
 
+    }
+
+    @Override
+    public Collection<String> complete(CommandSender sender, String[] args) {
+        return CommandUtil.completeOnlinePlayer(sender,args);
     }
 }
