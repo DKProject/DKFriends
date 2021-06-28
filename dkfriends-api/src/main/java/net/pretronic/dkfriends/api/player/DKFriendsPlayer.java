@@ -19,6 +19,8 @@ public interface DKFriendsPlayer {
 
     boolean isOnline();
 
+    boolean hasPermission(String permission);
+
 
     Collection<Friend> getFriends();
 
@@ -119,5 +121,22 @@ public interface DKFriendsPlayer {
     boolean isInClan();
 
     boolean leaveClan();
+
+
+    int getMaxPartySize();
+
+    int getMaxFriends();
+
+
+    void setSetting(String key, Object value);
+
+    Object getSetting(String key);
+
+
+    void setActionSetting(String key,String group,boolean value);
+
+    void setActionSetting(String key,boolean value);
+
+    boolean isActionAllow(String setting,DKFriendsPlayer target);
 
 }

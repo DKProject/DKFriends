@@ -65,5 +65,9 @@ public interface Clan {
 
     ClanInvitation sendInvitation(DKFriendsPlayer inviter, UUID playerId);
 
-    void sendMessage(String channel, String message);
+    default void sendMessage(DKFriendsPlayer sender, String message){
+        sendMessage(sender,message,DEFAULT_MESSAGE_CHANNEL);
+    }
+
+    void sendMessage(DKFriendsPlayer sender, String message, String channel);
 }

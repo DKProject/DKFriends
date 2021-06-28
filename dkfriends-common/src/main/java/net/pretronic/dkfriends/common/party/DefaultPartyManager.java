@@ -3,12 +3,14 @@ package net.pretronic.dkfriends.common.party;
 import net.pretronic.databasequery.api.collection.DatabaseCollection;
 import net.pretronic.databasequery.api.query.SearchOrder;
 import net.pretronic.databasequery.api.query.result.QueryResultEntry;
+import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.event.party.PartyCreateEvent;
 import net.pretronic.dkfriends.api.event.party.PartyDeleteEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyManager;
 import net.pretronic.dkfriends.api.party.PartyMember;
 import net.pretronic.dkfriends.api.party.PartyRole;
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.event.party.DefaultPartyCreateEvent;
 import net.pretronic.dkfriends.common.event.party.DefaultPartyDeleteEvent;
@@ -66,10 +68,15 @@ public class DefaultPartyManager implements PartyManager {
 
     @Override
     public Party createParty(UUID ownerId) {
-        if(isInParty(ownerId)) throw new IllegalArgumentException("Player is already in a party");
-        DefaultParty party = new DefaultParty(dkFriends,UUID.randomUUID(),"Unset","Unset",false);
+        return createParty(dkFriends.getPlayerManager().getPlayer(ownerId));
+    }
 
-        PartyCreateEvent event = new DefaultPartyCreateEvent(dkFriends,party,ownerId);
+    @Override
+    public Party createParty(DKFriendsPlayer owner) {
+        if(isInParty(owner.getId())) throw new IllegalArgumentException("Player is already in a party");
+        DefaultParty party = new DefaultParty(dkFriends,UUID.randomUUID(),"Unset","Unset",false,owner.getMaxPartySize());
+
+        PartyCreateEvent event = new DefaultPartyCreateEvent(dkFriends,party,owner.getId(),party.getMaxSize());
         dkFriends.getEventBus().callEvent(PartyCreateEvent.class,event);
         if(event.isCancelled()) return null;
 
@@ -80,13 +87,15 @@ public class DefaultPartyManager implements PartyManager {
                 .set("Topic",party.getTopic())
                 .set("Properties", DocumentFileType.JSON.getWriter().write(party.getProperties(),false))
                 .set("Time",party.getCreationTime())
+                .set("MaxSize",party.getMaxSize())
                 .execute();
         this.parties.add(party);
 
-        party.addInternal(new DefaultPartyMember(dkFriends,party,ownerId,party.getCreationTime(),PartyRole.LEADER));
+        party.addInternal(new DefaultPartyMember(dkFriends,party,owner.getId(),party.getCreationTime(),PartyRole.LEADER));
 
         return party;
     }
+
 
     @Override
     public void deleteParty(UUID partyId) {
@@ -120,7 +129,8 @@ public class DefaultPartyManager implements PartyManager {
                 this.parties.add(new DefaultParty(dkFriends,entry.getUniqueId("Id")
                         ,entry.getString("Topic")
                         ,entry.getString("Category")
-                        ,entry.getBoolean("Public")));
+                        ,entry.getBoolean("Public")
+                        ,entry.getInt("MaxSize")));
             }
 
             DefaultParty party = null;

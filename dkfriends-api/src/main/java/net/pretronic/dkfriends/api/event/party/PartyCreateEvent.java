@@ -14,4 +14,6 @@ public interface PartyCreateEvent extends DKFriendsPlayerEvent, Cancellable {
     UUID getPartyId();
 
     Party getParty();
+
+    int getMaxSize();
 }

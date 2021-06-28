@@ -1,6 +1,7 @@
 package net.pretronic.dkfriends.minecraft.commands.friend;
 
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.BasicCommand;
@@ -41,6 +42,12 @@ public class AddCommand extends BasicCommand {
         }
 
         DKFriendsPlayer targetFriend = target.getAs(DKFriendsPlayer.class);
+        if(!targetFriend.isActionAllow(PlayerSettings.FRIEND_ALLOW_REQUESTS,player)){
+            sender.sendMessage(Messages.ERROR_FRIEND_REQUEST_NOT_ALLOWED, VariableSet.create()
+                    .addDescribed("player",target));
+            return;
+        }
+
         if(targetFriend.hasFriendRequest(player)){
             sender.sendMessage(Messages.ERROR_FRIEND_REQUEST_ALREADY, VariableSet.create()
                     .addDescribed("player",target));

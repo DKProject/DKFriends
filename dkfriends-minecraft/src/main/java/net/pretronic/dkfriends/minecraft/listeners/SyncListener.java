@@ -27,7 +27,7 @@ import net.pretronic.dkfriends.common.clan.DefaultClanManager;
 import net.pretronic.dkfriends.common.party.DefaultParty;
 import net.pretronic.dkfriends.common.party.DefaultPartyManager;
 import net.pretronic.dkfriends.common.party.DefaultPartyMember;
-import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayer;
+import net.pretronic.dkfriends.minecraft.player.MinecraftDKFriendsPlayer;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.libraries.event.EventPriority;
 import net.pretronic.libraries.event.network.NetworkListener;
@@ -44,7 +44,7 @@ public class SyncListener {
     public void onRequestSend(FriendRequestSendEvent event) {
         DKFriendsPlayer player = dkfriends.getPlayerManager().getLoadedPlayer(event.getPlayerId());
         if(player != null){
-            ((DefaultDKFriendsPlayer)player).addFriendRequest(event.getRequest());
+            ((MinecraftDKFriendsPlayer)player).addFriendRequest(event.getRequest());
         }
     }
 
@@ -52,7 +52,7 @@ public class SyncListener {
     public void onRequestDeny(FriendRequestDenyEvent event) {
         DKFriendsPlayer player = dkfriends.getPlayerManager().getLoadedPlayer(event.getPlayerId());
         if(player != null){
-            ((DefaultDKFriendsPlayer)player).removeFriendRequest(event.getRequest());
+            ((MinecraftDKFriendsPlayer)player).removeFriendRequest(event.getRequest());
         }
     }
 
@@ -60,7 +60,7 @@ public class SyncListener {
     public void onRequestAccept(FriendRequestAcceptEvent event) {
         DKFriendsPlayer player = dkfriends.getPlayerManager().getLoadedPlayer(event.getPlayerId());
         if(player != null){
-            ((DefaultDKFriendsPlayer)player).removeFriendRequest(event.getRequest());
+            ((MinecraftDKFriendsPlayer)player).removeFriendRequest(event.getRequest());
         }
     }
 
@@ -69,12 +69,12 @@ public class SyncListener {
     public void onFriendAdd(FriendAddEvent event) {
         DKFriendsPlayer player = dkfriends.getPlayerManager().getLoadedPlayer(event.getPlayerId());
         if(player != null){
-            ((DefaultDKFriendsPlayer)player).addFriend(event.getFriend());
+            ((MinecraftDKFriendsPlayer)player).addFriend(event.getFriend());
         }
 
         DKFriendsPlayer friend = dkfriends.getPlayerManager().getLoadedPlayer(event.getFriend().getFriendId());
         if(friend != null){
-            ((DefaultDKFriendsPlayer)friend).addFriend(new DefaultFriend(dkfriends,friend,event.getFriend().getPlayerId()
+            ((MinecraftDKFriendsPlayer)friend).addFriend(new DefaultFriend(dkfriends,friend,event.getFriend().getPlayerId()
                     ,event.getFriend().getFriendSince(),event.getFriend().isFavorite(),event.getFriend().getRelation()));
         }
     }
@@ -83,18 +83,18 @@ public class SyncListener {
     public void onFriendRemove(FriendRemoveEvent event) {
         DKFriendsPlayer player = dkfriends.getPlayerManager().getLoadedPlayer(event.getPlayerId());
         if(player != null){
-            ((DefaultDKFriendsPlayer)player).removeFriendInternal(event.getFriend().getFriendId());
+            ((MinecraftDKFriendsPlayer)player).removeFriendInternal(event.getFriend().getFriendId());
         }
 
         DKFriendsPlayer friend = dkfriends.getPlayerManager().getLoadedPlayer(event.getFriend().getFriendId());
         if(friend != null){
-            ((DefaultDKFriendsPlayer)friend).removeFriendInternal(event.getPlayerId());
+            ((MinecraftDKFriendsPlayer)friend).removeFriendInternal(event.getPlayerId());
         }
     }
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
     public void onPartyCreate(PartyCreateEvent event) {
-        DefaultParty party = new DefaultParty((DefaultDKFriends) dkfriends,event.getPartyId(),"Unset","Unset",false);
+        DefaultParty party = new DefaultParty((DefaultDKFriends) dkfriends,event.getPartyId(),"Unset","Unset",false,event.getMaxSize());
         party.addInternal(new DefaultPartyMember((DefaultDKFriends) dkfriends,party,event.getPlayerId(),party.getCreationTime(), PartyRole.LEADER));
         ((DefaultPartyManager)dkfriends.getPartyManager()).addParty(party);
     }

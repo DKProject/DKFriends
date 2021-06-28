@@ -27,9 +27,8 @@ import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.annonations.Internal;
 
 import java.util.*;
-import java.util.function.Predicate;
 
-public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
+public abstract class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
     private final DefaultDKFriends dkFriends;
     private final UUID uniqueId;
@@ -45,11 +44,6 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
     @Override
     public UUID getId() {
         return uniqueId;
-    }
-
-    @Override
-    public boolean isOnline() {
-        return false;
     }
 
     @Override
@@ -344,7 +338,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
     @Override
     public Party createParty() {
-        return dkFriends.getPartyManager().createParty(uniqueId);
+        return dkFriends.getPartyManager().createParty(this);
     }
 
     @Override
@@ -406,7 +400,7 @@ public class DefaultDKFriendsPlayer implements DKFriendsPlayer {
             this.friends = new ArrayList<>();
             dkFriends.getStorage().getFriends().find()
                     .where("PlayerId",uniqueId)
-                    .execute().loadIn(this.friends, friend -> new DefaultFriend(dkFriends,DefaultDKFriendsPlayer.this
+                    .execute().loadIn(this.friends, friend -> new DefaultFriend(dkFriends, DefaultDKFriendsPlayer.this
                             ,friend.getUniqueId("FriendId")
                             ,friend.getLong("Time")
                             ,friend.getBoolean("Favorite")

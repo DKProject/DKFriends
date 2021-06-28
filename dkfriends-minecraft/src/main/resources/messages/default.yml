@@ -19,6 +19,7 @@ messages:
   dkfriends.error.friend.already: '${dkfriends.prefix.friend} &e{player.displayName} &7is already your friend'
   dkfriends.error.friend.not: '${dkfriends.prefix.friend} &e{player.displayName} &cis not your friend'
   dkfriends.error.friend.empty: '${dkfriends.prefix.friend} &cYou don''t have any friends :('
+  dkfriends.error.friend.request.notAllowed: '${dkfriends.prefix.friend} &cYou are not allowed to send a friend request to this player.'
   dkfriends.error.friend.request.already: '${dkfriends.prefix.friend} &cYou have already sent a friend request to &a{player.displayName}'
   dkfriends.error.friend.request.not: '${dkfriends.prefix.friend} &cYou don''t have a friend request from &a{player.displayName}'
   dkfriends.error.friend.request.empty: '${dkfriends.prefix.friend} &cYou don''t have any friend requests'
@@ -40,9 +41,12 @@ messages:
   &7/friend favorite <player> &8- &7Mark a friend as favorite
   &7/friend jump <player> &8- &7Jump to a friend
   &7/friend message <player> <message> &8- &7Send a message
-  &7/friend setting <setting> &8- &7Change a setting'
+  &7/friend setting <setting> <value> [group] &8- &7Change a setting'
   dkfriends.command.friend.add.success: '${dkfriends.prefix.friend} &7You have sent a friend request to &e{player.displayName}'
+  dkfriends.command.friend.jump.notAllowed: '${dkfriends.prefix.friend} &cYou are not allowed to jump to this player'
   dkfriends.command.friend.jump.success: '${dkfriends.prefix.friend} &7Connecting to server..'
+  dkfriends.command.friend.message: '${dkfriends.prefix.friend} &e{sender.displayName}&8: &7{message}'
+  dkfriends.command.friend.message.notAllowed: '${dkfriends.prefix.friend} &cYou are not allowed to send a message to this player'
   dkfriends.command.friend.list: '${dkfriends.prefix.friend} &7Your friends &8| &7Page&8: &e{page} @for("friend" in {friends},${dkfriends.command.friend.list.loop},"\n","\n")'
   dkfriends.command.friend.list.loop: '@if({friend.online},${dkfriends.command.friend.list.loop.online},${dkfriends.command.friend.list.loop.offline})'
   dkfriends.command.friend.list.loop.online: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &aOnline &8(&efriend.server)'
@@ -68,8 +72,9 @@ messages:
   &7/party jump &8- &7Jump to the party leader
   &7/party message <message> &8- &7Send a message'
   dkfriends.command.party.created: '${dkfriends.prefix.party} &7A new party was created
-  ${dkfriends.prefix.party} !["&8[&aInvite your friends&8]"]("run:///friend party") ${dkfriends.prefix.party} !["&e[&aMake public&8]"]("run:///party public")'
-  dkfriends.command.party.invited: '${dkfriends.prefix.party} &e{player.displayName} &7was invited to your party'
+  ${dkfriends.prefix.party} !["&8[&aInvite your friends&8]"]("run:///friend party") !["&8[&cMake public&8]"]("run:///party public")'
+  dkfriends.command.party.invite.notAllowed: '${dkfriends.prefix.party} &cYou are not allowed to invite this player ro your party'
+  dkfriends.command.party.invite.success: '${dkfriends.prefix.party} &e{player.displayName} &7was invited to your party'
   dkfriends.command.party.info: '${dkfriends.prefix.party}
   &8» &7Public: &e{party.public}
   &8» &7Category: &e{party.category}
@@ -152,6 +157,10 @@ messages:
   dkfriends.clan.demote: '${dkfriends.prefix.clan} &7You were demoted in your clan.'
   dkfriends.clan.demote.other: '${dkfriends.prefix.clan} &e{member.displayName} &7was demoted in the clan'
   dkfriends.clan.join: '${dkfriends.prefix.clan} &e{member.displayName} &7has joined your clan'
+  dkfriends.clan.leave: '${dkfriends.prefix.clan} &e{member.displayName} &7has left your clan'
+  dkfriends.clan.login: '${dkfriends.prefix.clan} &e{player.displayName} &7is now &aonline'
+  dkfriends.clan.logout: '${dkfriends.prefix.clan} &e{player.displayName} &7is now &coffline'
+  dkfriends.clan.message: '${dkfriends.prefix.clan} &e{player.displayName}&8: &7{message}'
 
   dkfriends.command.clan.help: '${dkfriends.prefix.clan} &7Available commands
   &7/clan accept <clan> &8- &7Accept a clan invitation

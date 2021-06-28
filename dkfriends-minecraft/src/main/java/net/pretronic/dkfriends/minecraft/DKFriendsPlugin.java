@@ -10,7 +10,7 @@ import net.pretronic.dkfriends.common.DKFriendStorage;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.party.DefaultPartyInvitation;
 import net.pretronic.dkfriends.common.party.DefaultPartyMember;
-import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayerManager;
+import net.pretronic.dkfriends.minecraft.player.MinecraftDKFriendsPlayerManager;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
 import net.pretronic.dkfriends.minecraft.commands.DKFriendsCommand;
@@ -57,6 +57,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
 
         DefaultDKFriends dkfriends = new DefaultDKFriends(getDescription().getVersion().getName()
                 ,new DKFriendStorage(getDatabaseOrCreate())
+                ,new MinecraftDKFriendsPlayerManager()
                 ,getRuntime().getLocal().getEventBus());
 
         getRuntime().getRegistry().registerService(this,DKFriends.class,dkfriends);
@@ -68,8 +69,8 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         registerDocumentAdapters();
 
         if(McNative.getInstance().isNetworkAvailable()){
-            getRuntime().getNetwork().registerStatusCallback(this,((DefaultDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
-            getRuntime().getNetwork().getMessenger().registerSynchronizingChannel("dkfriends_players", this, UUID.class,((DefaultDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
+            getRuntime().getNetwork().registerStatusCallback(this,((MinecraftDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
+            getRuntime().getNetwork().getMessenger().registerSynchronizingChannel("dkfriends_players", this, UUID.class,((MinecraftDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
         }
 
        // DKFriendsGui.register();

@@ -1,6 +1,7 @@
 package net.pretronic.dkfriends.minecraft.commands.friend;
 
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.BasicCommand;
@@ -40,6 +41,13 @@ public class JumpCommand extends BasicCommand {
         if(onlineTarget == null){
             sender.sendMessage(Messages.ERROR_PLAYER_NOT_ONLINE, VariableSet.create()
                     .addDescribed("prefix",Messages.PREFIX_FRIEND));
+            return;
+        }
+
+        DKFriendsPlayer targetFriend = onlineTarget.getAs(DKFriendsPlayer.class);
+        if(!targetFriend.isActionAllow(PlayerSettings.FRIEND_ALLOW_JUMP,player)){
+            sender.sendMessage(Messages.COMMAND_FRIEND_JUMP_NOT_ALLOWED, VariableSet.create()
+                    .addDescribed("player",target));
             return;
         }
 

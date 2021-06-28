@@ -1,35 +1,36 @@
-package net.pretronic.dkfriends.common.player;
+package net.pretronic.dkfriends.minecraft.player;
 
+import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayerManager;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
-import net.pretronic.libraries.caching.Cache;
 import net.pretronic.libraries.caching.CacheQuery;
 import net.pretronic.libraries.caching.synchronisation.ShadowArraySynchronizableCache;
 import net.pretronic.libraries.caching.synchronisation.SynchronizableCache;
 import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.Validate;
+import net.pretronic.libraries.utility.interfaces.Initializable;
+import org.mcnative.runtime.api.McNative;
+import org.mcnative.runtime.api.player.MinecraftPlayer;
 
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Predicate;
 
-public class DefaultDKFriendsPlayerManager implements DKFriendsPlayerManager {
+public class MinecraftDKFriendsPlayerManager implements DKFriendsPlayerManager, Initializable<DefaultDKFriends> {
 
-    private final DefaultDKFriends dkFriends;
-    private final SynchronizableCache<DefaultDKFriendsPlayer,UUID> players;
+    private DefaultDKFriends dkFriends;
+    private final SynchronizableCache<MinecraftDKFriendsPlayer,UUID> players;
 
-    public DefaultDKFriendsPlayerManager(DefaultDKFriends dkFriends) {
-        this.dkFriends = dkFriends;
+    public MinecraftDKFriendsPlayerManager() {
         this.players = new ShadowArraySynchronizableCache<>();
         this.players.setMaxSize(1024);
-        this.players.setExpireAfterAccess(10, TimeUnit.MINUTES);
+        this.players.setExpireAfterAccess(8, TimeUnit.MINUTES);
         this.players.registerQuery("get", new PlayerGetter());
         this.players.setClearOnDisconnect(true);
         this.players.setSkipOnDisconnect(true);
     }
 
-    public SynchronizableCache<DefaultDKFriendsPlayer, UUID> getPlayerCache() {
+    public SynchronizableCache<MinecraftDKFriendsPlayer, UUID> getPlayerCache() {
         return players;
     }
 
@@ -43,10 +44,15 @@ public class DefaultDKFriendsPlayerManager implements DKFriendsPlayerManager {
         return Iterators.findOne(players.getCachedObjects(), friend -> friend.getId().equals(uniqueId));
     }
 
-    private class PlayerGetter implements CacheQuery<DefaultDKFriendsPlayer> {
+    @Override
+    public void initialise(DefaultDKFriends dkFriends) {
+        this.dkFriends = dkFriends;
+    }
+
+    private class PlayerGetter implements CacheQuery<MinecraftDKFriendsPlayer> {
 
         @Override
-        public boolean check(DefaultDKFriendsPlayer player, Object[] identifiers) {
+        public boolean check(MinecraftDKFriendsPlayer player, Object[] identifiers) {
             return player.getId().equals(identifiers[0]);
         }
 
@@ -56,8 +62,10 @@ public class DefaultDKFriendsPlayerManager implements DKFriendsPlayerManager {
         }
 
         @Override
-        public DefaultDKFriendsPlayer load(Object[] identifiers) {
-            return new DefaultDKFriendsPlayer(dkFriends, (UUID) identifiers[0]);
+        public MinecraftDKFriendsPlayer load(Object[] identifiers) {
+            MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer((UUID) identifiers[0]);
+            if(player == null) return null;
+            return new MinecraftDKFriendsPlayer(dkFriends, (UUID) identifiers[0],player);
         }
     }
 }

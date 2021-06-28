@@ -27,6 +27,7 @@ public class PartyCommand extends MainCommand implements NotFindable {
         registerCommand(new KickCommand(owner));
 
         registerCommand(new PublicCommand(owner));
+        registerCommand(new SettingsCommand(owner));
 
         registerCommand(new MessageCommand(owner));
         registerCommand(new JumpCommand(owner));

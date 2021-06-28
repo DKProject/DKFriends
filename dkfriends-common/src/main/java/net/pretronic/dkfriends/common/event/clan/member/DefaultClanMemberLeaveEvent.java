@@ -9,10 +9,12 @@ import java.util.UUID;
 public class DefaultClanMemberLeaveEvent implements ClanMemberLeaveEvent {
 
     private final ClanMember member;
+    private final String cause;
     private transient boolean cancelled;
 
-    public DefaultClanMemberLeaveEvent(ClanMember member) {
+    public DefaultClanMemberLeaveEvent(ClanMember member,String cause) {
         this.member = member;
+        this.cause = cause;
         this.cancelled = false;
     }
 
@@ -39,5 +41,10 @@ public class DefaultClanMemberLeaveEvent implements ClanMemberLeaveEvent {
     @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
+    }
+
+    @Override
+    public String getCause() {
+        return cause;
     }
 }

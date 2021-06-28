@@ -6,7 +6,7 @@ import net.pretronic.dkfriends.common.clan.DefaultClanMember;
 import net.pretronic.dkfriends.common.party.DefaultParty;
 import net.pretronic.dkfriends.common.party.DefaultPartyInvitation;
 import net.pretronic.dkfriends.common.party.DefaultPartyMember;
-import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayer;
+import net.pretronic.dkfriends.minecraft.player.MinecraftDKFriendsPlayer;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriber;
@@ -29,7 +29,7 @@ public class DescriberRegistrar {
         VariableDescriber<DefaultFriend> friendDescriber = VariableDescriberRegistry.registerDescriber(DefaultFriend.class);
         friendDescriber.setForwardFunction(DefaultFriend::getFriend);
 
-        VariableDescriber<DefaultDKFriendsPlayer> playerDescriber = VariableDescriberRegistry.registerDescriber(DefaultDKFriendsPlayer.class);
+        VariableDescriber<MinecraftDKFriendsPlayer> playerDescriber = VariableDescriberRegistry.registerDescriber(MinecraftDKFriendsPlayer.class);
         playerDescriber.setForwardFunction(player -> McNative.getInstance().getPlayerManager().getPlayer(player.getId()));//@Todo optimize with holder caching
 
         VariableDescriberRegistry.registerDescriber(DefaultClan.class);

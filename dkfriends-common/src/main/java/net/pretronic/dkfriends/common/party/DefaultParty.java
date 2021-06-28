@@ -43,8 +43,9 @@ public class DefaultParty implements Party {
     private String topic;
     private String category;
     private boolean public0;
+    private final int maxSize;
 
-    public DefaultParty(DefaultDKFriends dkfriends, UUID id, String topic, String category, boolean public0) {
+    public DefaultParty(DefaultDKFriends dkfriends, UUID id, String topic, String category, boolean public0, int maxSize) {
         this.dkfriends = dkfriends;
         this.id = id;
         this.creationTime = System.currentTimeMillis();
@@ -55,6 +56,7 @@ public class DefaultParty implements Party {
         this.topic = topic;
         this.category = category;
         this.public0 = public0;
+        this.maxSize = maxSize;
     }
 
     @Override
@@ -108,6 +110,11 @@ public class DefaultParty implements Party {
     @Override
     public int getSize() {
         return members.size();
+    }
+
+    @Override
+    public int getMaxSize() {
+        return maxSize;
     }
 
     @Override

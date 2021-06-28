@@ -6,8 +6,8 @@ import net.pretronic.dkfriends.api.party.PartyManager;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayerManager;
 import net.pretronic.dkfriends.common.clan.DefaultClanManager;
 import net.pretronic.dkfriends.common.party.DefaultPartyManager;
-import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayerManager;
 import net.pretronic.libraries.event.EventBus;
+import net.pretronic.libraries.utility.interfaces.Initializable;
 
 public class DefaultDKFriends implements DKFriends {
 
@@ -18,13 +18,17 @@ public class DefaultDKFriends implements DKFriends {
     private final DKFriendStorage storage;
     private final EventBus eventBus;
 
-    public DefaultDKFriends(String version, DKFriendStorage storage, EventBus eventBus) {
+    @SuppressWarnings("unchecked")
+    public DefaultDKFriends(String version, DKFriendStorage storage,DKFriendsPlayerManager playerManager, EventBus eventBus) {
         this.version = version;
-        this.playerManager = new DefaultDKFriendsPlayerManager(this);
+        this.playerManager = playerManager;
         this.partyManager = new DefaultPartyManager(this);
         this.clanManager = new DefaultClanManager(this);
         this.storage = storage;
         this.eventBus = eventBus;
+
+        if(playerManager instanceof Initializable) ((Initializable) playerManager).initialise(this);
+        if(storage instanceof Initializable) ((Initializable) storage).initialise(this);
     }
 
     @Override

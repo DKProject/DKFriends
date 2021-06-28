@@ -1,4 +1,4 @@
-package net.pretronic.dkfriends.minecraft.commands.friend;
+package net.pretronic.dkfriends.minecraft.commands.party;
 
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
@@ -18,10 +18,7 @@ public class SettingsCommand extends BasicCommand {
     private static final Map<String,String> MAPPER = new HashMap<>();
 
     static {
-        MAPPER.put("notifications",PlayerSettings.FRIEND_NOTIFICATIONS);
-        MAPPER.put("allow-messages",PlayerSettings.FRIEND_ALLOW_MESSAGES);
-        MAPPER.put("allow-jump",PlayerSettings.FRIEND_ALLOW_JUMP);
-        MAPPER.put("allow-requests",PlayerSettings.FRIEND_ALLOW_REQUESTS);
+        MAPPER.put("allow-invitation",PlayerSettings.PARTY_ALLOW_INVITATIONS);
     }
 
     public SettingsCommand(ObjectOwner owner) {

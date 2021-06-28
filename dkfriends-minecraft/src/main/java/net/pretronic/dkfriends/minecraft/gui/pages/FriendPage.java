@@ -22,8 +22,8 @@ public class FriendPage {
             @Override
             protected ItemStack create(FriendPageContext context, int slot, Friend friend) {
                 MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer(friend.getFriendId());
-                return ItemStack.newItemStack(Material.BOOKSHELF)
-                        .setDisplayName(Text.translateAlternateColorCodes('&',player.getDisplayName()));
+                return ItemStack.newItemStack(Material.BOOKSHELF);
+                      //  .setDisplayName(Text.translateAlternateColorCodes('&',player.getDisplayName()));
             }
         });
 

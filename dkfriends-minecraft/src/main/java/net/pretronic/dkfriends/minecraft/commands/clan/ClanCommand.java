@@ -30,6 +30,7 @@ public class ClanCommand extends MainCommand implements NotFindable {
         registerCommand(new RetagCommand(owner, dkFriends));
         registerCommand(new AcceptCommand(owner));
         registerCommand(new DenyCommand(owner));
+        registerCommand(new SettingsCommand(owner));
     }
 
     @Override

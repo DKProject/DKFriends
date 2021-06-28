@@ -28,6 +28,8 @@ public class FriendCommand extends MainCommand implements NotFindable {
         registerCommand(new MessageCommand(owner));
         registerCommand(new FavoriteCommand(owner));
 
+        registerCommand(new SettingsCommand(owner));
+
         if(McNative.getInstance().isNetworkAvailable()){
             registerCommand(new JumpCommand(owner));
         }

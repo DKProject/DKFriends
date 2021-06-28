@@ -1,6 +1,5 @@
 package net.pretronic.dkfriends.minecraft.commands.clan;
 
-import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
@@ -17,15 +16,15 @@ public class MessageCommand extends BasicCommand {
     }
 
     @Override
-    public void execute(CommandSender commandSender, String[] args) {
+    public void execute(CommandSender sender, String[] args) {
         if(args.length < 1) {
-            commandSender.sendMessage(Messages.COMMAND_CLAN_HELP);
+            sender.sendMessage(Messages.COMMAND_CLAN_HELP);
             return;
         }
-        DKFriendsPlayer player = ((MinecraftPlayer)commandSender).getAs(DKFriendsPlayer.class);
+        DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
-        if(CommandUtil.isInClanCheck(commandSender, player)) {
-            player.getClan().sendMessage(Clan.DEFAULT_MESSAGE_CHANNEL, CommandUtil.readStringFromArguments(args,0));
+        if(CommandUtil.isInClanCheck(sender, player)) {
+            player.getClan().sendMessage(player, CommandUtil.readStringFromArguments(args,0));
         }
     }
 }

@@ -13,7 +13,7 @@ public class DKFriendsGui {
 
         manager.createGui("dkfriends", GuiContext.class, builder -> {
             builder.setDefaultPage("friends");
-            builder.createPage("friends", 54, FriendPageContext.class,context -> "§aProfile",FriendPage::register);
+          //  builder.createPage("friends", 54, FriendPageContext.class,context -> "§aProfile",FriendPage::register);
         });
     }
 

@@ -21,30 +21,30 @@ public class Layout {
         elements.addElement(new BasicElement<GuiContext, FriendPageContext>(Slots.slot(45)) {
             @Override
             protected ItemStack create(FriendPageContext context) {
-                return ItemStack.newItemStack(Material.GOLDEN_HELMET)
-                        .setLore("§7All your friends")
-                        .setGlowing(context.getPage().getName().equals("friends"))
-                        .setDisplayName("§eFriends");
+                return ItemStack.newItemStack(Material.GOLDEN_HELMET);
+                       // .setLore("§7All your friends")
+                        //.setGlowing(context.getPage().getName().equals("friends"))
+                    //    .setDisplayName("§eFriends");
             }
         });
 
         elements.addElement(new BasicElement<GuiContext, FriendPageContext>(Slots.slot(46)) {
             @Override
             protected ItemStack create(FriendPageContext context) {
-                return ItemStack.newItemStack(Material.IRON_CHESTPLATE)
-                        .setLore("§7All your clan members")
-                        .setGlowing(context.getPage().getName().equals("clans"))
-                        .setDisplayName("§bClans");
+                return ItemStack.newItemStack(Material.IRON_CHESTPLATE);
+                       // .setLore("§7All your clan members")
+                    //    .setGlowing(context.getPage().getName().equals("clans"))
+                    //    .setDisplayName("§bClans");
             }
         });
 
         elements.addElement(new BasicElement<GuiContext, FriendPageContext>(Slots.slot(47)) {
             @Override
             protected ItemStack create(FriendPageContext context) {
-                return ItemStack.newItemStack(Material.FIREWORK_ROCKET)
-                        .setLore("§7Parties")
-                        .setGlowing(context.getPage().getName().equals("parties"))
-                        .setDisplayName("§eParties");
+                return ItemStack.newItemStack(Material.FIREWORK_ROCKET);
+                    //    .setLore("§7Parties")
+                   //     .setGlowing(context.getPage().getName().equals("parties"))
+                       // .setDisplayName("§eParties");
             }
         });
     }

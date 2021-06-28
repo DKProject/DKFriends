@@ -1,6 +1,7 @@
 package net.pretronic.dkfriends.minecraft.commands.friend;
 
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.BasicCommand;
@@ -41,9 +42,16 @@ public class MessageCommand extends BasicCommand {
             return;
         }
 
+        DKFriendsPlayer targetFriend = target.getAs(DKFriendsPlayer.class);
+        if(!targetFriend.isActionAllow(PlayerSettings.FRIEND_ALLOW_MESSAGES,player)){
+            sender.sendMessage(Messages.COMMAND_FRIEND_MESSAGE_NOT_ALLOWED, VariableSet.create()
+                    .addDescribed("player",target));
+            return;
+        }
+
         String message = CommandUtil.readStringFromArguments(arguments,1);
 
-        onlineTarget.sendMessage(Messages.COMMAND_FRIEND_MSG,VariableSet.create()
+        onlineTarget.sendMessage(Messages.COMMAND_FRIEND_MESSAGE,VariableSet.create()
                 .addDescribed("message",message)
                 .addDescribed("sender",sender));
     }

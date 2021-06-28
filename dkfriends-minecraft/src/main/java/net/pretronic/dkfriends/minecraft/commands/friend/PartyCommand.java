@@ -29,7 +29,7 @@ public class PartyCommand extends BasicCommand {
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
-        Party party = null;
+        Party party;
         if(player.isInParty()){
             party = player.getParty();
             //@Todo check if permissions to invite

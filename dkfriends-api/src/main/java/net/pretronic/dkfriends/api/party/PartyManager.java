@@ -1,5 +1,8 @@
 package net.pretronic.dkfriends.api.party;
 
+import net.pretronic.dkfriends.api.DKFriends;
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+
 import java.util.Collection;
 import java.util.UUID;
 
@@ -20,6 +23,8 @@ public interface PartyManager {
 
 
     Party createParty(UUID ownerId);
+
+    Party createParty(DKFriendsPlayer owner);
 
     void deleteParty(UUID partyId);
 

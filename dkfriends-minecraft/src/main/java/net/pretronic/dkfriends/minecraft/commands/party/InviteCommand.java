@@ -2,6 +2,7 @@ package net.pretronic.dkfriends.minecraft.commands.party;
 
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.BasicCommand;
@@ -36,7 +37,12 @@ public class InviteCommand extends BasicCommand {
             return;
         }
 
-        //Check if can invite
+        DKFriendsPlayer targetFriend = target.getAs(DKFriendsPlayer.class);
+        if(!targetFriend.isActionAllow(PlayerSettings.PARTY_ALLOW_INVITATIONS,player)){
+            sender.sendMessage(Messages.COMMAND_PARTY_INVITE_NOT_ALLOWED, VariableSet.create()
+                    .addDescribed("player",target));
+            return;
+        }
 
         Party party = player.getParty();
         if(party != null){

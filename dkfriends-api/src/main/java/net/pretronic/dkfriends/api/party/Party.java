@@ -40,6 +40,8 @@ public interface Party {
 
     int getSize();
 
+    int getMaxSize();
+
     PartyMember getMember(UUID uniqueId);
 
     boolean isMember(UUID uniqueId);

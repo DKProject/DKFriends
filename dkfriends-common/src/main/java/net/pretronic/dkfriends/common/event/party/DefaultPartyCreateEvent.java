@@ -15,15 +15,17 @@ public class DefaultPartyCreateEvent implements PartyCreateEvent {
 
     private final UUID partyId;
     private final UUID ownerId;
+    private final int maxSize;
 
     private transient Party party;
     private transient boolean cancelled;
 
-    public DefaultPartyCreateEvent(DKFriends dkFriends, Party party,UUID ownerId) {
+    public DefaultPartyCreateEvent(DKFriends dkFriends, Party party,UUID ownerId,int maxSize) {
         this.dkFriends = dkFriends;
         this.party = party;
         this.partyId = party.getId();
         this.ownerId = ownerId;
+        this.maxSize = maxSize;
 
         this.cancelled = false;
     }
@@ -47,6 +49,11 @@ public class DefaultPartyCreateEvent implements PartyCreateEvent {
     public Party getParty() {
         if(party == null) party = dkFriends.getPartyManager().getParty(partyId);
         return party;
+    }
+
+    @Override
+    public int getMaxSize() {
+        return maxSize;
     }
 
     @Override

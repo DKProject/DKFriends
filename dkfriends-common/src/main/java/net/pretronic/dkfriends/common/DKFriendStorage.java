@@ -79,6 +79,7 @@ public class DKFriendStorage {
                 .field("Public", DataType.BOOLEAN,FieldOption.NOT_NULL)
                 .field("Category", DataType.STRING)
                 .field("Topic", DataType.STRING)
+                .field("MaxSize", DataType.INTEGER,FieldOption.NOT_NULL)
                 .field("Properties", DataType.LONG_TEXT)
                 .field("Time", DataType.LONG,64,FieldOption.NOT_NULL)
                 .create();

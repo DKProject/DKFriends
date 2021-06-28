@@ -194,7 +194,7 @@ public class DefaultClan implements Clan {
                     +") belongs not to this clan (" + getId() + ")");
         }
 
-        ClanMemberLeaveEvent event = new DefaultClanMemberLeaveEvent(member);
+        ClanMemberLeaveEvent event = new DefaultClanMemberLeaveEvent(member,cause);
         this.dkFriends.getEventBus().callEvent(ClanMemberLeaveEvent.class, event);
         if(event.isCancelled()) return false;
 
@@ -282,9 +282,9 @@ public class DefaultClan implements Clan {
     }
 
     @Override
-    public void sendMessage(String channel, String message) {
-        ClanMessageEvent event = new DefaultClanMessageEvent(dkFriends,this,channel,message);
-        this.dkFriends.getEventBus().callEvent(event);
+    public void sendMessage(DKFriendsPlayer sender, String message, String channel) {
+        ClanMessageEvent event = new DefaultClanMessageEvent(dkFriends,this,sender,channel,message);
+        this.dkFriends.getEventBus().callEvent(ClanMessageEvent.class,event);
     }
 
     private Collection<ClanInvitation> getInvitationsOrLoad() {

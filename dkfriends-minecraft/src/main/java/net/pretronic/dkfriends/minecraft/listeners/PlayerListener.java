@@ -1,7 +1,9 @@
 package net.pretronic.dkfriends.minecraft.listeners;
 
+import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.event.EventPriority;
 import net.pretronic.libraries.event.Listener;
@@ -24,11 +26,21 @@ public class PlayerListener {
         DKFriendsPlayer player = event.getPlayer().getAs(DKFriendsPlayer.class);
 
         List<OnlineMinecraftPlayer> onlineFriends = new ArrayList<>();
+
+        Clan clan = player.getClan();
+
         for (OnlineMinecraftPlayer online : getOnlinePlayers()) {
             if(player.isFriend(online.getUniqueId())){
                 onlineFriends.add(online);
-                online.sendMessage(Messages.FRIEND_LOGIN, VariableSet.create()
-                        .addDescribed("player",event.getOnlinePlayer()));
+                if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.FRIEND_NOTIFICATIONS,player)){
+                    online.sendMessage(Messages.FRIEND_LOGIN, VariableSet.create()
+                            .addDescribed("player",event.getOnlinePlayer()));
+                }
+            }else if (clan != null && clan.isMember(online.getUniqueId())){
+                if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.CLAN_NOTIFICATIONS,player)){
+                    online.sendMessage(Messages.CLAN_LOGIN, VariableSet.create()
+                            .addDescribed("player",event.getOnlinePlayer()));
+                }
             }
         }
 
@@ -57,6 +69,7 @@ public class PlayerListener {
                     .addDescribed("more",onlineFriends.size()-2));
         }
 
+        //@Todo send clan notification
     }
 
     @Listener(execution = ExecutionType.ASYNC)
@@ -65,10 +78,19 @@ public class PlayerListener {
 
         player.leaveParty();
 
+        Clan clan = player.getClan();
+
         for (OnlineMinecraftPlayer online : getOnlinePlayers()) {
             if(player.isFriend(online.getUniqueId())){
-                online.sendMessage(Messages.FRIEND_LOGOUT, VariableSet.create()
-                        .addDescribed("player",event.getOnlinePlayer()));
+                if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.FRIEND_NOTIFICATIONS,player)){
+                    online.sendMessage(Messages.FRIEND_LOGOUT, VariableSet.create()
+                            .addDescribed("player",event.getOnlinePlayer()));
+                }
+            }else if (clan != null && clan.isMember(online.getUniqueId())){
+                if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.CLAN_NOTIFICATIONS,player)){
+                    online.sendMessage(Messages.CLAN_LOGOUT, VariableSet.create()
+                            .addDescribed("player",event.getOnlinePlayer()));
+                }
             }
         }
     }

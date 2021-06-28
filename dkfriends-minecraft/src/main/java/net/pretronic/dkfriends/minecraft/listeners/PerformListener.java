@@ -2,8 +2,10 @@ package net.pretronic.dkfriends.minecraft.listeners;
 
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanMember;
+import net.pretronic.dkfriends.api.event.clan.ClanMessageEvent;
 import net.pretronic.dkfriends.api.event.clan.member.ClanMemberInviteEvent;
 import net.pretronic.dkfriends.api.event.clan.member.ClanMemberJoinEvent;
+import net.pretronic.dkfriends.api.event.clan.member.ClanMemberLeaveEvent;
 import net.pretronic.dkfriends.api.event.clan.member.ClanMemberRoleUpdateEvent;
 import net.pretronic.dkfriends.api.event.friend.FriendAddEvent;
 import net.pretronic.dkfriends.api.event.friend.FriendRemoveEvent;
@@ -14,6 +16,8 @@ import net.pretronic.dkfriends.api.event.party.invitation.PartyInvitationDenyEve
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInviteEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyMember;
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.event.EventPriority;
 import net.pretronic.libraries.event.Listener;
@@ -30,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class PerformListener {
+
+    /* FRIEND */
 
     @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
@@ -78,6 +84,51 @@ public class PerformListener {
         ConnectedMinecraftPlayer player2 = McNative.getInstance().getLocal().getConnectedPlayer(event.getFriend().getFriendId());
         if(player2 !=  null){
             player2.sendMessage(Messages.FRIEND_REMOVE, VariableSet.create().addDescribed("player",event.getPlayer()));
+        }
+    }
+
+    /* PARTY */
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onPartyCreate(PartyCreateEvent event) {
+        if(event.isCancelled()) return;
+        ConnectedMinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getPlayerId());
+        if(player != null){
+            if(player.getCustomClient() != null && player.getCustomClient().supportsDiscordRichPresence()){
+
+                /*
+                //@Todo get maximum size
+                System.out.println("SEND DISCORD INFO TWTWETEWT");
+
+                player.getCustomClient().getDiscordRichPresence().sendGameInfo("Test Game",0,0);
+              //  player.getCustomClient().getDiscordRichPresence().sendJoinSecret("gommehd.net","123456789-join");
+               // player.getCustomClient().getDiscordRichPresence().sendSpectateSecret("gommehd.net","123456789-spectate");
+               // player.getCustomClient().getDiscordRichPresence().sendMatchSecrets("gommehd.net","123456789-game");
+
+                Document data2 = Document.newDocument();
+                data2.set("hasMatchSecret",true);
+                data2.set("matchSecret","123456789-match"+":"+"gommehd.net");
+
+                data2.set("hasSpectateSecret",true);
+                data2.set("spectateSecret","123456789-spectate"+":"+"gommehd.net");
+
+                data2.set("hasJoinSecret",true);
+                data2.set("joinSecret","123456789-join"+":"+"gommehd.net");
+                player.getCustomClient(LabyModClient.class).sendLabyModData("discord_rpc",data2);
+
+
+                Document data = Document.newDocument();
+                data.set("hasParty",true);
+                data.set("partyId",event.getParty().getId()+":gommehd.net");
+                data.set("party_size",2);
+                data.set("party_max",5);
+                player.getCustomClient(LabyModClient.class).sendLabyModData("discord_rpc",data);
+
+              //  player.getCustomClient().getDiscordRichPresence().sendPartyInfo(event.getPartyId(),event.getParty().getSize(),5);
+                 */
+
+            }
         }
     }
 
@@ -195,6 +246,8 @@ public class PerformListener {
         return players;
     }
 
+    /* CLAN */
+
     @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     public void onClanInvite(ClanMemberInviteEvent event) {
@@ -203,30 +256,6 @@ public class PerformListener {
             player.sendMessage(Messages.CLAN_INVITE, VariableSet.create().addDescribed("invitation", event.getInvitation()));
         }
     }
-
-   /*
-    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
-    public void onClanMemberKick(ClanMemberKickEvent event) {
-        if(event.isCancelled()) return;
-
-        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
-        if(!players.isEmpty()){
-            VariableSet variables = VariableSet.create()
-                    .addDescribed("member", event.getMember())
-                    .addDescribed("executor", event.getExecutor());
-
-            for (ConnectedMinecraftPlayer connectedMinecraftPlayer : players) {
-                if(connectedMinecraftPlayer.getUniqueId().equals(event.getMemberId())) {
-                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_KICK, variables);
-                } else {
-                    connectedMinecraftPlayer.sendMessage(Messages.CLAN_KICK_OTHER, variables);
-                }
-            }
-        }
-    }
-
-    */
 
     @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
@@ -240,6 +269,42 @@ public class PerformListener {
 
             for (ConnectedMinecraftPlayer member : players) {
                 member.sendMessage(Messages.CLAN_JOIN,variables);
+            }
+        }
+    }
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onClanMemberLeave(ClanMemberLeaveEvent event) {
+        if(event.isCancelled()) return;
+
+        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getMember().getClan());
+        if(!players.isEmpty()){
+            VariableSet variables = VariableSet.create()
+                    .addDescribed("member", event.getMember());
+
+            for (ConnectedMinecraftPlayer member : players) {
+                member.sendMessage(Messages.CLAN_LEAVE,variables);
+            }
+        }
+    }
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onClanMessage(ClanMessageEvent event) {
+        if(event.isCancelled() && event.getChannel().equals(Party.DEFAULT_MESSAGE_CHANNEL)) return;
+        Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
+        if(!players.isEmpty()){
+            MinecraftPlayer sender = McNative.getInstance().getLocal().getConnectedPlayer(event.getSenderId());
+            VariableSet variables = VariableSet.create()
+                    .addDescribed("player",sender)
+                    .addDescribed("message",event.getMessage());
+
+            DKFriendsPlayer senderFriend = sender.getAs(DKFriendsPlayer.class);
+            for (ConnectedMinecraftPlayer member : players) {
+                if(member.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.CLAN_NOTIFICATIONS,senderFriend)){
+                    member.sendMessage(Messages.CLAN_MESSAGE,variables);
+                }
             }
         }
     }
@@ -274,8 +339,6 @@ public class PerformListener {
                         connectedMinecraftPlayer.sendMessage(Messages.CLAN_PROMOTE_OTHER, variables);
                     }
                 }
-            } else {
-                //Clan leave message
             }
         }
     }
