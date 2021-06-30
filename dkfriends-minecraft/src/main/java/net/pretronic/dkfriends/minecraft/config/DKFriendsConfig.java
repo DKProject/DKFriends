@@ -24,18 +24,18 @@ public class DKFriendsConfig {
     public static CommandConfiguration COMMAND_FRIEND = CommandConfiguration.newBuilder()
             .name("friend")
             .aliases("friends")
-            .permission("dkbans.command.friend")
+            .permission("dkfriends.command.friend")
             .create();
 
     public static CommandConfiguration COMMAND_PARTY = CommandConfiguration.newBuilder()
             .name("party")
             .aliases("parties")
-            .permission("dkbans.command.party")
+            .permission("dkfriends.command.party")
             .create();
 
     public static CommandConfiguration COMMAND_CLAN = CommandConfiguration.newBuilder()
             .name("clan")
-            .permission("dkbans.command.clan")
+            .permission("dkfriends.command.clan")
             .create();
 
     static {
@@ -63,9 +63,9 @@ public class DKFriendsConfig {
     public static void onLoad(){
         for (String name : SETTINGS_ACTION_GROUPS) {
             if(name.equals("friend")) PlayerSettings.ACTION_CHECKS.put("friend",new FriendPlayerActionCheck());
-            else if(name.equals("favorite")) PlayerSettings.ACTION_CHECKS.put("clan",new ClanPlayerActionCheck());
+            else if(name.equals("favorite")) PlayerSettings.ACTION_CHECKS.put("favorite",new ClanPlayerActionCheck());
             else if(name.equals("party")) PlayerSettings.ACTION_CHECKS.put("party",new PartyPlayerActionCheck());
-            else if(name.equals("clan")) PlayerSettings.ACTION_CHECKS.put("favorite",new FavoritePlayerActionCheck());
+            else if(name.equals("clan")) PlayerSettings.ACTION_CHECKS.put("clan",new FavoritePlayerActionCheck());
             else{
                 String[] parts = name.split(":");
                 PlayerSettings.ACTION_CHECKS.put(parts[0],new PermissionActionCheck(parts[1]));

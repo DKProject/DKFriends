@@ -31,6 +31,7 @@ import net.pretronic.libraries.utility.annonations.Internal;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Predicate;
 
@@ -127,8 +128,8 @@ public class DefaultClan implements Clan {
     }
 
     @Override
-    public Collection<ClanMember> getSortedMembers() {
-        return getMembers();
+    public List<ClanMember> getSortedMembers() {
+        return new ArrayList<>(getMembers());
     }
 
     @Override

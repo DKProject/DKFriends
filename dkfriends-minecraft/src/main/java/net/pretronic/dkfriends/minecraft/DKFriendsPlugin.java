@@ -18,6 +18,7 @@ import net.pretronic.dkfriends.minecraft.commands.clan.ClanCommand;
 import net.pretronic.dkfriends.minecraft.commands.friend.FriendCommand;
 import net.pretronic.dkfriends.minecraft.commands.party.PartyCommand;
 import net.pretronic.dkfriends.minecraft.config.DKFriendsConfig;
+import net.pretronic.dkfriends.minecraft.gui.DKFriendsGui;
 import net.pretronic.dkfriends.minecraft.listeners.PerformListener;
 import net.pretronic.dkfriends.minecraft.listeners.PlayerListener;
 import net.pretronic.dkfriends.minecraft.listeners.SyncListener;
@@ -41,7 +42,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
     public void onLoad(LifecycleState state){
         getLogger().info("DKFriends is starting, please wait..");
 
-        try{
+        /*try{
             McNativeLicenseIntegration.newContext(this,RESOURCE_ID,PUBLIC_KEY).verifyOrCheckout();
         }catch (LicenseNotValidException | CloudNotCheckoutLicenseException e){
             getLogger().error("--------------------------------");
@@ -51,7 +52,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
             getLogger().info("DKFriends is shutting down");
             getLoader().shutdown();
             return;
-        }
+        }*/
 
         getConfiguration().load(DKFriendsConfig.class);
 
@@ -73,7 +74,9 @@ public class DKFriendsPlugin extends MinecraftPlugin {
             getRuntime().getNetwork().getMessenger().registerSynchronizingChannel("dkfriends_players", this, UUID.class,((MinecraftDKFriendsPlayerManager)dkfriends.getPlayerManager()).getPlayerCache());
         }
 
-       // DKFriendsGui.register();
+        if(McNative.getInstance().getPlatform().isService()) {
+            DKFriendsGui.register();
+        }
 
         getLogger().info("DKFriends started successfully");
     }

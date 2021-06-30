@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.libraries.document.Document;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public interface Clan {
@@ -31,7 +32,7 @@ public interface Clan {
     Document getProperties();
 
 
-    Collection<ClanMember> getSortedMembers();
+    List<ClanMember> getSortedMembers();
 
     Collection<ClanMember> getOnlineMembers();
 
