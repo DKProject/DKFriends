@@ -139,7 +139,7 @@ public class DefaultClanMember implements ClanMember {
     public boolean canPromote(ClanMember player) {
         Validate.notNull(player);
         if(player.getRole() == getRole()) return false;
-        return player.getRole() == ClanRole.LEADER || player.getRole() == ClanRole.MODERATOR;
+        return player.getRole() == ClanRole.LEADER || (player.getRole() == ClanRole.MODERATOR && getRole() != ClanRole.LEADER);
     }
 
     @Override

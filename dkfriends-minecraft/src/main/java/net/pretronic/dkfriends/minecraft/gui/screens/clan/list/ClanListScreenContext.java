@@ -1,4 +1,4 @@
-package net.pretronic.dkfriends.minecraft.gui.screens.clan;
+package net.pretronic.dkfriends.minecraft.gui.screens.clan.list;
 
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanMember;

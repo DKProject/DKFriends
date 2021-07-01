@@ -48,7 +48,7 @@ public class Layout {
             @Override
             public void handleClick(T context, MinecraftPlayerInventoryClickEvent event) {
                 if(context.getPage().getName().equals("clanPage")) return;
-                context.root().getGui().openScreen(context.root().getPlayer(), "clanMembers");
+                context.root().getGui().open(context.root().getPlayer(), "clanPage");
             }
         });
 

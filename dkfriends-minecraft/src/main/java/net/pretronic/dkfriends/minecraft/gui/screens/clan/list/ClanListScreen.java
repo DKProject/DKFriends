@@ -1,10 +1,8 @@
-package net.pretronic.dkfriends.minecraft.gui.screens.clan;
+package net.pretronic.dkfriends.minecraft.gui.screens.clan.list;
 
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanMember;
-import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.minecraft.gui.Layout;
-import net.pretronic.dkfriends.minecraft.gui.screens.friend.FriendListScreenContext;
 import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 import org.mcnative.runtime.api.player.profile.GameProfile;
@@ -19,7 +17,6 @@ import org.mcnative.runtime.api.service.inventory.item.ItemStack;
 import org.mcnative.runtime.api.service.inventory.item.data.SkullItemData;
 import org.mcnative.runtime.api.service.inventory.item.material.Material;
 import org.mcnative.runtime.api.text.Text;
-import org.mcnative.runtime.api.text.format.TextColor;
 
 import java.net.URI;
 

@@ -75,7 +75,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         }
 
         if(McNative.getInstance().getPlatform().isService()) {
-            DKFriendsGui.register();
+            DKFriendsGui.register(dkfriends);
         }
 
         getLogger().info("DKFriends started successfully");
