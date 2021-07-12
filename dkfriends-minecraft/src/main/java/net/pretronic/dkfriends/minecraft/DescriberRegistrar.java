@@ -30,7 +30,7 @@ public class DescriberRegistrar {
         friendDescriber.setForwardFunction(DefaultFriend::getFriend);
 
         VariableDescriber<MinecraftDKFriendsPlayer> playerDescriber = VariableDescriberRegistry.registerDescriber(MinecraftDKFriendsPlayer.class);
-        playerDescriber.setForwardFunction(player -> McNative.getInstance().getPlayerManager().getPlayer(player.getId()));//@Todo optimize with holder caching
+        playerDescriber.setForwardFunction(MinecraftDKFriendsPlayer::getMinecraftPlayer);
 
         VariableDescriberRegistry.registerDescriber(DefaultClan.class);
         VariableDescriberRegistry.registerDescriber(DefaultClanInvitation.class);

@@ -182,7 +182,8 @@ messages:
   &7/clan demote <player> &8- &7Demote a player
   &7/clan rename <newName> &8- &7Rename the clan
   &7/clan retag <newTag> &8- &7Retag the clan
-  &7/clan userinfo <player> &8- &7Show clan information of the player'
+  &7/clan userinfo <player> &8- &7Show clan information of the player
+  &7/clan settings <key> <value>'
 
   dkfriends.lobby.hider.all.displayName: '&aAll players visible'
   dkfriends.lobby.hider.vip.displayName: '&5Only VIPs visible'

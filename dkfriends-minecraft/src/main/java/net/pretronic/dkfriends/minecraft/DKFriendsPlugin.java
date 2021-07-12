@@ -31,6 +31,7 @@ import org.mcnative.licensing.exceptions.CloudNotCheckoutLicenseException;
 import org.mcnative.licensing.exceptions.LicenseNotValidException;
 import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.plugin.MinecraftPlugin;
+import org.mcnative.runtime.api.serviceprovider.placeholder.PlaceholderProvider;
 
 import java.util.UUID;
 
@@ -64,6 +65,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
 
         getRuntime().getRegistry().registerService(this,DKFriends.class,dkfriends);
         getRuntime().getPlayerManager().registerPlayerAdapter(DKFriendsPlayer.class, player -> dkfriends.getPlayerManager().getPlayer(player.getUniqueId()));
+        getRuntime().getRegistry().getService(PlaceholderProvider.class).registerPlaceHolders(this,"dkfriends",new DKFriendsPlaceholders());
 
         DescriberRegistrar.register();
         registerListeners(dkfriends);
