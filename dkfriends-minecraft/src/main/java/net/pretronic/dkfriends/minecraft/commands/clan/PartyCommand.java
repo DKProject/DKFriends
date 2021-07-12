@@ -9,6 +9,7 @@ import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.command.BasicCommand;
 import net.pretronic.libraries.command.command.configuration.CommandConfiguration;
 import net.pretronic.libraries.command.sender.CommandSender;
+import net.pretronic.libraries.message.bml.variable.VariableSet;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
@@ -35,11 +36,13 @@ public class PartyCommand extends BasicCommand {
             }else party = player.createParty();
 
             Clan clan = player.getClan();
-            boolean no = false;
+            boolean no = true;
             for (OnlineMinecraftPlayer online : McNative.getInstance().getNetwork().getOnlinePlayers()) {
                 if(clan.isMember(online.getUniqueId()) && online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.CLAN_ALLOW_MESSAGES,player)){
-                    no = true;
+                    no = false;
                     party.invite(player,online.getUniqueId());
+                    sender.sendMessage(Messages.COMMAND_PARTY_INVITED, VariableSet.create()
+                            .addDescribed("player",online));
                 }
             }
 

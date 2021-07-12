@@ -212,7 +212,7 @@ public class PerformListener {
         if(event.isCancelled() && !event.getChannel().equals(Party.DEFAULT_MESSAGE_CHANNEL)) return;
         Collection<ConnectedMinecraftPlayer> players = getConnectedPartyPlayers(event.getParty());
         if(!players.isEmpty()){
-            MinecraftPlayer sender = McNative.getInstance().getLocal().getConnectedPlayer(event.getSenderId());
+            MinecraftPlayer sender = McNative.getInstance().getPlayerManager().getPlayer(event.getSenderId());
             VariableSet variables = VariableSet.create()
                     .addDescribed("player",sender)
                     .addDescribed("message",event.getMessage());
@@ -295,11 +295,10 @@ public class PerformListener {
     @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     public void onClanMessage(ClanMessageEvent event) {
-        System.out.println("SEND CLAN MESSAGE");
         if(event.isCancelled() && !event.getChannel().equals(Clan.DEFAULT_MESSAGE_CHANNEL)) return;
         Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
         if(!players.isEmpty()){
-            MinecraftPlayer sender = McNative.getInstance().getLocal().getConnectedPlayer(event.getSenderId());
+            MinecraftPlayer sender = McNative.getInstance().getPlayerManager().getPlayer(event.getSenderId());
             VariableSet variables = VariableSet.create()
                     .addDescribed("player",sender)
                     .addDescribed("message",event.getMessage());

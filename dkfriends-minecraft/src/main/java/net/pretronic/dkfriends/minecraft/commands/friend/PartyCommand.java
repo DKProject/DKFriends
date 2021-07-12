@@ -37,11 +37,13 @@ public class PartyCommand extends BasicCommand{
             }
         }else party = player.createParty();
 
-        boolean no = false;
+        boolean no = true;
         for (OnlineMinecraftPlayer online : McNative.getInstance().getNetwork().getOnlinePlayers()) {
             if(player.isFriend(online.getUniqueId()) && online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.PARTY_ALLOW_INVITATIONS,player)){
-                no = true;
+                no = false;
                 party.invite(player,online.getUniqueId());
+                sender.sendMessage(Messages.COMMAND_PARTY_INVITED, VariableSet.create()
+                        .addDescribed("player",online));
             }
         }
 

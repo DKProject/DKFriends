@@ -43,7 +43,7 @@ public class DefaultClanMessageEvent implements ClanMessageEvent {
 
     @Override
     public UUID getSenderId() {
-        return null;
+        return senderId;
     }
 
     @Override
