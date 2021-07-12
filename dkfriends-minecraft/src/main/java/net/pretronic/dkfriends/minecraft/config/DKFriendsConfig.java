@@ -49,9 +49,9 @@ public class DKFriendsConfig {
         SETTINGS_ACTION_GROUPS.add("favorite");
         SETTINGS_ACTION_GROUPS.add("party");
         SETTINGS_ACTION_GROUPS.add("clan");
-        SETTINGS_ACTION_GROUPS.add("premium:dkfriends.group.premium");
-        SETTINGS_ACTION_GROUPS.add("youtuber:dkfriends.group.youtuber");
-        SETTINGS_ACTION_GROUPS.add("team:dkfriends.group.team");
+        SETTINGS_ACTION_GROUPS.add("premium-dkfriends.group.premium");
+        SETTINGS_ACTION_GROUPS.add("youtuber-dkfriends.group.youtuber");
+        SETTINGS_ACTION_GROUPS.add("team-dkfriends.group.team");
 
         PERMISSIONS_MAX_FRIENDS.put("default",250);
         PERMISSIONS_MAX_FRIENDS.put("dkfriends.friend.max.500",500);
@@ -73,7 +73,7 @@ public class DKFriendsConfig {
             else if(name.equals("party")) PlayerSettings.ACTION_CHECKS.put("party",new PartyPlayerActionCheck());
             else if(name.equals("clan")) PlayerSettings.ACTION_CHECKS.put("clan",new FavoritePlayerActionCheck());
             else{
-                String[] parts = name.split(":");
+                String[] parts = name.split("-");
                 PlayerSettings.ACTION_CHECKS.put(parts[0],new PermissionActionCheck(parts[1]));
             }
         }
