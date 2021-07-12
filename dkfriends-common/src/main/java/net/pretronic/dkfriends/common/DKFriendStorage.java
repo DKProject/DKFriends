@@ -75,7 +75,7 @@ public class DKFriendStorage {
                 .create();
 
         parties = database.createCollection("dkfriends_parties")
-                .field("Id", DataType.UUID,FieldOption.NOT_NULL)
+                .field("Id", DataType.UUID,FieldOption.NOT_NULL,FieldOption.PRIMARY_KEY)
                 .field("Public", DataType.BOOLEAN,FieldOption.NOT_NULL)
                 .field("Category", DataType.STRING)
                 .field("Topic", DataType.STRING)
@@ -85,14 +85,14 @@ public class DKFriendStorage {
                 .create();
 
         partiesInvitations = database.createCollection("dkfriends_parties_invitations")
-                .field("PartyId", DataType.UUID,FieldOption.NOT_NULL)//,ForeignKey.of(parties,"Id", ForeignKey.Option.CASCADE)
+                .field("PartyId", DataType.UUID,ForeignKey.of(parties,"Id", ForeignKey.Option.CASCADE),FieldOption.NOT_NULL)
                 .field("PlayerId", DataType.UUID,FieldOption.NOT_NULL)
                 .field("InviterId", DataType.UUID,FieldOption.NOT_NULL)
                 .field("Time", DataType.LONG,64,FieldOption.NOT_NULL)
                 .create();
 
         partiesMembers = database.createCollection("dkfriends_parties_members")
-                .field("PartyId", DataType.UUID,FieldOption.NOT_NULL)//,ForeignKey.of(parties,"Id", ForeignKey.Option.CASCADE)
+                .field("PartyId", DataType.UUID,ForeignKey.of(parties,"Id", ForeignKey.Option.CASCADE),FieldOption.NOT_NULL)
                 .field("PlayerId", DataType.UUID,FieldOption.NOT_NULL)
                 .field("Role", DataType.STRING)
                 .field("Time", DataType.LONG,64,FieldOption.NOT_NULL)

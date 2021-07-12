@@ -2,6 +2,7 @@ package net.pretronic.dkfriends.minecraft.listeners;
 
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.party.Party;
+import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.config.Messages;
@@ -102,7 +103,7 @@ public class PlayerListener {
     public void onServerSwitch(MinecraftPlayerServerSwitchEvent event){
         DKFriendsPlayer player = event.getPlayer().getAs(DKFriendsPlayer.class);
         Party party = player.getParty();
-        if(party != null){
+        if(party != null && party.getMember(event.getPlayer().getUniqueId()).getRole() == PartyRole.LEADER){
             party.teleport(event.getTo().getName());
         }
     }
