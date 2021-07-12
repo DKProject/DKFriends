@@ -15,6 +15,7 @@ import org.mcnative.runtime.api.player.MinecraftPlayer;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class InviteCommand extends BasicCommand implements Completable {
 
@@ -65,7 +66,7 @@ public class InviteCommand extends BasicCommand implements Completable {
 
     @Override
     public Collection<String> complete(CommandSender sender, String[] args) {
-        Collection<String> result = new ArrayList<>();
+        Collection<String> result = new HashSet<>();
         result.addAll(CommandUtil.completeOnlinePlayer(sender,args));
         result.addAll(CommandUtil.completeOnlineFriends(sender,args));
         return result;

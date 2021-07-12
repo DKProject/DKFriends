@@ -306,7 +306,7 @@ public class DefaultParty implements Party {
     @Override
     public void sendMessage(DKFriendsPlayer sender,String channel, String message) {
         PartyMessageEvent event = new DefaultPartyMessageEvent(dkfriends,this,sender.getId(),channel,message);
-        dkfriends.getEventBus().callEvent(event);
+        dkfriends.getEventBus().callEvent(PartyMessageEvent.class,event);
     }
 
     @Override
