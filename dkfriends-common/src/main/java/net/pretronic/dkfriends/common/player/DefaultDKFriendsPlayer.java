@@ -57,17 +57,17 @@ public abstract class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         friends.sort((o1, o2) -> {
             if(o1.getFriend().isOnline()){
                 if(o2.getFriend().isOnline()){
-                    if(o1.isFavorite()) return 1;
-                    else return -1;
+                    if(o1.isFavorite()) return -1;
+                    else return 1;
                 }else{
-                    return 1;
+                    return -1;
                 }
             }else{
                 if(o2.getFriend().isOnline()){
-                    return -1;
+                    return 1;
                 }else{
-                    if(o1.isFavorite()) return 1;
-                    else return -1;
+                    if(o1.isFavorite()) return -1;
+                    else return 1;
                 }
             }
         });
