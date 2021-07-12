@@ -20,6 +20,7 @@ import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.config.Messages;
+import net.pretronic.libraries.document.Document;
 import net.pretronic.libraries.event.EventPriority;
 import net.pretronic.libraries.event.Listener;
 import net.pretronic.libraries.event.execution.ExecutionType;
@@ -29,6 +30,7 @@ import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.network.component.server.MinecraftServer;
 import org.mcnative.runtime.api.player.ConnectedMinecraftPlayer;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
+import org.mcnative.runtime.api.player.client.LabyModClient;
 import org.mcnative.runtime.api.text.components.MessageComponent;
 
 import java.util.ArrayList;
@@ -98,36 +100,33 @@ public class PerformListener {
         if(player != null){
             if(player.getCustomClient() != null && player.getCustomClient().supportsDiscordRichPresence()){
 
-                /*
-                //@Todo get maximum size
                 System.out.println("SEND DISCORD INFO TWTWETEWT");
 
-                player.getCustomClient().getDiscordRichPresence().sendGameInfo("Test Game",0,0);
+               // player.getCustomClient().getDiscordRichPresence().sendGameInfo("Pretronic Demo",0,0);
               //  player.getCustomClient().getDiscordRichPresence().sendJoinSecret("gommehd.net","123456789-join");
                // player.getCustomClient().getDiscordRichPresence().sendSpectateSecret("gommehd.net","123456789-spectate");
                // player.getCustomClient().getDiscordRichPresence().sendMatchSecrets("gommehd.net","123456789-game");
 
                 Document data2 = Document.newDocument();
                 data2.set("hasMatchSecret",true);
-                data2.set("matchSecret","123456789-match"+":"+"gommehd.net");
+                data2.set("matchSecret","123456789-match"+":"+"demo.pretronic.net");
 
                 data2.set("hasSpectateSecret",true);
-                data2.set("spectateSecret","123456789-spectate"+":"+"gommehd.net");
+                data2.set("spectateSecret","123456789-spectate"+":"+"demo.pretronic.net");
 
                 data2.set("hasJoinSecret",true);
-                data2.set("joinSecret","123456789-join"+":"+"gommehd.net");
+                data2.set("joinSecret","123456789-join"+":"+"demo.pretronic.net");
                 player.getCustomClient(LabyModClient.class).sendLabyModData("discord_rpc",data2);
 
 
                 Document data = Document.newDocument();
                 data.set("hasParty",true);
-                data.set("partyId",event.getParty().getId()+":gommehd.net");
+                data.set("partyId",event.getParty().getId()+":demo.pretronic.net");
                 data.set("party_size",2);
                 data.set("party_max",5);
                 player.getCustomClient(LabyModClient.class).sendLabyModData("discord_rpc",data);
 
               //  player.getCustomClient().getDiscordRichPresence().sendPartyInfo(event.getPartyId(),event.getParty().getSize(),5);
-                 */
 
             }
         }
