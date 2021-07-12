@@ -30,8 +30,10 @@ public class PlayerListener {
         Clan clan = player.getClan();
 
         for (OnlineMinecraftPlayer online : getOnlinePlayers()) {
+            System.out.println("CHECK FRIEND "+online.getName());
             if(player.isFriend(online.getUniqueId())){
                 onlineFriends.add(online);
+                System.out.println("FRIEND ONLINE NOTIFICATION");
                 if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.FRIEND_NOTIFICATIONS,player)){
                     online.sendMessage(Messages.FRIEND_LOGIN, VariableSet.create()
                             .addDescribed("player",event.getOnlinePlayer()));
