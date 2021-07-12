@@ -49,7 +49,7 @@ public class SettingsCommand extends BasicCommand implements Completable {
             player.setActionSetting(setting,Boolean.parseBoolean(value));
         }
 
-        sender.sendMessage(Messages.COMMAND_FRIEND_SETTING_CHANGED, VariableSet.create()
+        sender.sendMessage(Messages.COMMAND_PARTY_SETTING_CHANGED, VariableSet.create()
                 .addDescribed("setting",setting)
                 .addDescribed("value",value)
                 .addDescribed("group",group));

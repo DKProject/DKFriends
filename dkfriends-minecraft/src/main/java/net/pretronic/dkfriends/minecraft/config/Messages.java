@@ -67,7 +67,7 @@ public class Messages {
     public static MessageComponent<?> COMMAND_FRIEND_REQUESTS = Text.ofMessageKey("dkfriends.command.friend.requests");
     public static MessageComponent<?> COMMAND_FRIEND_FAVORITE_MARK = Text.ofMessageKey("dkfriends.command.friend.favorite.mark");
     public static MessageComponent<?> COMMAND_FRIEND_FAVORITE_UNMARKT = Text.ofMessageKey("dkfriends.command.friend.favorite.unmark");
-    public static MessageComponent<?> COMMAND_FRIEND_SETTING_CHANGED = Text.ofMessageKey("dkfriends.command.setting.changed");
+    public static MessageComponent<?> COMMAND_FRIEND_SETTING_CHANGED = Text.ofMessageKey("dkfriends.command.friend.setting.changed");
 
     public static MessageComponent<?> COMMAND_FRIEND_JUMP_NOT_ALLOWED = Text.ofMessageKey("dkfriends.command.friend.jump.notAllowed");
     public static MessageComponent<?> COMMAND_FRIEND_JUMP_ALREADY = Text.ofMessageKey("dkfriends.command.friend.jump.already");
@@ -107,6 +107,7 @@ public class Messages {
     public static MessageComponent<?> COMMAND_CLAN_JUMP_NOT_ALLOWED = Text.ofMessageKey("dkfriends.command.clan.jump.notAllowed");
     public static MessageComponent<?> COMMAND_CLAN_JUMP_ALREADY = Text.ofMessageKey("dkfriends.command.clan.jump.already");
     public static MessageComponent<?> COMMAND_CLAN_JUMP_SUCCESS = Text.ofMessageKey("dkfriends.command.clan.jump.success");
+    public static MessageComponent<?> COMMAND_CLAN_SETTING_CHANGED = Text.ofMessageKey("dkfriends.command.clan.setting.changed");
 
     public static final MessageComponent<?> CLAN_INVITE = Text.ofMessageKey("dkfriends.clan.invite");
     public static final MessageComponent<?> CLAN_KICK = Text.ofMessageKey("dkfriends.clan.kick");
@@ -130,6 +131,7 @@ public class Messages {
     public static MessageComponent<?> COMMAND_PARTY_PRIVATE = Text.ofMessageKey("dkfriends.command.party.private");
     public static MessageComponent<?> COMMAND_PARTY_PUBLIC_EMPTY = Text.ofMessageKey("dkfriends.command.party.public.empty");
     public static MessageComponent<?> COMMAND_PARTY_PUBLIC_LIST = Text.ofMessageKey("dkfriends.command.party.public.list");
+    public static MessageComponent<?> COMMAND_PARTY_SETTING_CHANGED = Text.ofMessageKey("dkfriends.command.party.setting.changed");
 
     public static MessageComponent<?> PARTY_INVITE = Text.ofMessageKey("dkfriends.party.invite");
     public static MessageComponent<?> PARTY_DENIED = Text.ofMessageKey("dkfriends.party.denied");

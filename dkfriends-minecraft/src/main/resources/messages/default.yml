@@ -43,6 +43,7 @@ messages:
   &7/friend message <player> <message> &8- &7Send a message
   &7/friend setting <setting> <value> [group] &8- &7Change a setting'
   dkfriends.command.friend.add.success: '${dkfriends.prefix.friend} &7You have sent a friend request to &e{player.displayName}'
+  dkfriends.command.friend.jump.already: '${dkfriends.prefix.friend} &cYou are already connected to this server'
   dkfriends.command.friend.jump.notAllowed: '${dkfriends.prefix.friend} &cYou are not allowed to jump to this player'
   dkfriends.command.friend.jump.success: '${dkfriends.prefix.friend} &7Connecting to server..'
   dkfriends.command.friend.message: '${dkfriends.prefix.friend} &e{sender.displayName}&8: &7{message}'
@@ -50,11 +51,12 @@ messages:
   dkfriends.command.friend.list: '${dkfriends.prefix.friend} &7Your friends &8| &7Page&8: &e{page} @for("friend" in {friends},${dkfriends.command.friend.list.loop},"\n","\n")'
   dkfriends.command.friend.list.loop: '@if({friend.online},${dkfriends.command.friend.list.loop.online},${dkfriends.command.friend.list.loop.offline})'
   dkfriends.command.friend.list.loop.online: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &aOnline &8(&efriend.server)'
-  dkfriends.command.friend.list.loop.offline: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &cOffline &8(&7Last seen...&8)'
+  dkfriends.command.friend.list.loop.offline: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &cOffline &8(&7Last seen on &e{friend.lastLoginFormatted} &8)'
   dkfriends.command.friend.requests: '${dkfriends.prefix.friend} &7Friend requests &8| &7Page&8: &e{page} @for("request" in {requests},${dkfriends.command.friend.requests.loop},"\n","\n")'
-  dkfriends.command.friend.requests.loop: ' &8- &e{request.requester.displayName}&8: !["&8[&aACCEPT&8]"]("run:///friend accept {player.name}") !["&8[&cDENY&8]"]("run:///friend deny {player.name})"'
+  dkfriends.command.friend.requests.loop: ' &8- &e{request.requester.displayName}&8: !["&8[&aACCEPT&8]"]("run:///friend accept {request.requester.name}") !["&8[&cDENY&8]"]("run:///friend deny {request.requester.name})"'
   dkfriends.command.friend.favorite.mark: '${dkfriends.prefix.friend} &7You marked {player.displayName} &7as favorite'
   dkfriends.command.friend.favorite.unmark: '${dkfriends.prefix.friend} &7You unmarked {player.displayName} &7as favorite'
+  dkfriends.command.friend.setting.changed: '${dkfriends.prefix.friend} &7You have changed the setting &e{setting}&8[&a{group}&8] &7to &e{value}'
 
   dkfriends.command.party.help: '${dkfriends.prefix.party} &7Available commands
   &7/party list &8- &7List all public parties
@@ -86,6 +88,7 @@ messages:
   dkfriends.command.party.public.empty: '${dkfriends.prefix.party} &7There are currently no public parties'
   dkfriends.command.party.public.list: '${dkfriends.prefix.party} &7Public parties&8: @for("party" in {parties},${dkfriends.command.party.public.list.loop},"\n","\n")'
   dkfriends.command.party.public.list.loop: '![" &8- &e{party.leader.displayName}&8: &e{party.topic} &8[&7JOIN&8]"]("run:///party join {party.leader.name}")'
+  dkfriends.command.party.setting.changed: '${dkfriends.prefix.party} &7You have changed the setting &e{setting}&8[&a{group}&8] &7to &e{value}'
 
   dkfriends.friend.request: '${dkfriends.prefix.friend} &e{player.displayName} &7wants to be your friend
   ${dkfriends.prefix.friend} &7Click&8: !["&8[&aACCEPT&8]"]("run:///friend accept {player.name}") !["&8[&cDENY&8]"]("run:///friend deny {player.name})"'
@@ -138,6 +141,7 @@ messages:
   dkfriends.command.clan.retag: '${dkfriends.prefix.clan} &7You have retagged the clan to &e{clan.tag}'
   dkfriends.command.clan.accept: '${dkfriends.prefix.clan} &7You have accepted the invitation of the clan &e{clan.name}'
   dkfriends.command.clan.deny: '${dkfriends.prefix.clan} &7You have denied the invitation of the clan &e{clan.name}'
+  dkfriends.command.clan.setting.changed: '${dkfriends.prefix.clan} &7You have changed the setting &e{setting}&8[&a{group}&8] &7to &e{value}'
   dkfriends.error.clan.name.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the name &e{name} &calready exists'
   dkfriends.error.clan.tag.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the tag &e{tag} &calready exists'
 

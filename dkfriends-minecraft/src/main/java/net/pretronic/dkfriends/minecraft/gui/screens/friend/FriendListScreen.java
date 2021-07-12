@@ -27,6 +27,7 @@ public class FriendListScreen {
             @Override
             protected ItemStack create(FriendListScreenContext context, int slot, Friend friend) {
                 MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer(friend.getFriendId());
+
                 if(player.isOnline()) {
                     return ItemStack.newItemStack(Material.PLAYER_HEAD)
                             .setDisplayName(Text.parse(player.getDisplayName()))

@@ -43,7 +43,7 @@ public class PerformListener {
         if(event.isCancelled()) return;
         ConnectedMinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getRequest().getReceiverId());
         if(player !=  null){
-            player.sendMessage(Messages.FRIEND_REQUEST, VariableSet.create().addDescribed("player",event.getRequest().getReceiver()));
+            player.sendMessage(Messages.FRIEND_REQUEST, VariableSet.create().addDescribed("player",event.getRequest().getRequester()));
         }
     }
 
