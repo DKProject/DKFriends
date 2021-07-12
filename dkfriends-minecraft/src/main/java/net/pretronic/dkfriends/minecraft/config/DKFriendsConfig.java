@@ -45,10 +45,10 @@ public class DKFriendsConfig {
     public static int PROFILE_SKULL_SLOT = 8;
 
     @DocumentKey("clanTagFormatted")
-    public static String CLAN_TAG_FORMATTED = "&8[{tag}&8]";
+    public static String CLAN_TAG_FORMATTED = "&8[&e{tag}&8]";
 
     @DocumentKey("clanNameFormatted")
-    public static String CLAN_NAME_FORMATTED = "&8[{name}&8]";
+    public static String CLAN_NAME_FORMATTED = "&8[&e{name}&8]";
 
 
     static {

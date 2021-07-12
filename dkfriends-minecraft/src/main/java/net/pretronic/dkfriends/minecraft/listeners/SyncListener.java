@@ -192,7 +192,7 @@ public class SyncListener {
     }
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
-    public void onClanLeaveEvent(ClanMemberJoinEvent event) {
+    public void onClanLeaveEvent(ClanMemberLeaveEvent event) {
         DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
         if(clan != null) {
             clan.removeMember(event.getMember().getPlayerId());
