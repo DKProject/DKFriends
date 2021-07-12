@@ -38,7 +38,7 @@ public class PlayerListener {
                     online.sendMessage(Messages.FRIEND_LOGIN, VariableSet.create()
                             .addDescribed("player",event.getOnlinePlayer()));
                 }
-            }else if (clan != null && clan.isMember(online.getUniqueId())){
+            }else if (clan != null && clan.isMember(online.getUniqueId()) && !online.getUniqueId().equals(event.getPlayer().getUniqueId())){
                 if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.CLAN_NOTIFICATIONS,player)){
                     online.sendMessage(Messages.CLAN_LOGIN, VariableSet.create()
                             .addDescribed("player",event.getOnlinePlayer()));
