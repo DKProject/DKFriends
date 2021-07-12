@@ -143,6 +143,7 @@ messages:
   dkfriends.command.clan.accept: '${dkfriends.prefix.clan} &7You have accepted the invitation of the clan &e{clan.name}'
   dkfriends.command.clan.deny: '${dkfriends.prefix.clan} &7You have denied the invitation of the clan &e{clan.name}'
   dkfriends.command.clan.setting.changed: '${dkfriends.prefix.clan} &7You have changed the setting &e{setting}&8[&a{group}&8] &7to &e{value}'
+  dkfriends.command.clan.party.noOnline: '${dkfriends.prefix.clan} &cThere are no online clan members to invite into this party'
   dkfriends.error.clan.name.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the name &e{name} &calready exists'
   dkfriends.error.clan.tag.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the tag &e{tag} &calready exists'
 

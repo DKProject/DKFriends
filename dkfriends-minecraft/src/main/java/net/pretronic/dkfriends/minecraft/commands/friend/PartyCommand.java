@@ -27,10 +27,6 @@ public class PartyCommand extends BasicCommand{
 
     @Override
     public void execute(CommandSender sender, String[] arguments) {
-        if(arguments.length < 1){
-            sender.sendMessage(Messages.COMMAND_FRIEND_HELP);
-            return;
-        }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
         Party party = player.getParty();
@@ -43,14 +39,14 @@ public class PartyCommand extends BasicCommand{
 
         boolean no = false;
         for (OnlineMinecraftPlayer online : McNative.getInstance().getNetwork().getOnlinePlayers()) {
-            if(player.isFriend(online.getUniqueId()) && player.isActionAllow(PlayerSettings.PARTY_ALLOW_INVITATIONS,player)){
+            if(player.isFriend(online.getUniqueId()) && online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.PARTY_ALLOW_INVITATIONS,player)){
                 no = true;
                 party.invite(player,online.getUniqueId());
             }
         }
 
         if(no){
-            sender.sendMessage(Messages.ERROR_PARTY_NOT_ALLOWED);
+            sender.sendMessage(Messages.COMMAND_FRIEND_PARTY_NO_ONLINE);
         }
     }
 }

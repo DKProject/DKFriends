@@ -108,6 +108,7 @@ public class Messages {
     public static MessageComponent<?> COMMAND_CLAN_JUMP_ALREADY = Text.ofMessageKey("dkfriends.command.clan.jump.already");
     public static MessageComponent<?> COMMAND_CLAN_JUMP_SUCCESS = Text.ofMessageKey("dkfriends.command.clan.jump.success");
     public static MessageComponent<?> COMMAND_CLAN_SETTING_CHANGED = Text.ofMessageKey("dkfriends.command.clan.setting.changed");
+    public static MessageComponent<?> COMMAND_CLAN_PARTY_NO_ONLINE = Text.ofMessageKey("dkfriends.command.clan.party.noOnline");
 
     public static final MessageComponent<?> CLAN_INVITE = Text.ofMessageKey("dkfriends.clan.invite");
     public static final MessageComponent<?> CLAN_KICK = Text.ofMessageKey("dkfriends.clan.kick");
