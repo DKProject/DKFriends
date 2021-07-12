@@ -6,6 +6,7 @@ import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.player.DefaultDKFriendsPlayer;
 import net.pretronic.dkfriends.minecraft.config.DKFriendsConfig;
+import net.pretronic.dkfriends.minecraft.utils.PlayerHiderVisibility;
 import net.pretronic.libraries.document.Document;
 import net.pretronic.libraries.document.entry.DocumentEntry;
 import net.pretronic.libraries.utility.Iterators;
@@ -76,6 +77,16 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
     }
 
     @Override
+    public boolean getActionSetting(String key, String group) {
+        Setting setting = getSettingObject(key);
+        if(setting == null) return true;
+
+        Document d = setting.getDocumentValue();
+        if(d.isEmpty()) return false;
+        return d.getBoolean(group);
+    }
+
+    @Override
     public boolean isActionAllow(String key, DKFriendsPlayer target) {
         Setting setting = getSettingObject(key);
         if(setting == null) return true;
@@ -116,5 +127,29 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
             }
         }
         return result;
+    }
+
+    public PlayerHiderVisibility getPlayerHidingType() {
+        Setting setting = getSettingObject(PlayerSettings.FRIEND_PLAYER_HIDER_VISIBILITY);
+        if(setting == null || setting.getValue() == null) {
+            setPlayerHidingType(PlayerHiderVisibility.ALL);
+            return getPlayerHidingType();
+        }
+        return PlayerHiderVisibility.parse(setting.getValue());
+    }
+
+    public PlayerHiderVisibility setPlayerHidingType(PlayerHiderVisibility hidingType) {
+        setSetting(PlayerSettings.FRIEND_PLAYER_HIDER_VISIBILITY, hidingType.name());
+        return hidingType;
+    }
+
+    public PlayerHiderVisibility setNextPlayerHidingType() {
+        PlayerHiderVisibility hidingType = getPlayerHidingType();
+        switch (hidingType) {
+            case ALL: return setPlayerHidingType(PlayerHiderVisibility.VIP);
+            case VIP: return setPlayerHidingType(PlayerHiderVisibility.NONE);
+            case NONE: return setPlayerHidingType(PlayerHiderVisibility.ALL);
+        }
+        throw new IllegalArgumentException("Can't set next PlayerHidingType for " + hidingType);
     }
 }

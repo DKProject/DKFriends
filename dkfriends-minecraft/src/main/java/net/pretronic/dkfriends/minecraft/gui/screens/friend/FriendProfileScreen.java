@@ -18,19 +18,19 @@ import org.mcnative.runtime.api.text.format.TextColor;
 
 import java.net.URI;
 
-public class FriendSettingsScreen {
+public class FriendProfileScreen {
 
-    public static void register(ElementList<GuiContext, FriendSettingsScreenContext> elements) {
-        elements.addElement(new BasicElement<GuiContext, FriendSettingsScreenContext>(Slots.lines(0,2)) {
+    public static void register(ElementList<GuiContext, FriendProfileScreenContext> elements) {
+        elements.addElement(new BasicElement<GuiContext, FriendProfileScreenContext>(Slots.lines(0,2)) {
             @Override
-            protected ItemStack create(FriendSettingsScreenContext context) {
+            protected ItemStack create(FriendProfileScreenContext context) {
                 return ItemStack.newItemStack(Material.WHITE_STAINED_GLASS_PANE)
                         .setDisplayName(Text.parse("§a"));
             }
         });
-        elements.addElement(new BasicElement<GuiContext, FriendSettingsScreenContext>(Slots.slot(10)) {
+        elements.addElement(new BasicElement<GuiContext, FriendProfileScreenContext>(Slots.slot(10)) {
             @Override
-            protected ItemStack create(FriendSettingsScreenContext context) {
+            protected ItemStack create(FriendProfileScreenContext context) {
                 MinecraftPlayer target = McNative.getInstance().getPlayerManager().getPlayer(context.getSelectedFriend().getFriendId());
                 return ItemStack.newItemStack(target.isOnline() ? Material.PLAYER_HEAD : Material.SKELETON_SKULL)
                         .setDisplayName(Text.parse(target.getDisplayName()))
@@ -41,23 +41,23 @@ public class FriendSettingsScreen {
                         });
             }
         });
-        elements.addElement(new BasicElement<GuiContext, FriendSettingsScreenContext>(Slots.slot(11)) {
+        elements.addElement(new BasicElement<GuiContext, FriendProfileScreenContext>(Slots.slot(11)) {
             @Override
-            protected ItemStack create(FriendSettingsScreenContext friendPageContext) {
+            protected ItemStack create(FriendProfileScreenContext friendPageContext) {
                 return ItemStack.newItemStack(Material.IRON_CHESTPLATE).setDisplayName(Text.of("Invite to clan", TextColor.AQUA));
             }
 
             @Override
-            public void handleClick(FriendSettingsScreenContext context, MinecraftPlayerInventoryClickEvent event) {
+            public void handleClick(FriendProfileScreenContext context, MinecraftPlayerInventoryClickEvent event) {
                 DKFriendsPlayer player = event.getOnlinePlayer().getAs(DKFriendsPlayer.class);
                 if(player.isInClan()) {
                     player.getClan().sendInvitation(player, context.getSelectedFriend().getFriendId());
                 }
             }
         });
-        elements.addElement(new BasicElement<GuiContext, FriendSettingsScreenContext>(Slots.slot(15)) {
+        elements.addElement(new BasicElement<GuiContext, FriendProfileScreenContext>(Slots.slot(15)) {
             @Override
-            protected ItemStack create(FriendSettingsScreenContext friendPageContext) {
+            protected ItemStack create(FriendProfileScreenContext friendPageContext) {
                 Friend friend = friendPageContext.getSelectedFriend();
                 String displayName = friend.isFavorite() ? "§cRemove as favorite" : "§aAdd as favorite";
                 GameProfileLoader profileLoader = McNative.getInstance().getRegistry().getService(GameProfileLoader.class);
@@ -67,19 +67,19 @@ public class FriendSettingsScreen {
             }
 
             @Override
-            public void handleClick(FriendSettingsScreenContext context, MinecraftPlayerInventoryClickEvent event) {
+            public void handleClick(FriendProfileScreenContext context, MinecraftPlayerInventoryClickEvent event) {
                 Friend friend = context.getSelectedFriend();
                 friend.setFavorite(!friend.isFavorite());
             }
         });
-        elements.addElement(new BasicElement<GuiContext, FriendSettingsScreenContext>(Slots.slot(16)) {
+        elements.addElement(new BasicElement<GuiContext, FriendProfileScreenContext>(Slots.slot(16)) {
             @Override
-            protected ItemStack create(FriendSettingsScreenContext friendPageContext) {
+            protected ItemStack create(FriendProfileScreenContext friendPageContext) {
                 return ItemStack.newItemStack(Material.BARRIER).setDisplayName(Text.of("Remove friend", TextColor.RED));
             }
 
             @Override
-            public void handleClick(FriendSettingsScreenContext context, MinecraftPlayerInventoryClickEvent event) {
+            public void handleClick(FriendProfileScreenContext context, MinecraftPlayerInventoryClickEvent event) {
                 Friend friend = context.getSelectedFriend();
                 friend.remove();
                 context.root().getGui().open(context.root().getPlayer(), "friends");

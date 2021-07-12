@@ -38,6 +38,12 @@ public class DKFriendsConfig {
             .permission("dkfriends.command.clan")
             .create();
 
+    public static boolean PLAYER_HIDER_ENABLED = true;
+    public static int PLAYER_HIDER_SLOT = 1;
+
+    public static boolean PROFILE_SKULL_ENABLED = true;
+    public static int PROFILE_SKULL_SLOT = 8;
+
     static {
         SETTINGS_ACTION_GROUPS.add("friend");
         SETTINGS_ACTION_GROUPS.add("favorite");

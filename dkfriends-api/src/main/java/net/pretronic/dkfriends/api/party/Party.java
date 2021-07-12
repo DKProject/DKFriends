@@ -4,6 +4,7 @@ import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.libraries.document.Document;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public interface Party {
@@ -37,6 +38,8 @@ public interface Party {
     PartyMember getLeader();
 
     Collection<PartyMember> getMembers();
+
+    List<PartyMember> getSortedMembers();
 
     int getSize();
 

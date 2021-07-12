@@ -140,4 +140,9 @@ public class Messages {
     public static MessageComponent<?> PARTY_MESSAGE = Text.ofMessageKey("dkfriends.party.message");
     public static MessageComponent<?> PARTY_TELEPORT = Text.ofMessageKey("dkfriends.party.teleport");
 
+    public static MessageComponent<?> LOBBY_HIDER_ALL_DISPLAY_NAME = Text.ofMessageKey("dkfriends.lobby.hider.all.displayName");
+    public static MessageComponent<?> LOBBY_HIDER_VIP_DISPLAY_NAME = Text.ofMessageKey("dkfriends.lobby.hider.vip.displayName");
+    public static MessageComponent<?> LOBBY_HIDER_NONE_DISPLAY_NAME = Text.ofMessageKey("dkfriends.lobby.hider.none.displayName");
+
+    public static MessageComponent<?> PROFILE_HEAD_NONE_DISPLAY_NAME = Text.ofMessageKey("dkfriends.profileHead.displayName");
 }

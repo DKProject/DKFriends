@@ -9,6 +9,7 @@ import org.mcnative.runtime.api.service.inventory.gui.element.BasicElement;
 import org.mcnative.runtime.api.service.inventory.item.ItemStack;
 import org.mcnative.runtime.api.service.inventory.item.material.Material;
 import org.mcnative.runtime.api.text.Text;
+import org.mcnative.runtime.api.text.format.TextColor;
 
 public class Layout {
 
@@ -59,6 +60,28 @@ public class Layout {
                         .setLore(Text.of("§7Parties"))
                         .setGlowing(context.getPage().getName().equals("partyPage"))
                         .setDisplayName(Text.of("§eParties"));
+            }
+
+            @Override
+            public void handleClick(T context, MinecraftPlayerInventoryClickEvent event) {
+                if(context.getPage().getName().equals("partyPage")) return;
+                context.root().getGui().open(context.root().getPlayer(), "partyPage");
+            }
+        });
+
+        elements.addElement(new BasicElement<GuiContext, T>(Slots.slot(48)) {
+            @Override
+            protected ItemStack create(T context) {
+                return ItemStack.newItemStack(Material.COMPARATOR)
+                        .setLore(Text.of("Settings", TextColor.RED))
+                        .setGlowing(context.getPage().getName().equals("settingsPage"))
+                        .setDisplayName(Text.of("Settings", TextColor.RED));
+            }
+
+            @Override
+            public void handleClick(T context, MinecraftPlayerInventoryClickEvent event) {
+                if(context.getPage().getName().equals("settingsPage")) return;
+                context.root().getGui().open(context.root().getPlayer(), "settingsPage");
             }
         });
     }

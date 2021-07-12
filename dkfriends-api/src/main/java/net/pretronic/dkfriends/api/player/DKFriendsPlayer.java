@@ -139,6 +139,8 @@ public interface DKFriendsPlayer {
 
     void setActionSetting(String key,boolean value);
 
+    boolean getActionSetting(String key, String group);
+
     boolean isActionAllow(String setting,DKFriendsPlayer target);
 
 }

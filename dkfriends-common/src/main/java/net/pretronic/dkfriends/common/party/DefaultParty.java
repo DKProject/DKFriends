@@ -24,10 +24,7 @@ import net.pretronic.libraries.document.Document;
 import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.annonations.Internal;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
 
 public class DefaultParty implements Party {
 
@@ -105,6 +102,11 @@ public class DefaultParty implements Party {
     @Override
     public Collection<PartyMember> getMembers() {
         return Collections.unmodifiableCollection(this.members);
+    }
+
+    @Override
+    public List<PartyMember> getSortedMembers() {
+        return new ArrayList<>(getMembers());
     }
 
     @Override

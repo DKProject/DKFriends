@@ -179,3 +179,7 @@ messages:
   &7/clan rename <newName> &8- &7Rename the clan
   &7/clan retag <newTag> &8- &7Retag the clan
   &7/clan userinfo <player> &8- &7Show clan information of the player'
+
+  dkfriends.lobby.hider.all.displayName: '&aAll players visible'
+  dkfriends.lobby.hider.vip.displayName: '&5Only VIPs visible'
+  dkfriends.lobby.hider.none.displayName: '&cNo players visible'
