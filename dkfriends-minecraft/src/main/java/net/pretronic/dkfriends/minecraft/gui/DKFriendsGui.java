@@ -13,6 +13,8 @@ import net.pretronic.dkfriends.minecraft.gui.screens.friend.FriendProfileScreen;
 import net.pretronic.dkfriends.minecraft.gui.screens.friend.FriendProfileScreenContext;
 import net.pretronic.dkfriends.minecraft.gui.screens.party.PartyListScreen;
 import net.pretronic.dkfriends.minecraft.gui.screens.party.PartyListScreenContext;
+import net.pretronic.dkfriends.minecraft.gui.screens.party.PublicPartyList;
+import net.pretronic.dkfriends.minecraft.gui.screens.party.PublicPartyListScreenContext;
 import net.pretronic.dkfriends.minecraft.gui.screens.settings.FriendSettingsScreen;
 import net.pretronic.dkfriends.minecraft.gui.screens.settings.SettingsScreen;
 import org.mcnative.runtime.api.McNative;
@@ -50,7 +52,12 @@ public class DKFriendsGui {
                 else return "clanMembers";
             });
             builder.createScreen("partyMembers", 54, PartyListScreenContext.class, context -> Text.of("Party menu", TextColor.GRAY), PartyListScreen::register);
-            builder.registerPage("partyPage", "partyMembers");
+            builder.createScreen("publicParties", 54, PublicPartyListScreenContext.class, context -> Text.of("Party menu", TextColor.GRAY), PublicPartyList::register);
+            builder.registerPage("partyPage", context -> {
+                DKFriendsPlayer player = context.getPlayer().getAs(DKFriendsPlayer.class);
+                if(player.getParty() == null) return "publicParties";
+                else return "partyMembers";
+            });
 
 
             builder.createScreen("settings", 54, EmptyScreenContext.class, context -> Text.of("Settings", TextColor.GRAY), SettingsScreen::register);

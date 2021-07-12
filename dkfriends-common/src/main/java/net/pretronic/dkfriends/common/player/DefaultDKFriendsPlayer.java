@@ -422,4 +422,8 @@ public abstract class DefaultDKFriendsPlayer implements DKFriendsPlayer {
         }
         return this.friendRequests;
     }
+
+    public DefaultDKFriends getDKFriends() {
+        return dkFriends;
+    }
 }
