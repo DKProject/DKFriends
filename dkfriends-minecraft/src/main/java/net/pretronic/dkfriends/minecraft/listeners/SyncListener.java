@@ -1,6 +1,7 @@
 package net.pretronic.dkfriends.minecraft.listeners;
 
 import net.pretronic.dkfriends.api.DKFriends;
+import net.pretronic.dkfriends.api.event.clan.ClanCreateEvent;
 import net.pretronic.dkfriends.api.event.clan.ClanDeleteEvent;
 import net.pretronic.dkfriends.api.event.clan.member.*;
 import net.pretronic.dkfriends.api.event.clan.change.ClanChangeNameEvent;
@@ -138,8 +139,16 @@ public class SyncListener {
     }
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
+    public void onClanCreate(ClanCreateEvent event) {
+        Tablist tablist = McNative.getInstance().getLocal().getServerTablist();
+        if(tablist != null) tablist.updateEntries();
+    }
+
+    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
     public void onClanDelete(ClanDeleteEvent event) {
         ((DefaultClanManager)dkfriends.getClanManager()).removeClanInternal(event.getClanId());
+        Tablist tablist = McNative.getInstance().getLocal().getServerTablist();
+        if(tablist != null) tablist.updateEntries();
     }
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)

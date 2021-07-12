@@ -6,12 +6,16 @@ import net.pretronic.libraries.command.command.configuration.CommandConfiguratio
 import net.pretronic.libraries.document.annotations.DocumentKey;
 import net.pretronic.libraries.document.annotations.OnDocumentConfigurationLoad;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class DKFriendsConfig {
+
+    @DocumentKey("format.date.pattern")
+    public static String FORMAT_DATE_PATTERN = "dd-MM-yyyy HH:mm";
 
     public static List<String> SETTINGS_ACTION_GROUPS = new ArrayList<>();
 
@@ -51,6 +55,8 @@ public class DKFriendsConfig {
     public static String CLAN_NAME_FORMATTED = "&8[&e{name}&8]";
 
 
+    public static transient SimpleDateFormat FORMAT_DATE;
+
     static {
         SETTINGS_ACTION_GROUPS.add("friend");
         SETTINGS_ACTION_GROUPS.add("favorite");
@@ -74,6 +80,7 @@ public class DKFriendsConfig {
 
     @OnDocumentConfigurationLoad
     public static void onLoad(){
+        FORMAT_DATE = new SimpleDateFormat(FORMAT_DATE_PATTERN);
         for (String name : SETTINGS_ACTION_GROUPS) {
             if(name.equals("friend")) PlayerSettings.ACTION_CHECKS.put("friend",new FriendPlayerActionCheck());
             else if(name.equals("favorite")) PlayerSettings.ACTION_CHECKS.put("favorite",new ClanPlayerActionCheck());
