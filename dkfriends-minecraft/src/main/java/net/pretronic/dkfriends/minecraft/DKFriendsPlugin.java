@@ -43,7 +43,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
     public void onLoad(LifecycleState state){
         getLogger().info("DKFriends is starting, please wait..");
 
-        /*try{
+        try{
             McNativeLicenseIntegration.newContext(this,RESOURCE_ID,PUBLIC_KEY).verifyOrCheckout();
         }catch (LicenseNotValidException | CloudNotCheckoutLicenseException e){
             getLogger().error("--------------------------------");
@@ -53,7 +53,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
             getLogger().info("DKFriends is shutting down");
             getLoader().shutdown();
             return;
-        }*/
+        }
 
         getConfiguration().load(DKFriendsConfig.class);
 

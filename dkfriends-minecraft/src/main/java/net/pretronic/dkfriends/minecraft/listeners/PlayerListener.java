@@ -99,6 +99,7 @@ public class PlayerListener {
     public void onServerSwitch(MinecraftPlayerServerSwitchEvent event){
         DKFriendsPlayer player = event.getPlayer().getAs(DKFriendsPlayer.class);
         Party party = player.getParty();
+        System.out.println("SWITCH SERVER "+party+" | "+event.getTo());
         if(party != null){
             party.teleport(event.getTo().getName());
         }

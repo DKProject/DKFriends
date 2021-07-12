@@ -137,7 +137,9 @@ public class DefaultPartyManager implements PartyManager {
 
             for (QueryResultEntry entry : members.find().orderBy("PartyId", SearchOrder.ASC).execute()) {
                 UUID partyId = entry.getUniqueId("PartyId");
-                if(party == null || !party.getId().equals(partyId)) party = (DefaultParty) Iterators.findOne(this.parties, party1 -> party1.getId().equals(partyId));
+                if(party == null || !party.getId().equals(partyId)){
+                    party = (DefaultParty) Iterators.findOne(this.parties, party1 -> party1.getId().equals(partyId));
+                }
                 party.addInternal(new DefaultPartyMember(dkFriends,party,entry.getUniqueId("PlayerId")
                         ,entry.getLong("Time")
                         ,PartyRole.valueOf(entry.getString("Role"))));

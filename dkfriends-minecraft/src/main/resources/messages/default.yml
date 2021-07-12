@@ -49,7 +49,7 @@ messages:
   dkfriends.command.friend.message: '${dkfriends.prefix.friend} &e{sender.displayName}&8: &7{message}'
   dkfriends.command.friend.message.notAllowed: '${dkfriends.prefix.friend} &cYou are not allowed to send a message to this player'
   dkfriends.command.friend.list: '${dkfriends.prefix.friend} &7Your friends &8| &7Page&8: &e{page} @for("friend" in {friends},${dkfriends.command.friend.list.loop},"\n","\n")'
-  dkfriends.command.friend.list.loop: '@if({friend.online},${dkfriends.command.friend.list.loop.online},${dkfriends.command.friend.list.loop.offline})'
+  dkfriends.command.friend.list.loop: '@if({friend.isOnline},${dkfriends.command.friend.list.loop.online},${dkfriends.command.friend.list.loop.offline})'
   dkfriends.command.friend.list.loop.online: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &aOnline &8(&efriend.server)'
   dkfriends.command.friend.list.loop.offline: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &cOffline &8(&7Last seen on &e{friend.lastLoginFormatted} &8)'
   dkfriends.command.friend.requests: '${dkfriends.prefix.friend} &7Friend requests &8| &7Page&8: &e{page} @for("request" in {requests},${dkfriends.command.friend.requests.loop},"\n","\n")'
