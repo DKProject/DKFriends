@@ -95,7 +95,7 @@ messages:
   ${dkfriends.prefix.friend} &7Click&8: !["&8[&aACCEPT&8]"]("run:///friend accept {player.name}") !["&8[&cDENY&8]"]("run:///friend deny {player.name})"'
   dkfriends.friend.deny: '${dkfriends.prefix.friend} &e{player.displayName} &chas declined your friend request'
   dkfriends.friend.add: '${dkfriends.prefix.friend} &7You are now friends with &e{player.displayName}'
-  dkfriends.friend.remove: '${dkfriends.prefix.friend} &7The friendship with &e{player.displayName} &7was terminated'
+  dkfriends.friend.remove: '${dkfriends.prefix.friend} &7The friendship with &e{player.displayName} &7was canceled'
   dkfriends.friend.login: '${dkfriends.prefix.friend} &e{player.displayName} &7is now &aonline'
   dkfriends.friend.logout: '${dkfriends.prefix.friend} &e{player.displayName} &7is now &coffline'
   dkfriends.friend.loginInfo.requests: '${dkfriends.prefix.friend} &7You have &e{amount} &7open friend requests'
@@ -113,6 +113,9 @@ messages:
   dkfriends.party.delete: '${dkfriends.prefix.party} &7The party was deleted'
   dkfriends.party.message: '${dkfriends.prefix.party} &e{player.displayName}&8: &7{message}'
   dkfriends.party.teleport: '${dkfriends.prefix.party} &7Connecting to &e{target.name}'
+  dkfriends.party.promote.leader: '${dkfriends.prefix.party} &e{player.name} &7is now leader'
+  dkfriends.party.promote.moderator: '${dkfriends.prefix.party} &e{player.name} &7is now a moderator'
+  dkfriends.party.demote.guest: '${dkfriends.prefix.party} &e{player.name} &7is no longer a moderator'
 
   dkfriends.command.clan.create.help: '${dkfriends.prefix.clan}'
   dkfriends.command.clan.create.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the name &e{name} &cand/or tag &e{tag} &calready exists.'
@@ -121,7 +124,7 @@ messages:
   dkfriends.command.clan.invite: '${dkfriends.prefix.clan} &7You have successfully invited &e{target.name}'
 
   dkfriends.clan.invite: '${dkfriends.prefix.clan} &e{invitation.inviter.displayName} &7invited you to the clan &e{invitation.clan.name}
-  ${dkfriends.prefix.clan} &7Click&8: !["&8[&aACCEPT&8]"]("run:///clan accept {invitation.clan.name}") !["&8[&cDENY&8]"]("run:///clan deny {invitation.clan.name}")"'
+  ${dkfriends.prefix.clan} &7Click&8: !["&8[&aACCEPT&8]"]("run:///clan accept {invitation.clan.name}") !["&8[&cDENY&8]"]("run:///clan deny {invitation.clan.name}")'
 
   dkfriends.command.clan.leave: '${dkfriends.prefix.clan} &7You have left your clan'
 

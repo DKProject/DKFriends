@@ -16,6 +16,7 @@ import net.pretronic.dkfriends.api.event.party.invitation.PartyInvitationDenyEve
 import net.pretronic.dkfriends.api.event.party.invitation.PartyInviteEvent;
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.party.PartyMember;
+import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.config.Messages;
@@ -158,7 +159,7 @@ public class PerformListener {
     public void onParty(PartyJoinEvent event){
         if(event.isCancelled()) return;
 
-        MinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getPlayerId());
+        MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer(event.getPlayerId());
         ConnectedMinecraftPlayer cPlayer = player.getAsConnectedPlayer();
 
         Collection<ConnectedMinecraftPlayer> players = getConnectedPartyPlayers(event.getParty());
@@ -181,7 +182,7 @@ public class PerformListener {
         if (event.isCancelled()) return;
         Collection<ConnectedMinecraftPlayer> players = getConnectedPartyPlayers(event.getParty());
         if(!players.isEmpty()){
-            MinecraftPlayer player = McNative.getInstance().getLocal().getConnectedPlayer(event.getPlayerId());
+            MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer(event.getPlayerId());
             VariableSet variables = VariableSet.create()
                     .addDescribed("executor",event.getExecutor())
                     .addDescribed("player",player);
@@ -190,6 +191,32 @@ public class PerformListener {
             for (ConnectedMinecraftPlayer member : players) {
                 member.sendMessage(message,variables);
             }
+        }
+    }
+
+    @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
+    public void onPartyInvite(PartyRoleChangeEvent event){
+        Collection<ConnectedMinecraftPlayer> players = getConnectedPartyPlayers(event.getParty());
+        if(!players.isEmpty()){
+            MessageComponent<?> component = null;
+
+            if(event.getNewRole() == PartyRole.LEADER){
+                component = Messages.PARTY_PROMOTE_LEADER;
+            }else if(event.getNewRole() == PartyRole.MODERATOR && event.getOldRole() == PartyRole.GUEST){
+                component = Messages.PARTY_PROMOTE_MODERATOR;
+            }else if(event.getNewRole() == PartyRole.GUEST && event.getOldRole() == PartyRole.MODERATOR){
+                component = Messages.PARTY_DEMOTE_GUEST;
+            }
+
+            if(component != null){
+                MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer(event.getPlayerId());
+                VariableSet variables = VariableSet.create().addDescribed("player",player);
+                for (ConnectedMinecraftPlayer member : players) {
+                    member.sendMessage(component,variables);
+                }
+            }
+
         }
     }
 

@@ -65,7 +65,12 @@ public class DefaultPartyMember implements PartyMember {
 
     @Override
     public void setRole(PartyRole role) {
-        PartyRoleChangeEvent event = new DefaultPartyRoleChangeEvent(this,role);
+        if(role.equals(PartyRole.LEADER)){
+           PartyMember member = getParty().getLeader();
+           if(member != null) member.setRole(PartyRole.MODERATOR);
+        }
+
+        PartyRoleChangeEvent event = new DefaultPartyRoleChangeEvent(this,role,this.role);
         dkFriends.getEventBus().callEvent(PartyRoleChangeEvent.class,event);
 
         dkFriends.getStorage().getPartiesMembers().update()

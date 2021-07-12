@@ -5,6 +5,7 @@ import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanMember;
 import net.pretronic.dkfriends.api.clan.ClanRole;
 import net.pretronic.dkfriends.api.event.clan.member.ClanMemberRoleUpdateEvent;
+import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.event.clan.member.DefaultClanMemberRoleUpdateEvent;

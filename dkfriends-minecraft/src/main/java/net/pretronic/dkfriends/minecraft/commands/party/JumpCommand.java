@@ -12,6 +12,7 @@ import net.pretronic.libraries.message.bml.variable.VariableSet;
 import net.pretronic.libraries.utility.interfaces.ObjectOwner;
 import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.network.component.server.MinecraftServer;
+import org.mcnative.runtime.api.player.ConnectedMinecraftPlayer;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 import org.mcnative.runtime.api.player.OnlineMinecraftPlayer;
 
@@ -23,10 +24,7 @@ public class JumpCommand extends BasicCommand {
 
     @Override
     public void execute(CommandSender sender, String[] arguments) {
-        if(arguments.length < 1){
-            sender.sendMessage(Messages.COMMAND_PARTY_HELP);
-            return;
-        }
+        ConnectedMinecraftPlayer online = ((ConnectedMinecraftPlayer)sender);
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
         Party party = player.getParty();
@@ -36,15 +34,11 @@ public class JumpCommand extends BasicCommand {
         }
 
         PartyMember leader = party.getLeader();
-
         OnlineMinecraftPlayer target = McNative.getInstance().getNetwork().getOnlinePlayer(leader.getPlayerId());
 
         MinecraftServer server = target.getServer();
-        if(((OnlineMinecraftPlayer)sender).getServer().equals(server)){
-
-        }else{
-     //       sender.sendMessage(Messages.);
-            target.connect(server);
+        if(!online.getServer().getUniqueId().equals(server.getUniqueId())){
+            online.connect(server);
         }
     }
 }

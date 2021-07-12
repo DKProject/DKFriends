@@ -40,7 +40,6 @@ public class FriendListScreen {
 
             @Override
             public void handleClick(FriendListScreenContext context, MinecraftPlayerInventoryClickEvent event, Friend friend) {
-                System.out.println("handle click " + friend);
                 context.root().getGui().openScreen(context.root().getPlayer(), "friendProfile", friend);
             }
         });

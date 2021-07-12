@@ -77,7 +77,6 @@ public class ServiceListener {
     @Listener
     public void onItemDrop(MinecraftPlayerDropItemEvent event) {
         int slot = event.getPlayer().getInventory().getHeldItemSlot();
-        System.out.println(slot);
         if((DKFriendsConfig.PLAYER_HIDER_ENABLED && slot == DKFriendsConfig.PLAYER_HIDER_SLOT)
                 || (DKFriendsConfig.PROFILE_SKULL_ENABLED && slot == DKFriendsConfig.PROFILE_SKULL_SLOT)) {
             event.setCancelled(true);
