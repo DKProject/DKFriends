@@ -31,6 +31,8 @@ import net.pretronic.dkfriends.minecraft.player.MinecraftDKFriendsPlayer;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.libraries.event.EventPriority;
 import net.pretronic.libraries.event.network.NetworkListener;
+import org.mcnative.runtime.api.McNative;
+import org.mcnative.runtime.api.player.tablist.Tablist;
 
 public class SyncListener {
 
@@ -179,20 +181,26 @@ public class SyncListener {
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
     public void onClanJoinEvent(ClanMemberJoinEvent event) {
         DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
-        if(clan != null) clan.addMember(event.getMember());
+        if(clan != null){
+            clan.addMember(event.getMember());
+
+            if(McNative.getInstance().getLocal().getConnectedPlayer(event.getMember().getPlayerId()) != null){
+                Tablist tablist = McNative.getInstance().getLocal().getServerTablist();
+                if(tablist != null) tablist.updateEntries();
+            }
+        }
     }
 
     @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
     public void onClanLeaveEvent(ClanMemberJoinEvent event) {
         DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
-        if(clan != null) clan.removeMember(event.getMember().getPlayerId());
+        if(clan != null) {
+            clan.removeMember(event.getMember().getPlayerId());
+            if(McNative.getInstance().getLocal().getConnectedPlayer(event.getMember().getPlayerId()) != null){
+                Tablist tablist = McNative.getInstance().getLocal().getServerTablist();
+                if(tablist != null) tablist.updateEntries();
+            }
+        }
     }
-
-    @NetworkListener(priority = EventPriority.LOWEST,onlyRemote = true)
-    public void onClanLeaveEvent(ClanMemberRoleUpdateEvent event) {
-        DefaultClan clan = ((DefaultClanManager)dkfriends.getClanManager()).getCachedClan(event.getClanId());
-        if(clan != null) clan.updateRole(event.getMember().getPlayerId(),event.getNewRole());
-    }
-
 
 }
