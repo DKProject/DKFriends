@@ -10,6 +10,7 @@ import net.pretronic.dkfriends.common.DKFriendStorage;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
 import net.pretronic.dkfriends.common.party.DefaultPartyInvitation;
 import net.pretronic.dkfriends.common.party.DefaultPartyMember;
+import net.pretronic.dkfriends.minecraft.listeners.ServiceListener;
 import net.pretronic.dkfriends.minecraft.player.MinecraftDKFriendsPlayerManager;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
@@ -76,6 +77,7 @@ public class DKFriendsPlugin extends MinecraftPlugin {
 
         if(McNative.getInstance().getPlatform().isService()) {
             DKFriendsGui.register(dkfriends);
+            getRuntime().getLocal().getEventBus().subscribe(this, new ServiceListener());
         }
 
         getLogger().info("DKFriends started successfully");
