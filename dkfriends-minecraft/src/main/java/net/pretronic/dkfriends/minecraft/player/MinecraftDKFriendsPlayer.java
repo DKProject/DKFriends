@@ -43,7 +43,7 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
 
     @Override
     public boolean isOnline() {
-        System.out.println("Player ONLINE CHECK: "+getMinecraftPlayer());
+        System.out.println("Player ONLINE CHECK: "+getMinecraftPlayer().getClass());
         return getMinecraftPlayer() instanceof OnlineMinecraftPlayer;
     }
 

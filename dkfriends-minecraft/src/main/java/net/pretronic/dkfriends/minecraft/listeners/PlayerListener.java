@@ -30,11 +30,12 @@ public class PlayerListener {
         Clan clan = player.getClan();
 
         for (OnlineMinecraftPlayer online : getOnlinePlayers()) {
-            System.out.println("CHECK FRIEND "+online.getName());
+            System.out.println("CHECK FRIEND "+online.getName()+" | "+player.isFriend(online.getUniqueId()));
             if(player.isFriend(online.getUniqueId())){
                 onlineFriends.add(online);
                 System.out.println("FRIEND ONLINE NOTIFICATION");
                 if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.FRIEND_NOTIFICATIONS,player)){
+                    System.out.println("ALLOWED SENDING MESSAGE");
                     online.sendMessage(Messages.FRIEND_LOGIN, VariableSet.create()
                             .addDescribed("player",event.getOnlinePlayer()));
                 }
@@ -101,7 +102,6 @@ public class PlayerListener {
     public void onServerSwitch(MinecraftPlayerServerSwitchEvent event){
         DKFriendsPlayer player = event.getPlayer().getAs(DKFriendsPlayer.class);
         Party party = player.getParty();
-        System.out.println("SWITCH SERVER "+party+" | "+event.getTo());
         if(party != null){
             party.teleport(event.getTo().getName());
         }

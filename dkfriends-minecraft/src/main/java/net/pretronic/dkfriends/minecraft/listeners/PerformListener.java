@@ -233,6 +233,9 @@ public class PerformListener {
             VariableSet variables = VariableSet.create().addDescribed("target",target);
             for (ConnectedMinecraftPlayer member : players) {
                 member.sendMessage(Messages.PARTY_TELEPORT,variables);
+                if(member.getServer() != null && !member.getServer().getUniqueId().equals(target.getUniqueId())){
+                    member.connect(target);
+                }
             }
         }
     }
