@@ -10,8 +10,10 @@ import net.pretronic.dkfriends.minecraft.utils.PlayerHiderVisibility;
 import net.pretronic.libraries.document.Document;
 import net.pretronic.libraries.document.entry.DocumentEntry;
 import net.pretronic.libraries.utility.Iterators;
+import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.Setting;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
+import org.mcnative.runtime.api.player.OnlineMinecraftPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,36 +22,41 @@ import java.util.UUID;
 
 public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
 
-    private final MinecraftPlayer player;
+    private final UUID uniqueId;
     private final List<Setting> cachedSettings;
 
-    public MinecraftDKFriendsPlayer(DefaultDKFriends dkFriends, UUID uniqueId, MinecraftPlayer player) {
-        super(dkFriends, uniqueId);
-        this.player = player;
+    public MinecraftDKFriendsPlayer(DefaultDKFriends dkfriends,UUID uniqueId) {
+        super(dkfriends, uniqueId);
+        this.uniqueId = uniqueId;
         this.cachedSettings = new ArrayList<>();
+    }
+
+    public MinecraftPlayer getMinecraftPlayer(){
+        //@Todo Optimize
+        return McNative.getInstance().getPlayerManager().getPlayer(this.uniqueId);
     }
 
     @Override
     public String getName() {
-        return player.getName();
+        return getMinecraftPlayer().getName();
     }
 
     @Override
     public boolean isOnline() {
-        System.out.println("Check online for: "+player.getName()+" |"+player.isOnline()+" | "+player.getClass());
-        return player.isOnline();
+        System.out.println("Player ONLINE CHECK: "+getMinecraftPlayer().getClass());
+        return getMinecraftPlayer() instanceof OnlineMinecraftPlayer;
     }
 
     @Override
     public boolean hasPermission(String permission) {
-        return player.hasPermission(permission);
+        return getMinecraftPlayer().hasPermission(permission);
     }
 
     @Override
     public void setSetting(String key, Object value) {
         Setting setting = getSettingObject(key);
         if(setting != null)setting.setValue(value);
-        else player.setSetting("DKFriends",key,value);
+        else getMinecraftPlayer().setSetting("DKFriends",key,value);
     }
 
     @Override
@@ -64,16 +71,16 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
         Document document = setting != null ? setting.getDocumentValue() : Document.newDocument();
         document.set(group,value);
         if(setting != null) setting.setValue(document);
-        else player.setSetting("DKFriends",key,document);
+        else getMinecraftPlayer().setSetting("DKFriends",key,document);
     }
 
     @Override
     public void setActionSetting(String key, boolean value) {
-        if(value) player.setSetting("DKFriends",key,Document.newDocument());
+        if(value) getMinecraftPlayer().setSetting("DKFriends",key,Document.newDocument());
         else{
             Document data = Document.newDocument();
             for (String name : PlayerSettings.ACTION_CHECKS.keySet()) data.set(name,false);
-            player.setSetting("DKFriends",key,data);
+            getMinecraftPlayer().setSetting("DKFriends",key,data);
         }
     }
 
@@ -104,7 +111,7 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
 
     private Setting getSettingObject(String key){
         Setting setting = Iterators.findOne(this.cachedSettings, setting1 -> setting1.getKey().equalsIgnoreCase(key));
-        if(setting == null) setting = player.getSetting("DKFriends",key);
+        if(setting == null) setting = getMinecraftPlayer().getSetting("DKFriends",key);
         return setting;
     }
 

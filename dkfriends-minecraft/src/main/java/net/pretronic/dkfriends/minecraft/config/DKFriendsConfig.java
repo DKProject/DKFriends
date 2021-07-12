@@ -44,14 +44,21 @@ public class DKFriendsConfig {
     public static boolean PROFILE_SKULL_ENABLED = true;
     public static int PROFILE_SKULL_SLOT = 8;
 
+    @DocumentKey("clanTagFormatted")
+    public static String CLAN_TAG_FORMATTED = "&8[{tag}&8]";
+
+    @DocumentKey("clanNameFormatted")
+    public static String CLAN_NAME_FORMATTED = "&8[{name}&8]";
+
+
     static {
         SETTINGS_ACTION_GROUPS.add("friend");
         SETTINGS_ACTION_GROUPS.add("favorite");
         SETTINGS_ACTION_GROUPS.add("party");
         SETTINGS_ACTION_GROUPS.add("clan");
-        SETTINGS_ACTION_GROUPS.add("premium-dkfriends.group.premium");
-        SETTINGS_ACTION_GROUPS.add("youtuber-dkfriends.group.youtuber");
-        SETTINGS_ACTION_GROUPS.add("team-dkfriends.group.team");
+        SETTINGS_ACTION_GROUPS.add("premium@dkfriends.group.premium");
+        SETTINGS_ACTION_GROUPS.add("youtuber@dkfriends.group.youtuber");
+        SETTINGS_ACTION_GROUPS.add("team@dkfriends.group.team");
 
         PERMISSIONS_MAX_FRIENDS.put("default",250);
         PERMISSIONS_MAX_FRIENDS.put("dkfriends.friend.max.500",500);
@@ -73,7 +80,7 @@ public class DKFriendsConfig {
             else if(name.equals("party")) PlayerSettings.ACTION_CHECKS.put("party",new PartyPlayerActionCheck());
             else if(name.equals("clan")) PlayerSettings.ACTION_CHECKS.put("clan",new FavoritePlayerActionCheck());
             else{
-                String[] parts = name.split("-");
+                String[] parts = name.split("@");
                 PlayerSettings.ACTION_CHECKS.put(parts[0],new PermissionActionCheck(parts[1]));
             }
         }

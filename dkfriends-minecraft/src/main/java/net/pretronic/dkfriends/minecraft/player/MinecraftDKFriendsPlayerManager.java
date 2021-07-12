@@ -65,7 +65,7 @@ public class MinecraftDKFriendsPlayerManager implements DKFriendsPlayerManager, 
         public MinecraftDKFriendsPlayer load(Object[] identifiers) {
             MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer((UUID) identifiers[0]);
             if(player == null) return null;
-            return new MinecraftDKFriendsPlayer(dkFriends, (UUID) identifiers[0],player);
+            return new MinecraftDKFriendsPlayer(dkFriends, (UUID) identifiers[0]);//player
         }
     }
 }

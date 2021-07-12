@@ -75,7 +75,7 @@ public class DKFriendStorage {
                 .create();
 
         parties = database.createCollection("dkfriends_parties")
-                .field("Id", DataType.UUID,FieldOption.NOT_NULL)
+                .field("Id", DataType.UUID,FieldOption.NOT_NULL,FieldOption.PRIMARY_KEY)
                 .field("Public", DataType.BOOLEAN,FieldOption.NOT_NULL)
                 .field("Category", DataType.STRING)
                 .field("Topic", DataType.STRING)

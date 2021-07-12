@@ -50,8 +50,8 @@ messages:
   dkfriends.command.friend.message.notAllowed: '${dkfriends.prefix.friend} &cYou are not allowed to send a message to this player'
   dkfriends.command.friend.list: '${dkfriends.prefix.friend} &7Your friends &8| &7Page&8: &e{page} @for("friend" in {friends},${dkfriends.command.friend.list.loop},"\n","\n")'
   dkfriends.command.friend.list.loop: '@if({friend.isOnline},${dkfriends.command.friend.list.loop.online},${dkfriends.command.friend.list.loop.offline})'
-  dkfriends.command.friend.list.loop.online: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &aOnline &8(&efriend.server)'
-  dkfriends.command.friend.list.loop.offline: ' @if({friend.favorite},"&6✦","&8-") &e{friend.displayName}&8: &cOffline &8(&7Last seen on &e{friend.lastLoginFormatted} &8)'
+  dkfriends.command.friend.list.loop.online: ' @if({friend.isFavorite},"&6✦","&8-") &e{friend.displayName}&8: &aOnline &8(&efriend.server)'
+  dkfriends.command.friend.list.loop.offline: ' @if({friend.isFavorite},"&6✦","&8-") &e{friend.displayName}&8: &cOffline &8(&7Last seen on &e{friend.lastLoginFormatted} &8)'
   dkfriends.command.friend.requests: '${dkfriends.prefix.friend} &7Friend requests &8| &7Page&8: &e{page} @for("request" in {requests},${dkfriends.command.friend.requests.loop},"\n","\n")'
   dkfriends.command.friend.requests.loop: ' &8- &e{request.requester.displayName}&8: !["&8[&aACCEPT&8]"]("run:///friend accept {request.requester.name}") !["&8[&cDENY&8]"]("run:///friend deny {request.requester.name})"'
   dkfriends.command.friend.favorite.mark: '${dkfriends.prefix.friend} &7You marked {player.displayName} &7as favorite'
@@ -182,7 +182,8 @@ messages:
   &7/clan demote <player> &8- &7Demote a player
   &7/clan rename <newName> &8- &7Rename the clan
   &7/clan retag <newTag> &8- &7Retag the clan
-  &7/clan userinfo <player> &8- &7Show clan information of the player'
+  &7/clan userinfo <player> &8- &7Show clan information of the player
+  &7/clan settings <key> <value>'
 
   dkfriends.lobby.hider.all.displayName: '&aAll players visible'
   dkfriends.lobby.hider.vip.displayName: '&5Only VIPs visible'

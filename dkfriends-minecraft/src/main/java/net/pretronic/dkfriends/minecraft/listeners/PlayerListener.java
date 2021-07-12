@@ -2,6 +2,7 @@ package net.pretronic.dkfriends.minecraft.listeners;
 
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.party.Party;
+import net.pretronic.dkfriends.api.party.PartyRole;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.config.Messages;
@@ -30,13 +31,16 @@ public class PlayerListener {
         Clan clan = player.getClan();
 
         for (OnlineMinecraftPlayer online : getOnlinePlayers()) {
+            System.out.println("CHECK FRIEND "+online.getName()+" | "+player.isFriend(online.getUniqueId()));
             if(player.isFriend(online.getUniqueId())){
                 onlineFriends.add(online);
+                System.out.println("FRIEND ONLINE NOTIFICATION");
                 if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.FRIEND_NOTIFICATIONS,player)){
+                    System.out.println("ALLOWED SENDING MESSAGE");
                     online.sendMessage(Messages.FRIEND_LOGIN, VariableSet.create()
                             .addDescribed("player",event.getOnlinePlayer()));
                 }
-            }else if (clan != null && clan.isMember(online.getUniqueId())){
+            }else if (clan != null && clan.isMember(online.getUniqueId()) && !online.getUniqueId().equals(event.getPlayer().getUniqueId())){
                 if(online.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.CLAN_NOTIFICATIONS,player)){
                     online.sendMessage(Messages.CLAN_LOGIN, VariableSet.create()
                             .addDescribed("player",event.getOnlinePlayer()));
@@ -99,8 +103,7 @@ public class PlayerListener {
     public void onServerSwitch(MinecraftPlayerServerSwitchEvent event){
         DKFriendsPlayer player = event.getPlayer().getAs(DKFriendsPlayer.class);
         Party party = player.getParty();
-        System.out.println("SWITCH SERVER "+party+" | "+event.getTo());
-        if(party != null){
+        if(party != null && party.getMember(event.getPlayer().getUniqueId()).getRole() == PartyRole.LEADER){
             party.teleport(event.getTo().getName());
         }
     }

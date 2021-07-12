@@ -13,6 +13,8 @@ import net.pretronic.libraries.message.bml.variable.describer.VariableDescriber;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriberRegistry;
 import org.mcnative.runtime.api.McNative;
 
+import java.util.function.Function;
+
 public class DescriberRegistrar {
 
     public static void register(){
@@ -28,9 +30,11 @@ public class DescriberRegistrar {
 
         VariableDescriber<DefaultFriend> friendDescriber = VariableDescriberRegistry.registerDescriber(DefaultFriend.class);
         friendDescriber.setForwardFunction(DefaultFriend::getFriend);
+        friendDescriber.registerFunction("isFavorite", DefaultFriend::isFavorite);
 
         VariableDescriber<MinecraftDKFriendsPlayer> playerDescriber = VariableDescriberRegistry.registerDescriber(MinecraftDKFriendsPlayer.class);
-        playerDescriber.setForwardFunction(player -> McNative.getInstance().getPlayerManager().getPlayer(player.getId()));//@Todo optimize with holder caching
+        playerDescriber.setForwardFunction(MinecraftDKFriendsPlayer::getMinecraftPlayer);
+        playerDescriber.registerFunction("isOnline", MinecraftDKFriendsPlayer::isOnline);
 
         VariableDescriberRegistry.registerDescriber(DefaultClan.class);
         VariableDescriberRegistry.registerDescriber(DefaultClanInvitation.class);

@@ -140,6 +140,7 @@ public class DefaultPartyManager implements PartyManager {
                 if(party == null || !party.getId().equals(partyId)){
                     party = (DefaultParty) Iterators.findOne(this.parties, party1 -> party1.getId().equals(partyId));
                 }
+                if(party == null) continue;
                 party.addInternal(new DefaultPartyMember(dkFriends,party,entry.getUniqueId("PlayerId")
                         ,entry.getLong("Time")
                         ,PartyRole.valueOf(entry.getString("Role"))));
