@@ -73,9 +73,9 @@ public class Layout {
             @Override
             protected ItemStack create(T context) {
                 return ItemStack.newItemStack(Material.COMPARATOR)
-                        .setLore(Text.of("Settings", TextColor.RED))
                         .setGlowing(context.getPage().getName().equals("settingsPage"))
-                        .setDisplayName(Text.of("Settings", TextColor.RED));
+                        .setDisplayName(Text.of("Settings", TextColor.RED))
+                        .setLore(Text.parse("§5Test\nTest\nTest"));
             }
 
             @Override
