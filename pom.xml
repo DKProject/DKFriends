@@ -7,7 +7,7 @@
     <groupId>net.pretronic.dkfriends</groupId>
     <artifactId>DKFriends</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.42.65-SNAPSHOT</version>
+    <version>1.0.43.66-SNAPSHOT</version>
     <modules>
         <module>dkfriends-api</module>
         <module>dkfriends-common</module>
