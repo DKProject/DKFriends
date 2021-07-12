@@ -207,6 +207,13 @@ public class DefaultParty implements Party {
     }
 
     @Override
+    public boolean canInvite(UUID uniqueId) {
+        PartyMember member = getMember(uniqueId);
+
+        return member != null && member.getRole() != PartyRole.GUEST;
+    }
+
+    @Override
     public boolean canInteract(UUID uniqueId, UUID targetId) {
         PartyMember member = getMember(uniqueId);
         if(member == null || member.getRole() == PartyRole.GUEST) return false;

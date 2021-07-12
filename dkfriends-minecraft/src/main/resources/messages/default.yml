@@ -57,6 +57,7 @@ messages:
   dkfriends.command.friend.favorite.mark: '${dkfriends.prefix.friend} &7You marked {player.displayName} &7as favorite'
   dkfriends.command.friend.favorite.unmark: '${dkfriends.prefix.friend} &7You unmarked {player.displayName} &7as favorite'
   dkfriends.command.friend.setting.changed: '${dkfriends.prefix.friend} &7You have changed the setting &e{setting}&8[&a{group}&8] &7to &e{value}'
+  dkfriends.command.friend.party.noOnline: '${dkfriends.prefix.friend} &cThere are no online friends to invite into this party'
 
   dkfriends.command.party.help: '${dkfriends.prefix.party} &7Available commands
   &7/party list &8- &7List all public parties

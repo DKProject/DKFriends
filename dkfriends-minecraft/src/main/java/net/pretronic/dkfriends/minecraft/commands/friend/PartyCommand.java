@@ -2,6 +2,7 @@ package net.pretronic.dkfriends.minecraft.commands.friend;
 
 import net.pretronic.dkfriends.api.party.Party;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.Completable;
@@ -32,22 +33,24 @@ public class PartyCommand extends BasicCommand{
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
-        Party party;
-        if(player.isInParty()){
-            party = player.getParty();
-            //@Todo check if permissions to invite
+        Party party = player.getParty();
+        if(party != null){
+            if(!party.canInvite(player.getId())){
+                sender.sendMessage(Messages.ERROR_PARTY_NOT_ALLOWED);
+                return;
+            }
         }else party = player.createParty();
 
-        boolean no = true;
+        boolean no = false;
         for (OnlineMinecraftPlayer online : McNative.getInstance().getNetwork().getOnlinePlayers()) {
-            if(player.isFriend(online.getUniqueId())){
-                no= true;
+            if(player.isFriend(online.getUniqueId()) && player.isActionAllow(PlayerSettings.PARTY_ALLOW_INVITATIONS,player)){
+                no = true;
                 party.invite(player,online.getUniqueId());
             }
         }
 
         if(no){
-            //@Todo send message
+            sender.sendMessage(Messages.ERROR_PARTY_NOT_ALLOWED);
         }
     }
 }

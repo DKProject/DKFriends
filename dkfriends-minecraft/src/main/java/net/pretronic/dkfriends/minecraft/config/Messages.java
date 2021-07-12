@@ -74,7 +74,7 @@ public class Messages {
     public static MessageComponent<?> COMMAND_FRIEND_JUMP_SUCCESS = Text.ofMessageKey("dkfriends.command.friend.jump.success");
     public static MessageComponent<?> COMMAND_FRIEND_MESSAGE = Text.ofMessageKey("dkfriends.command.friend.message");
     public static MessageComponent<?> COMMAND_FRIEND_MESSAGE_NOT_ALLOWED = Text.ofMessageKey("dkfriends.command.friend.message.notAllowed");
-
+    public static MessageComponent<?> COMMAND_FRIEND_PARTY_NO_ONLINE = Text.ofMessageKey("dkfriends.command.friend.party.noOnline");
 
     public static MessageComponent<?> FRIEND_REQUEST = Text.ofMessageKey("dkfriends.friend.request");
     public static MessageComponent<?> FRIEND_DENY = Text.ofMessageKey("dkfriends.friend.deny");

@@ -295,7 +295,8 @@ public class PerformListener {
     @Listener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     @NetworkListener(priority = EventPriority.HIGHEST,execution = ExecutionType.ASYNC)
     public void onClanMessage(ClanMessageEvent event) {
-        if(event.isCancelled() && !event.getChannel().equals(Party.DEFAULT_MESSAGE_CHANNEL)) return;
+        System.out.println("SEND CLAN MESSAGE");
+        if(event.isCancelled() && !event.getChannel().equals(Clan.DEFAULT_MESSAGE_CHANNEL)) return;
         Collection<ConnectedMinecraftPlayer> players = getConnectedClanPlayers(event.getClan());
         if(!players.isEmpty()){
             MinecraftPlayer sender = McNative.getInstance().getLocal().getConnectedPlayer(event.getSenderId());
@@ -305,7 +306,7 @@ public class PerformListener {
 
             DKFriendsPlayer senderFriend = sender.getAs(DKFriendsPlayer.class);
             for (ConnectedMinecraftPlayer member : players) {
-                if(member.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.CLAN_NOTIFICATIONS,senderFriend)){
+                if(member.getAs(DKFriendsPlayer.class).isActionAllow(PlayerSettings.CLAN_ALLOW_MESSAGES,senderFriend)){
                     member.sendMessage(Messages.CLAN_MESSAGE,variables);
                 }
             }

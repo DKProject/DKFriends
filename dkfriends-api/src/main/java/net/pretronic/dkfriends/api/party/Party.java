@@ -113,6 +113,8 @@ public interface Party {
     void denyInvitation(PartyInvitation invitation);
 
 
+    boolean canInvite(UUID uniqueId);
+
     boolean canInteract(UUID uniqueId,UUID target);
 
     boolean canInteract(DKFriendsPlayer player,DKFriendsPlayer target);
