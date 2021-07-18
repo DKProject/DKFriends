@@ -1,5 +1,7 @@
 package net.pretronic.dkfriends.minecraft.gui.screens.settings;
 
+import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.minecraft.gui.Layout;
 import org.mcnative.runtime.api.service.event.player.inventory.MinecraftPlayerInventoryClickEvent;
 import org.mcnative.runtime.api.service.inventory.Slots;
@@ -34,7 +36,8 @@ public class FriendSettingsScreen {
         elements.addElement(new BasicElement<GuiContext, EmptyScreenContext>(Slots.of(19)) {
             @Override
             protected ItemStack create(EmptyScreenContext context) {
-                boolean settingEnabled = true;
+                DKFriendsPlayer player = context.root().getPlayer().getAs(DKFriendsPlayer.class);
+                boolean settingEnabled = player.getActionSetting(PlayerSettings.FRIEND_ALLOW_MESSAGES, "all");
                 if(settingEnabled) {
                     return ItemStack.newItemStack(Material.LIME_DYE)
                             .setDisplayName(Text.of("✓", TextColor.GREEN));

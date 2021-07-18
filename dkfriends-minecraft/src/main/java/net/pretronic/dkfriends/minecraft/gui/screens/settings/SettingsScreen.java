@@ -30,7 +30,7 @@ public class SettingsScreen {
                 return ItemStack.newItemStack(Material.WHITE_STAINED_GLASS_PANE);
             }
         });
-        elements.addElement(new BasicElement<GuiContext, EmptyScreenContext>(Slots.of(22)) {
+        elements.addElement(new BasicElement<GuiContext, EmptyScreenContext>(Slots.of(19)) {
             @Override
             protected ItemStack create(EmptyScreenContext context) {
                 return ItemStack.newItemStack(Material.GOLDEN_HELMET)
@@ -56,7 +56,7 @@ public class SettingsScreen {
 
             }
         });
-        elements.addElement(new BasicElement<GuiContext, EmptyScreenContext>(Slots.of(22)) {
+        elements.addElement(new BasicElement<GuiContext, EmptyScreenContext>(Slots.of(25)) {
             @Override
             protected ItemStack create(EmptyScreenContext context) {
                 return ItemStack.newItemStack(Material.CAKE)
