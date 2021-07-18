@@ -52,7 +52,7 @@ public class FriendSettingsScreen {
             public void handleClick(EmptyScreenContext context, MinecraftPlayerInventoryClickEvent event) {
                 DKFriendsPlayer player = context.root().getPlayer().getAs(DKFriendsPlayer.class);
                 boolean settingEnabled = player.getActionSetting(PlayerSettings.FRIEND_ALLOW_MESSAGES, "all");
-                player.setActionSetting(PlayerSettings.FRIEND_ALLOW_MESSAGES, !settingEnabled);
+                player.setActionSetting(PlayerSettings.FRIEND_ALLOW_MESSAGES, "all", !settingEnabled);
                 reopenInventory(context);
             }
         });
@@ -83,7 +83,7 @@ public class FriendSettingsScreen {
             public void handleClick(EmptyScreenContext context, MinecraftPlayerInventoryClickEvent event) {
                 DKFriendsPlayer player = context.root().getPlayer().getAs(DKFriendsPlayer.class);
                 boolean settingEnabled = player.getActionSetting(PlayerSettings.FRIEND_NOTIFICATIONS, "all");
-                player.setActionSetting(PlayerSettings.FRIEND_NOTIFICATIONS, !settingEnabled);
+                player.setActionSetting(PlayerSettings.FRIEND_NOTIFICATIONS, "all", !settingEnabled);
                 reopenInventory(context);
             }
         });
@@ -114,7 +114,7 @@ public class FriendSettingsScreen {
             public void handleClick(EmptyScreenContext context, MinecraftPlayerInventoryClickEvent event) {
                 DKFriendsPlayer player = context.root().getPlayer().getAs(DKFriendsPlayer.class);
                 boolean settingEnabled = player.getActionSetting(PlayerSettings.FRIEND_ALLOW_JUMP, "all");
-                player.setActionSetting(PlayerSettings.FRIEND_ALLOW_JUMP, !settingEnabled);
+                player.setActionSetting(PlayerSettings.FRIEND_ALLOW_JUMP, "all", !settingEnabled);
                 reopenInventory(context);
             }
         });
@@ -122,7 +122,7 @@ public class FriendSettingsScreen {
         elements.addElement(new BasicElement<GuiContext, EmptyScreenContext>(Slots.of(16)) {
             @Override
             protected ItemStack create(EmptyScreenContext context) {
-                return ItemStack.newItemStack(Material.ENDER_PEARL)
+                return ItemStack.newItemStack(Material.FILLED_MAP)
                         .setDisplayName(Text.of("Enable friend requests", TextColor.YELLOW))
                         .setLore(Text.of("Enable or disable friend requests", TextColor.GRAY));
             }
@@ -145,7 +145,7 @@ public class FriendSettingsScreen {
             public void handleClick(EmptyScreenContext context, MinecraftPlayerInventoryClickEvent event) {
                 DKFriendsPlayer player = context.root().getPlayer().getAs(DKFriendsPlayer.class);
                 boolean settingEnabled = player.getActionSetting(PlayerSettings.FRIEND_ALLOW_REQUESTS, "all");
-                player.setActionSetting(PlayerSettings.FRIEND_ALLOW_REQUESTS, !settingEnabled);
+                player.setActionSetting(PlayerSettings.FRIEND_ALLOW_REQUESTS, "all", !settingEnabled);
                 reopenInventory(context);
             }
         });
