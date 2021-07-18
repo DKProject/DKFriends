@@ -15,7 +15,9 @@ import net.pretronic.dkfriends.minecraft.gui.screens.party.PartyListScreen;
 import net.pretronic.dkfriends.minecraft.gui.screens.party.PartyListScreenContext;
 import net.pretronic.dkfriends.minecraft.gui.screens.party.PublicPartyList;
 import net.pretronic.dkfriends.minecraft.gui.screens.party.PublicPartyListScreenContext;
+import net.pretronic.dkfriends.minecraft.gui.screens.settings.ClanSettingsScreen;
 import net.pretronic.dkfriends.minecraft.gui.screens.settings.FriendSettingsScreen;
+import net.pretronic.dkfriends.minecraft.gui.screens.settings.PartySettingsScreen;
 import net.pretronic.dkfriends.minecraft.gui.screens.settings.SettingsScreen;
 import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
@@ -51,8 +53,8 @@ public class DKFriendsGui {
                 if(player.getClan() == null) return "clanCreate";
                 else return "clanMembers";
             });
-            builder.createScreen("partyMembers", 54, PartyListScreenContext.class, context -> Text.of("Party menu", TextColor.GRAY), PartyListScreen::register);
-            builder.createScreen("publicParties", 54, PublicPartyListScreenContext.class, context -> Text.of("Party menu", TextColor.GRAY), PublicPartyList::register);
+            builder.createScreen("partyMembers", 54, PartyListScreenContext.class, context -> Text.of("Party menu", TextColor.DARK_PURPLE), PartyListScreen::register);
+            builder.createScreen("publicParties", 54, PublicPartyListScreenContext.class, context -> Text.of("Party menu", TextColor.DARK_PURPLE), PublicPartyList::register);
             builder.registerPage("partyPage", context -> {
                 DKFriendsPlayer player = context.getPlayer().getAs(DKFriendsPlayer.class);
                 if(player.getParty() == null) return "publicParties";
@@ -64,6 +66,8 @@ public class DKFriendsGui {
             builder.registerPage("settingsPage", "settings");
 
             builder.createScreen("settings-friend", 36, EmptyScreenContext.class, context -> Text.of("Friend settings", TextColor.GREEN), FriendSettingsScreen::register);
+            builder.createScreen("settings-clan", 36, EmptyScreenContext.class, context -> Text.of("Clan settings", TextColor.AQUA), ClanSettingsScreen::register);
+            builder.createScreen("settings-party", 36, EmptyScreenContext.class, context -> Text.of("Party settings", TextColor.DARK_PURPLE), PartySettingsScreen::register);
         });
     }
 

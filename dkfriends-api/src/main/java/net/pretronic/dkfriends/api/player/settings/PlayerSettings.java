@@ -12,7 +12,7 @@ public class PlayerSettings {
     public static final String FRIEND_NOTIFICATIONS = "friend.notifications";//
     public static final String FRIEND_ALLOW_MESSAGES = "friend.allow.messages";//
     public static final String FRIEND_ALLOW_JUMP = "friend.allow.jump";//
-    public static final String FRIEND_ALLOW_REQUESTS = "friend.allow.requests";
+    public static final String FRIEND_ALLOW_REQUESTS = "friend.allow.requests";//
     public static final String FRIEND_PLAYER_HIDER_VISIBILITY = "friend.player.hider.visibility";
 
     public static final String PARTY_ALLOW_INVITATIONS = "party.allow.invitations";

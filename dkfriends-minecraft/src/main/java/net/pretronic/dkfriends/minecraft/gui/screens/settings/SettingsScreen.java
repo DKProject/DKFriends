@@ -53,7 +53,7 @@ public class SettingsScreen {
 
             @Override
             public void handleClick(EmptyScreenContext context, MinecraftPlayerInventoryClickEvent event) {
-
+                context.root().getGui().openScreen(context.root().getPlayer(), "settings-clan");
             }
         });
         elements.addElement(new BasicElement<GuiContext, EmptyScreenContext>(Slots.of(25)) {
@@ -66,7 +66,7 @@ public class SettingsScreen {
 
             @Override
             public void handleClick(EmptyScreenContext context, MinecraftPlayerInventoryClickEvent event) {
-
+                context.root().getGui().openScreen(context.root().getPlayer(), "settings-party");
             }
         });
 
