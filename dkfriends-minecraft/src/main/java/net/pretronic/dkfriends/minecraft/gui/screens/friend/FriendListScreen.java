@@ -16,9 +16,12 @@ import org.mcnative.runtime.api.service.inventory.item.ItemStack;
 import org.mcnative.runtime.api.service.inventory.item.data.SkullItemData;
 import org.mcnative.runtime.api.service.inventory.item.material.Material;
 import org.mcnative.runtime.api.text.Text;
+import org.mcnative.runtime.api.text.components.MessageComponent;
 import org.mcnative.runtime.api.text.format.TextColor;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class FriendListScreen {
 
@@ -30,10 +33,12 @@ public class FriendListScreen {
 
                 if(player.isOnline()) {
                     return ItemStack.newItemStack(Material.PLAYER_HEAD)
+                            .addLore(Text.parse("§aOnline"))
                             .setDisplayName(Text.parse(player.getDisplayName()))
                             .getData(SkullItemData.class, data -> data.setGameProfile(player.getGameProfile()));
                 } else {
                     return ItemStack.newItemStack(Material.SKELETON_SKULL)
+                            .addLore(Text.parse("§cOffline"))
                             .setDisplayName(Text.of(player.getName(), TextColor.DARK_GRAY));
                 }
             }

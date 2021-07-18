@@ -150,5 +150,5 @@ public class Messages {
     public static MessageComponent<?> LOBBY_HIDER_VIP_DISPLAY_NAME = Text.ofMessageKey("dkfriends.lobby.hider.vip.displayName");
     public static MessageComponent<?> LOBBY_HIDER_NONE_DISPLAY_NAME = Text.ofMessageKey("dkfriends.lobby.hider.none.displayName");
 
-    public static MessageComponent<?> PROFILE_HEAD_NONE_DISPLAY_NAME = Text.ofMessageKey("dkfriends.profileHead.displayName");
+    public static MessageComponent<?> PROFILE_HEAD_DISPLAY_NAME = Text.ofMessageKey("dkfriends.profileHead.displayName");
 }

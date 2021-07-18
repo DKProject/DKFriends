@@ -193,3 +193,5 @@ messages:
   dkfriends.lobby.hider.all.displayName: '&aAll players visible'
   dkfriends.lobby.hider.vip.displayName: '&5Only VIPs visible'
   dkfriends.lobby.hider.none.displayName: '&cNo players visible'
+
+  dkfriends.profileHead.displayName: '&aProfile'

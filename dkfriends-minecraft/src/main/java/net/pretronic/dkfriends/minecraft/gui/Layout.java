@@ -57,7 +57,7 @@ public class Layout {
             @Override
             protected ItemStack create(T context) {
                 return ItemStack.newItemStack(Material.FIREWORK_ROCKET)
-                        .setLore(Text.of("§7Parties"))
+                        .setLore(Text.of("§7Show your party"))
                         .setGlowing(context.getPage().getName().equals("partyPage"))
                         .setDisplayName(Text.of("§eParties"));
             }
@@ -75,7 +75,7 @@ public class Layout {
                 return ItemStack.newItemStack(Material.COMPARATOR)
                         .setGlowing(context.getPage().getName().equals("settingsPage"))
                         .setDisplayName(Text.of("Settings", TextColor.RED))
-                        .setLore(Text.parse("§5Test\nTest\nTest"));
+                        .setLore(Text.parse("§7Change your settings"));
             }
 
             @Override

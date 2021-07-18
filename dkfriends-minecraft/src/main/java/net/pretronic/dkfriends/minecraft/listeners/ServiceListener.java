@@ -45,7 +45,7 @@ public class ServiceListener {
 
     private ItemStack buildProfileSkull(Player player) {
         return ItemStack.newItemStack(Material.PLAYER_HEAD)
-                .setDisplayName(Messages.PROFILE_HEAD_NONE_DISPLAY_NAME)
+                .setDisplayName(Messages.PROFILE_HEAD_DISPLAY_NAME)
                 .getData(SkullItemData.class, data -> data.setGameProfile(player.getGameProfile()));
     }
 
