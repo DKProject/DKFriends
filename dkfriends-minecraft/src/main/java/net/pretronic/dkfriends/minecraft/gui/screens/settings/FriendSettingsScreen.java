@@ -48,6 +48,6 @@ public class FriendSettingsScreen {
             }
         });
 
-        Layout.register(elements);
+        //Layout.register(elements);
     }
 }
