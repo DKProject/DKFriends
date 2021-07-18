@@ -41,7 +41,7 @@ public class ClanSettingsScreen {
                     return ItemStack.newItemStack(Material.LIME_DYE)
                             .setDisplayName(Text.of("✓", TextColor.GREEN));
                 } else {
-                    return ItemStack.newItemStack(Material.LIME_DYE)
+                    return ItemStack.newItemStack(Material.RED_DYE)
                             .setDisplayName(Text.of("❌", TextColor.RED));
                 }
             }
@@ -72,7 +72,7 @@ public class ClanSettingsScreen {
                     return ItemStack.newItemStack(Material.LIME_DYE)
                             .setDisplayName(Text.of("✓", TextColor.GREEN));
                 } else {
-                    return ItemStack.newItemStack(Material.LIME_DYE)
+                    return ItemStack.newItemStack(Material.RED_DYE)
                             .setDisplayName(Text.of("❌", TextColor.RED));
                 }
             }
@@ -103,7 +103,7 @@ public class ClanSettingsScreen {
                     return ItemStack.newItemStack(Material.LIME_DYE)
                             .setDisplayName(Text.of("✓", TextColor.GREEN));
                 } else {
-                    return ItemStack.newItemStack(Material.LIME_DYE)
+                    return ItemStack.newItemStack(Material.RED_DYE)
                             .setDisplayName(Text.of("❌", TextColor.RED));
                 }
             }
