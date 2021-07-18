@@ -16,7 +16,7 @@ String PROJECT_NAME = "DKFriends"
 
 boolean JAVADOCS_ENABLED = true
 String JAVADOCS_NAME = "dkfriends"
-String JAVADOCS_MODULES = ":DKFriends,:dkfriends-api,:dkfriends-api-minecraft"
+String JAVADOCS_MODULES = ":DKFriends,:dkfriends-api"
 
 def MIRROR_SERVER_PUBLISHING = [
         "dkfriends-minecraft/target/dkfriends-minecraft-%version%.jar": "default",
