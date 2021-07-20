@@ -88,7 +88,9 @@ public class DKFriendsConfig {
             else if(name.equals("clan")) PlayerSettings.ACTION_CHECKS.put("clan",new FavoritePlayerActionCheck());
             else{
                 String[] parts = name.split("@");
-                PlayerSettings.ACTION_CHECKS.put(parts[0],new PermissionActionCheck(parts[1]));
+                if(parts.length == 2){
+                    PlayerSettings.ACTION_CHECKS.put(parts[0],new PermissionActionCheck(parts[1]));
+                }
             }
         }
     }
