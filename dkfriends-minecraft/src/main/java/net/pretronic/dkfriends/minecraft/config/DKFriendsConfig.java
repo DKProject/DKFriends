@@ -83,9 +83,9 @@ public class DKFriendsConfig {
         FORMAT_DATE = new SimpleDateFormat(FORMAT_DATE_PATTERN);
         for (String name : SETTINGS_ACTION_GROUPS) {
             if(name.equals("friend")) PlayerSettings.ACTION_CHECKS.put("friend",new FriendPlayerActionCheck());
-            else if(name.equals("favorite")) PlayerSettings.ACTION_CHECKS.put("favorite",new ClanPlayerActionCheck());
+            else if(name.equals("favorite")) PlayerSettings.ACTION_CHECKS.put("favorite",new FavoritePlayerActionCheck());
             else if(name.equals("party")) PlayerSettings.ACTION_CHECKS.put("party",new PartyPlayerActionCheck());
-            else if(name.equals("clan")) PlayerSettings.ACTION_CHECKS.put("clan",new FavoritePlayerActionCheck());
+            else if(name.equals("clan")) PlayerSettings.ACTION_CHECKS.put("clan",new ClanPlayerActionCheck());
             else{
                 String[] parts = name.split("@");
                 if(parts.length == 2){
