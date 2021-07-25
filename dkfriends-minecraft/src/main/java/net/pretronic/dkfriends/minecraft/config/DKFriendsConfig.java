@@ -16,14 +16,31 @@ public class DKFriendsConfig {
 
     @DocumentKey("format.date.pattern")
     public static String FORMAT_DATE_PATTERN = "dd-MM-yyyy HH:mm";
+    public static transient SimpleDateFormat FORMAT_DATE;
+
 
     public static List<String> SETTINGS_ACTION_GROUPS = new ArrayList<>();
+
+    @DocumentKey("clan.tagFormatted")
+    public static String CLAN_TAG_FORMATTED = "&8[&e{tag}&8]";
+
+    @DocumentKey("clan.nameFormatted")
+    public static String CLAN_NAME_FORMATTED = "&8[&e{name}&8]";
+
+
+    public static boolean PLAYER_HIDER_ENABLED = true;
+    public static int PLAYER_HIDER_SLOT = 1;
+
+    public static boolean PROFILE_SKULL_ENABLED = true;
+    public static int PROFILE_SKULL_SLOT = 8;
+
 
     @DocumentKey("permissions.maxFriends")
     public static Map<String,Integer> PERMISSIONS_MAX_FRIENDS = new HashMap<>();
 
     @DocumentKey("permissions.maxPartySize")
     public static Map<String,Integer> PERMISSIONS_MAX_PARTY_SIZE = new HashMap<>();
+
 
     public static CommandConfiguration COMMAND_FRIEND = CommandConfiguration.newBuilder()
             .name("friend")
@@ -41,21 +58,6 @@ public class DKFriendsConfig {
             .name("clan")
             .permission("dkfriends.command.clan")
             .create();
-
-    public static boolean PLAYER_HIDER_ENABLED = true;
-    public static int PLAYER_HIDER_SLOT = 1;
-
-    public static boolean PROFILE_SKULL_ENABLED = true;
-    public static int PROFILE_SKULL_SLOT = 8;
-
-    @DocumentKey("clan.tagFormatted")
-    public static String CLAN_TAG_FORMATTED = "&8[&e{tag}&8]";
-
-    @DocumentKey("clan.nameFormatted")
-    public static String CLAN_NAME_FORMATTED = "&8[&e{name}&8]";
-
-
-    public static transient SimpleDateFormat FORMAT_DATE;
 
     static {
         SETTINGS_ACTION_GROUPS.add("friend");
