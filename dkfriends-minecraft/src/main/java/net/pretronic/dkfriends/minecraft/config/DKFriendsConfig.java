@@ -48,10 +48,10 @@ public class DKFriendsConfig {
     public static boolean PROFILE_SKULL_ENABLED = true;
     public static int PROFILE_SKULL_SLOT = 8;
 
-    @DocumentKey("clanTagFormatted")
+    @DocumentKey("clan.tagFormatted")
     public static String CLAN_TAG_FORMATTED = "&8[&e{tag}&8]";
 
-    @DocumentKey("clanNameFormatted")
+    @DocumentKey("clan.nameFormatted")
     public static String CLAN_NAME_FORMATTED = "&8[&e{name}&8]";
 
 
