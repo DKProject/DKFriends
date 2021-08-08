@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Predicate;
 
 public class DefaultClan implements Clan {
 
@@ -203,7 +202,19 @@ public class DefaultClan implements Clan {
                 .where("ClanId", getId())
                 .where("PlayerId",member.getPlayerId())
                 .execute();
-        getMembersOrLoad().remove(member);
+        removeMember(member.getPlayerId());
+
+        if(member.getRole() == ClanRole.LEADER){
+            Collection<ClanMember> members = getMembers();
+            if(members.isEmpty()){
+                delete();
+            }else{
+                ClanMember newLeader = Iterators.findOne(this.members, member1 -> member1.getRole() == ClanRole.MODERATOR);
+                if(newLeader == null) newLeader = this.members.iterator().next();
+                newLeader.setRole(ClanRole.LEADER);
+            }
+        }
+
         return true;
     }
 
@@ -286,6 +297,11 @@ public class DefaultClan implements Clan {
     public void sendMessage(DKFriendsPlayer sender, String message, String channel) {
         ClanMessageEvent event = new DefaultClanMessageEvent(dkFriends,this,sender,channel,message);
         this.dkFriends.getEventBus().callEvent(ClanMessageEvent.class,event);
+    }
+
+    @Override
+    public void delete() {
+        dkFriends.getClanManager().deleteClan(this);
     }
 
     private Collection<ClanInvitation> getInvitationsOrLoad() {

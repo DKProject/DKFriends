@@ -103,7 +103,7 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
 
         for (DocumentEntry entry : d.entries()) {
             PlayerActionCheck check = PlayerSettings.ACTION_CHECKS.get(entry.getKey());
-            if(check.matches(this,target) && entry.toPrimitive().getAsBoolean()) return true;
+            if(check != null && check.matches(this,target) && entry.toPrimitive().getAsBoolean()) return true;
         }
         return false;
     }
