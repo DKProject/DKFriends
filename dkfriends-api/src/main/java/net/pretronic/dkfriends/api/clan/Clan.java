@@ -71,4 +71,6 @@ public interface Clan {
     }
 
     void sendMessage(DKFriendsPlayer sender, String message, String channel);
+
+    void delete();
 }
