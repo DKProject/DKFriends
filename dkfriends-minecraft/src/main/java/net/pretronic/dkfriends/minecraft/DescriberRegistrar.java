@@ -12,10 +12,6 @@ import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriber;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriberRegistry;
-import org.mcnative.runtime.api.McNative;
-import org.mcnative.runtime.api.player.MinecraftPlayer;
-
-import java.util.function.Function;
 
 public class DescriberRegistrar {
 

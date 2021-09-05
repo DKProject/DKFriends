@@ -42,7 +42,7 @@ public class DefaultClan implements Clan {
     private String name;
     private String tag;
     private String status;
-    private Document properties;
+    private final Document properties;
 
     private Collection<ClanMember> members;
     private Collection<ClanInvitation> invitations;
