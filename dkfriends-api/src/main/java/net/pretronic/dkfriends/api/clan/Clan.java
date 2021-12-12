@@ -36,6 +36,8 @@ public interface Clan {
 
     Collection<ClanMember> getOnlineMembers();
 
+    Collection<ClanMember> getOfflineMembers();
+
     Collection<ClanMember> getMembers();
 
     ClanMember getMember(UUID playerId);

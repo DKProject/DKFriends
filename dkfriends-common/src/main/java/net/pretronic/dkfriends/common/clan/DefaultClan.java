@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DefaultClan implements Clan {
 
@@ -133,7 +134,12 @@ public class DefaultClan implements Clan {
 
     @Override
     public Collection<ClanMember> getOnlineMembers() {
-        return getMembers();
+        return Iterators.filter(getMembers(), member -> member.getPlayer().isOnline());
+    }
+
+    @Override
+    public Collection<ClanMember> getOfflineMembers() {
+        return Iterators.filter(getMembers(), member -> !member.getPlayer().isOnline());
     }
 
     @Override
@@ -306,7 +312,7 @@ public class DefaultClan implements Clan {
 
     private Collection<ClanInvitation> getInvitationsOrLoad() {
         if(this.invitations == null) {
-            this.invitations = new ArrayList<>();
+            this.invitations =  ConcurrentHashMap.newKeySet();
 
             this.dkFriends.getStorage().getClanInvitations().find().where("ClanId", getId()).execute().loadIn(this.invitations,
                     resultEntry -> new DefaultClanInvitation(this.dkFriends,
@@ -320,7 +326,7 @@ public class DefaultClan implements Clan {
 
     private Collection<ClanMember> getMembersOrLoad() {
         if(this.members == null) {
-            this.members = new ArrayList<>();
+            this.members = ConcurrentHashMap.newKeySet();
             this.dkFriends.getStorage().getClanMembers().find().where("ClanId", this.id).execute().loadIn(this.members,
                     resultEntry -> new DefaultClanMember(dkFriends,this,
                             resultEntry.getUniqueId("PlayerId"),

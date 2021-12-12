@@ -105,6 +105,16 @@ public class DefaultParty implements Party {
     }
 
     @Override
+    public Collection<PartyMember> getOnlineMembers() {
+        return Iterators.filter(getMembers(), member -> member.getPlayer().isOnline());
+    }
+
+    @Override
+    public Collection<PartyMember> getOfflineMembers() {
+        return Iterators.filter(getMembers(), member -> !member.getPlayer().isOnline());
+    }
+
+    @Override
     public List<PartyMember> getSortedMembers() {
         return new ArrayList<>(getMembers());
     }
