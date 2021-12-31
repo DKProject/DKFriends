@@ -33,7 +33,7 @@ public class DescriberRegistrar {
         VariableDescriber<MinecraftDKFriendsPlayer> playerDescriber = VariableDescriberRegistry.registerDescriber(MinecraftDKFriendsPlayer.class);
         playerDescriber.setForwardFunction(MinecraftDKFriendsPlayer::getMinecraftPlayer);
         playerDescriber.registerFunction("isOnline", MinecraftDKFriendsPlayer::isOnline);
-        playerDescriber.registerFunction("lastLogin", player -> DKFriendsConfig.FORMAT_DATE.format(player.getMinecraftPlayer().getUniqueId()));
+        playerDescriber.registerFunction("lastLogin", player -> DKFriendsConfig.FORMAT_DATE.format(player.getMinecraftPlayer().getLastPlayed()));
 
         VariableDescriberRegistry.registerDescriber(DefaultClan.class);
         VariableDescriberRegistry.registerDescriber(DefaultClanInvitation.class);
