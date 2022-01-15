@@ -151,6 +151,7 @@ messages:
   dkfriends.error.clan.tag.alreadyExists: '${dkfriends.prefix.clan} &cA clan with the tag &e{tag} &calready exists'
 
   dkfriends.error.clan.notInClan: '${dkfriends.prefix.clan} &cYou are not in a clan'
+  dkfriends.error.clan.notInClan.other: '${dkfriends.prefix.clan} &e{target.name} &cis not in a clan'
   dkfriends.error.clan.alreadyInClan.self: '${dkfriends.prefix.clan} &cYou are already in a clan'
   dkfriends.error.clan.alreadyInClan.target: '${dkfriends.prefix.clan} &e{target.name} is already in a clan'
   dkfriends.error.clan.member.notAllowed: '${dkfriends.prefix.clan} &cYou are not allowed to perform this action'

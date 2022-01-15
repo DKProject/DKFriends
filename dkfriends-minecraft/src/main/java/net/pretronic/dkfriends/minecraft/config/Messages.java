@@ -47,6 +47,7 @@ public class Messages {
     public static final MessageComponent<?> ERROR_CLAN_ALREADY_IN_CLAN_SELF = Text.ofMessageKey("dkfriends.error.clan.alreadyInClan.self");
     public static final MessageComponent<?> ERROR_CLAN_ALREADY_IN_CLAN_TARGET = Text.ofMessageKey("dkfriends.error.clan.alreadyInClan.target");
     public static final MessageComponent<?> ERROR_CLAN_NOT_IN_CLAN = Text.ofMessageKey("dkfriends.error.clan.notInClan");
+    public static final MessageComponent<?> ERROR_CLAN_NOT_IN_CLAN_OTHER = Text.ofMessageKey("dkfriends.error.clan.notInClan.other");
     public static final MessageComponent<?> ERROR_CLAN_NOT_SAME_CLAN = Text.ofMessageKey("dkfriends.error.clan.notSameClan");
     public static final MessageComponent<?> ERROR_CLAN_MEMBER_NOT_ALLOWED = Text.ofMessageKey("dkfriends.error.clan.member.notAllowed");
     public static final MessageComponent<?> ERROR_CLAN_NOT_EXISTS = Text.ofMessageKey("dkfriends.error.clan.notExists");

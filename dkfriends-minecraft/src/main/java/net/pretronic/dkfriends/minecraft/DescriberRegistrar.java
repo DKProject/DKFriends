@@ -35,7 +35,9 @@ public class DescriberRegistrar {
         playerDescriber.registerFunction("isOnline", MinecraftDKFriendsPlayer::isOnline);
         playerDescriber.registerFunction("lastLogin", player -> DKFriendsConfig.FORMAT_DATE.format(player.getMinecraftPlayer().getLastPlayed()));
 
-        VariableDescriberRegistry.registerDescriber(DefaultClan.class);
+        VariableDescriber<DefaultClan> clanDescriber = VariableDescriberRegistry.registerDescriber(DefaultClan.class);
+        clanDescriber.registerFunction("status", clan -> clan.getStatus() == null ? "Unset" : clan.getStatus());
+
         VariableDescriberRegistry.registerDescriber(DefaultClanInvitation.class);
 
         VariableDescriber<DefaultClanMember> clanMemberDescriber = VariableDescriberRegistry.registerDescriber(DefaultClanMember.class);

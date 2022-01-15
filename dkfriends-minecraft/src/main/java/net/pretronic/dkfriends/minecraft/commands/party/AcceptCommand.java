@@ -5,6 +5,7 @@ import net.pretronic.dkfriends.api.party.PartyInvitation;
 import net.pretronic.dkfriends.api.party.PartyManager;
 import net.pretronic.dkfriends.api.party.PartyMember;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.minecraft.commands.CommandUtil;
 import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.libraries.command.Completable;
 import net.pretronic.libraries.command.command.BasicCommand;
@@ -35,7 +36,20 @@ public class AcceptCommand extends BasicCommand {
         }
         DKFriendsPlayer player = ((MinecraftPlayer)sender).getAs(DKFriendsPlayer.class);
 
-        Party party = partyManager.getParty(UUID.fromString(arguments[0]));
+        UUID uuid = null;
+        try {
+            uuid = UUID.fromString(arguments[0]);
+        }catch (Exception ignored) {}
+
+        Party party;
+        if(uuid == null){
+            MinecraftPlayer target = CommandUtil.getPlayer(sender,Messages.PREFIX_PARTY,arguments[0]);
+            if(target == null) return;
+            party = target.getAs(DKFriendsPlayer.class).getParty();
+        }else{
+            party = partyManager.getParty(uuid);
+        }
+
         if(party == null){
             sender.sendMessage(Messages.ERROR_PARTY_INVITATION_NOT);
             return;
