@@ -29,7 +29,7 @@ public class UserInfoCommand extends BasicCommand implements Completable {
         if(target != null) {
             DKFriendsPlayer targetFriendsPlayer = target.getAs(DKFriendsPlayer.class);
             if(!targetFriendsPlayer.isInClan()) {
-                commandSender.sendMessage(Messages.ERROR_CLAN_NOT_IN_CLAN_OTHER, VariableSet.create().addDescribed("target", targetFriendsPlayer.getClan()));
+                commandSender.sendMessage(Messages.ERROR_CLAN_NOT_IN_CLAN_OTHER, VariableSet.create().addDescribed("target", targetFriendsPlayer));
             }else{
                 commandSender.sendMessage(Messages.COMMAND_CLAN_INFO, VariableSet.create().addDescribed("clan", targetFriendsPlayer.getClan()));
             }

@@ -24,5 +24,6 @@ public class ClearCommand extends BasicCommand {
         }
 
         player.clearFriends();
+        sender.sendMessage(Messages.COMMAND_FRIEND_CLEAR);
     }
 }
