@@ -53,19 +53,15 @@ public class ServiceListener {
     @Listener
     public void onInteract(MinecraftPlayerInteractEvent event) {
         if((event.getAction() == BlockAction.RIGHT_CLICK_AIR || event.getAction() == BlockAction.RIGHT_CLICK_BLOCK) && event.getHand() == EquipmentSlot.HAND) {
-
-            System.out.println("Interact " + event.getAction() + ":" + event.getItem());
             Player player = event.getPlayer();
             int slot = player.getInventory().getHeldItemSlot();
             if(DKFriendsConfig.PLAYER_HIDER_ENABLED && slot == DKFriendsConfig.PLAYER_HIDER_SLOT) {
-                event.setCancelled(true);
                 MinecraftDKFriendsPlayer friendsPlayer = (MinecraftDKFriendsPlayer) player.getAs(DKFriendsPlayer.class);
                 PlayerHiderVisibility hidingType = friendsPlayer.setNextPlayerHidingType();
 
                 player.getInventory().setItem(DKFriendsConfig.PLAYER_HIDER_SLOT, hidingType.buildItem());
                 updatePlayerVisibility(player);
             } else if(DKFriendsConfig.PROFILE_SKULL_ENABLED && slot == DKFriendsConfig.PROFILE_SKULL_SLOT) {
-                event.setCancelled(true);
                 McNative.getInstance().getRegistry().getService(GuiManager.class).getGui("dkfriends").open(player, "friendPage");
             }
         }
