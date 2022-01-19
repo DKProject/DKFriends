@@ -13,6 +13,7 @@ import org.mcnative.runtime.api.service.event.player.MinecraftPlayerDropItemEven
 import org.mcnative.runtime.api.service.event.player.MinecraftPlayerInteractEvent;
 import org.mcnative.runtime.api.service.event.player.MinecraftPlayerJoinEvent;
 import org.mcnative.runtime.api.service.event.player.inventory.MinecraftPlayerInventoryClickEvent;
+import org.mcnative.runtime.api.service.inventory.EquipmentSlot;
 import org.mcnative.runtime.api.service.inventory.gui.GuiManager;
 import org.mcnative.runtime.api.service.inventory.item.ItemStack;
 import org.mcnative.runtime.api.service.inventory.item.data.SkullItemData;
@@ -51,7 +52,7 @@ public class ServiceListener {
 
     @Listener
     public void onInteract(MinecraftPlayerInteractEvent event) {
-        if(event.getAction() == BlockAction.RIGHT_CLICK_AIR || event.getAction() == BlockAction.RIGHT_CLICK_BLOCK) {
+        if((event.getAction() == BlockAction.RIGHT_CLICK_AIR || event.getAction() == BlockAction.RIGHT_CLICK_BLOCK) && event.getHand() == EquipmentSlot.HAND) {
             System.out.println("Interact " + event.getAction());
             Player player = event.getPlayer();
             int slot = player.getInventory().getHeldItemSlot();
