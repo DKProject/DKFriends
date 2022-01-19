@@ -54,7 +54,7 @@ public class ServiceListener {
     public void onInteract(MinecraftPlayerInteractEvent event) {
         if((event.getAction() == BlockAction.RIGHT_CLICK_AIR || event.getAction() == BlockAction.RIGHT_CLICK_BLOCK) && event.getHand() == EquipmentSlot.HAND) {
 
-            System.out.println("Interact " + event.getAction());
+            System.out.println("Interact " + event.getAction() + ":" + event.getItem());
             Player player = event.getPlayer();
             int slot = player.getInventory().getHeldItemSlot();
             if(DKFriendsConfig.PLAYER_HIDER_ENABLED && slot == DKFriendsConfig.PLAYER_HIDER_SLOT) {
