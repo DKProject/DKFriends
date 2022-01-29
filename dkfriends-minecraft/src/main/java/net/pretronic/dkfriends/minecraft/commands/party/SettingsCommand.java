@@ -32,7 +32,7 @@ public class SettingsCommand extends BasicCommand implements Completable {
     @Override
     public void execute(CommandSender sender, String[] arguments) {
         if(arguments.length < 1){
-            sender.sendMessage(Messages.COMMAND_FRIEND_HELP);
+            sender.sendMessage(Messages.COMMAND_PARTY_HELP);
             return;
         }
 

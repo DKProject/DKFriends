@@ -1,6 +1,7 @@
 package net.pretronic.dkfriends.minecraft.player;
 
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
+import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.api.player.settings.PlayerActionCheck;
 import net.pretronic.dkfriends.api.player.settings.PlayerSettings;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
@@ -15,10 +16,7 @@ import org.mcnative.runtime.api.Setting;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
 import org.mcnative.runtime.api.player.OnlineMinecraftPlayer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
 
@@ -37,6 +35,11 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
     }
 
     @Override
+    public String getDisplayName() {
+        return getMinecraftPlayer().getDisplayName();
+    }
+
+    @Override
     public String getName() {
         return getMinecraftPlayer().getName();
     }
@@ -49,6 +52,16 @@ public class MinecraftDKFriendsPlayer extends DefaultDKFriendsPlayer {
     @Override
     public boolean hasPermission(String permission) {
         return getMinecraftPlayer().hasPermission(permission);
+    }
+
+    @Override
+    public Collection<Friend> getOnlineFriends() {
+        return Iterators.filter(getFriends(), member -> member.getPlayer().isOnline());
+    }
+
+    @Override
+    public Collection<Friend> getOfflineFriends() {
+        return Iterators.filter(getFriends(), member -> !member.getPlayer().isOnline());
     }
 
     @Override

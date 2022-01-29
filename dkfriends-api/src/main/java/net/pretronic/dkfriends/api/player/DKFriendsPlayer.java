@@ -17,6 +17,8 @@ public interface DKFriendsPlayer {
 
     UUID getId();
 
+    String getDisplayName();
+
     String getName();
 
     boolean isOnline();
@@ -25,6 +27,10 @@ public interface DKFriendsPlayer {
 
 
     Collection<Friend> getFriends();
+
+    Collection<Friend> getOnlineFriends();
+
+    Collection<Friend> getOfflineFriends();
 
     List<Friend> getSortedFriends();
 
