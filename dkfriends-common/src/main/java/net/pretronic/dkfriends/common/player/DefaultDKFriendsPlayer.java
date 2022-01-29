@@ -27,6 +27,7 @@ import net.pretronic.libraries.utility.Iterators;
 import net.pretronic.libraries.utility.annonations.Internal;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
@@ -278,7 +279,9 @@ public abstract class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
     @Override
     public void acceptAllFriendRequests() {
-        for (FriendRequest request : getOrLoadFriendRequests()) acceptFriendRequest(request);
+        for (FriendRequest request : getOrLoadFriendRequests()){
+            acceptFriendRequest(request);
+        }
     }
 
     @Override
@@ -397,7 +400,7 @@ public abstract class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
     private Collection<Friend> getOrLoadFriends(){
         if(this.friends == null){
-            this.friends = new ArrayList<>();
+            this.friends = ConcurrentHashMap.newKeySet();
             dkFriends.getStorage().getFriends().find()
                     .where("PlayerId",uniqueId)
                     .execute().loadIn(this.friends, friend -> new DefaultFriend(dkFriends, DefaultDKFriendsPlayer.this
@@ -411,7 +414,7 @@ public abstract class DefaultDKFriendsPlayer implements DKFriendsPlayer {
 
     private Collection<FriendRequest> getOrLoadFriendRequests(){
         if(this.friendRequests == null){
-            this.friendRequests = new ArrayList<>();
+            this.friendRequests = ConcurrentHashMap.newKeySet();
             dkFriends.getStorage().getFriendRequests().find()
                     .where("ReceiverId",uniqueId)
                     .execute().loadIn(this.friendRequests, friend -> new DefaultFriendRequest(dkFriends,this

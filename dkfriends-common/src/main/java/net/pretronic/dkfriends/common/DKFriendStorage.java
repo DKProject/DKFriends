@@ -104,7 +104,7 @@ public class DKFriendStorage {
                 .field("Name", DataType.STRING, FieldOption.UNIQUE)
                 .field("Tag", DataType.STRING, FieldOption.UNIQUE)
                 .field("Status", DataType.STRING)
-                .field("Properties", DataType.LONG_TEXT, -1, "{}")
+                .field("Properties", DataType.LONG_TEXT, -1)
                 .create();
 
         this.clanMembers = this.database.createCollection("dkfriends_clans_members")

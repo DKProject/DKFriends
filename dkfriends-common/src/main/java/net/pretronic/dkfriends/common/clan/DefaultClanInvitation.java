@@ -4,10 +4,8 @@ import net.pretronic.dkfriends.api.DKFriends;
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanInvitation;
 import net.pretronic.dkfriends.api.clan.ClanMember;
-import net.pretronic.dkfriends.api.event.clan.member.ClanMemberJoinEvent;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
-import net.pretronic.dkfriends.common.event.clan.member.DefaultClanMemberJoinEvent;
 import net.pretronic.libraries.event.injection.annotations.Inject;
 
 import java.util.UUID;

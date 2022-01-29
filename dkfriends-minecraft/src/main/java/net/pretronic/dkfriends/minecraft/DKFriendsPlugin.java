@@ -1,6 +1,8 @@
 package net.pretronic.dkfriends.minecraft;
 
 import net.pretronic.dkfriends.api.DKFriends;
+import net.pretronic.dkfriends.api.clan.ClanInvitation;
+import net.pretronic.dkfriends.api.clan.ClanMember;
 import net.pretronic.dkfriends.api.party.PartyInvitation;
 import net.pretronic.dkfriends.api.party.PartyMember;
 import net.pretronic.dkfriends.api.player.DKFriendsPlayer;
@@ -8,10 +10,10 @@ import net.pretronic.dkfriends.api.player.friend.Friend;
 import net.pretronic.dkfriends.api.player.friend.FriendRequest;
 import net.pretronic.dkfriends.common.DKFriendStorage;
 import net.pretronic.dkfriends.common.DefaultDKFriends;
+import net.pretronic.dkfriends.common.clan.DefaultClanInvitation;
+import net.pretronic.dkfriends.common.clan.DefaultClanMember;
 import net.pretronic.dkfriends.common.party.DefaultPartyInvitation;
 import net.pretronic.dkfriends.common.party.DefaultPartyMember;
-import net.pretronic.dkfriends.minecraft.listeners.ServiceListener;
-import net.pretronic.dkfriends.minecraft.player.MinecraftDKFriendsPlayerManager;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
 import net.pretronic.dkfriends.minecraft.commands.DKFriendsCommand;
@@ -22,7 +24,9 @@ import net.pretronic.dkfriends.minecraft.config.DKFriendsConfig;
 import net.pretronic.dkfriends.minecraft.gui.DKFriendsGui;
 import net.pretronic.dkfriends.minecraft.listeners.PerformListener;
 import net.pretronic.dkfriends.minecraft.listeners.PlayerListener;
+import net.pretronic.dkfriends.minecraft.listeners.ServiceListener;
 import net.pretronic.dkfriends.minecraft.listeners.SyncListener;
+import net.pretronic.dkfriends.minecraft.player.MinecraftDKFriendsPlayerManager;
 import net.pretronic.libraries.document.DocumentRegistry;
 import net.pretronic.libraries.plugin.lifecycle.Lifecycle;
 import net.pretronic.libraries.plugin.lifecycle.LifecycleState;
@@ -110,6 +114,8 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         DocumentRegistry.getDefaultContext().registerMappingAdapter(FriendRequest.class, DefaultFriendRequest.class);
         DocumentRegistry.getDefaultContext().registerMappingAdapter(PartyInvitation.class, DefaultPartyInvitation.class);
         DocumentRegistry.getDefaultContext().registerMappingAdapter(PartyMember.class, DefaultPartyMember.class);
+        DocumentRegistry.getDefaultContext().registerMappingAdapter(ClanMember.class, DefaultClanMember.class);
+        DocumentRegistry.getDefaultContext().registerMappingAdapter(ClanInvitation.class, DefaultClanInvitation.class);
     }
 
 }

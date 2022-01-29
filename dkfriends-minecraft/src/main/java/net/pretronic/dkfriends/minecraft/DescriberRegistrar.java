@@ -12,10 +12,6 @@ import net.pretronic.dkfriends.common.player.friend.DefaultFriend;
 import net.pretronic.dkfriends.common.player.friend.DefaultFriendRequest;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriber;
 import net.pretronic.libraries.message.bml.variable.describer.VariableDescriberRegistry;
-import org.mcnative.runtime.api.McNative;
-import org.mcnative.runtime.api.player.MinecraftPlayer;
-
-import java.util.function.Function;
 
 public class DescriberRegistrar {
 
@@ -37,9 +33,11 @@ public class DescriberRegistrar {
         VariableDescriber<MinecraftDKFriendsPlayer> playerDescriber = VariableDescriberRegistry.registerDescriber(MinecraftDKFriendsPlayer.class);
         playerDescriber.setForwardFunction(MinecraftDKFriendsPlayer::getMinecraftPlayer);
         playerDescriber.registerFunction("isOnline", MinecraftDKFriendsPlayer::isOnline);
-        playerDescriber.registerFunction("lastLogin", player -> DKFriendsConfig.FORMAT_DATE.format(player.getMinecraftPlayer().getUniqueId()));
+        playerDescriber.registerFunction("lastLogin", player -> DKFriendsConfig.FORMAT_DATE.format(player.getMinecraftPlayer().getLastPlayed()));
 
-        VariableDescriberRegistry.registerDescriber(DefaultClan.class);
+        VariableDescriber<DefaultClan> clanDescriber = VariableDescriberRegistry.registerDescriber(DefaultClan.class);
+        clanDescriber.registerFunction("status", clan -> clan.getStatus() == null ? "Unset" : clan.getStatus());
+
         VariableDescriberRegistry.registerDescriber(DefaultClanInvitation.class);
 
         VariableDescriber<DefaultClanMember> clanMemberDescriber = VariableDescriberRegistry.registerDescriber(DefaultClanMember.class);

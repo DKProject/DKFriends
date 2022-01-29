@@ -39,6 +39,10 @@ public interface Party {
 
     Collection<PartyMember> getMembers();
 
+    Collection<PartyMember> getOnlineMembers();
+
+    Collection<PartyMember> getOfflineMembers();
+
     List<PartyMember> getSortedMembers();
 
     int getSize();

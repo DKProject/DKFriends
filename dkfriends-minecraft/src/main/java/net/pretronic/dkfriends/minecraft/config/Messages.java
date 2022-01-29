@@ -47,6 +47,7 @@ public class Messages {
     public static final MessageComponent<?> ERROR_CLAN_ALREADY_IN_CLAN_SELF = Text.ofMessageKey("dkfriends.error.clan.alreadyInClan.self");
     public static final MessageComponent<?> ERROR_CLAN_ALREADY_IN_CLAN_TARGET = Text.ofMessageKey("dkfriends.error.clan.alreadyInClan.target");
     public static final MessageComponent<?> ERROR_CLAN_NOT_IN_CLAN = Text.ofMessageKey("dkfriends.error.clan.notInClan");
+    public static final MessageComponent<?> ERROR_CLAN_NOT_IN_CLAN_OTHER = Text.ofMessageKey("dkfriends.error.clan.notInClan.other");
     public static final MessageComponent<?> ERROR_CLAN_NOT_SAME_CLAN = Text.ofMessageKey("dkfriends.error.clan.notSameClan");
     public static final MessageComponent<?> ERROR_CLAN_MEMBER_NOT_ALLOWED = Text.ofMessageKey("dkfriends.error.clan.member.notAllowed");
     public static final MessageComponent<?> ERROR_CLAN_NOT_EXISTS = Text.ofMessageKey("dkfriends.error.clan.notExists");
@@ -75,6 +76,7 @@ public class Messages {
     public static MessageComponent<?> COMMAND_FRIEND_MESSAGE = Text.ofMessageKey("dkfriends.command.friend.message");
     public static MessageComponent<?> COMMAND_FRIEND_MESSAGE_NOT_ALLOWED = Text.ofMessageKey("dkfriends.command.friend.message.notAllowed");
     public static MessageComponent<?> COMMAND_FRIEND_PARTY_NO_ONLINE = Text.ofMessageKey("dkfriends.command.friend.party.noOnline");
+    public static MessageComponent<?> COMMAND_FRIEND_CLEAR = Text.ofMessageKey("dkfriends.command.friend.clear");
 
     public static MessageComponent<?> FRIEND_REQUEST = Text.ofMessageKey("dkfriends.friend.request");
     public static MessageComponent<?> FRIEND_DENY = Text.ofMessageKey("dkfriends.friend.deny");
@@ -151,4 +153,23 @@ public class Messages {
     public static MessageComponent<?> LOBBY_HIDER_NONE_DISPLAY_NAME = Text.ofMessageKey("dkfriends.lobby.hider.none.displayName");
 
     public static MessageComponent<?> PROFILE_HEAD_DISPLAY_NAME = Text.ofMessageKey("dkfriends.profileHead.displayName");
+
+
+    /*
+    GUI messages
+     */
+
+    /*
+    Clan create
+     */
+    public static MessageComponent<?> GUI_CLAN_CREATE_DISPLAYNAME = Text.ofMessageKey("dkfriends.gui.clan.create.displayName");
+    public static MessageComponent<?> GUI_CLAN_CREATE_LORE = Text.ofMessageKey("dkfriends.gui.clan.create.lore");
+
+    /*
+    Clan list
+     */
+    public static MessageComponent<?> GUI_CLAN_LIST_INFO_DISPLAYNAME = Text.ofMessageKey("dkfriends.gui.clan.list.info.displayName");
+
+    public static MessageComponent<?> GUI_CLAN_LIST_PLAYER_ONLINE_DISPLAYNAME = Text.ofMessageKey("dkfriends.gui.clan.list.player.online.displayName");
+    public static MessageComponent<?> GUI_CLAN_LIST_PLAYER_OFFLINE_DISPLAYNAME = Text.ofMessageKey("dkfriends.gui.clan.list.player.offline.displayName");
 }
