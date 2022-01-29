@@ -2,6 +2,7 @@ package net.pretronic.dkfriends.minecraft.gui.screens.clan.list;
 
 import net.pretronic.dkfriends.api.clan.Clan;
 import net.pretronic.dkfriends.api.clan.ClanMember;
+import net.pretronic.dkfriends.minecraft.config.Messages;
 import net.pretronic.dkfriends.minecraft.gui.Layout;
 import org.mcnative.runtime.api.McNative;
 import org.mcnative.runtime.api.player.MinecraftPlayer;
@@ -34,7 +35,7 @@ public class ClanListScreen {
             @Override
             protected ItemStack create(ClanListScreenContext context) {
                 Clan clan = context.getClan();
-                return ItemStack.newItemStack(Material.IRON_CHESTPLATE).setDisplayName(Text.parse("§7"+clan.getName()+" §8[§e"+clan.getTag()+"§8]"));
+                return ItemStack.newItemStack(Material.IRON_CHESTPLATE).setDisplayName(Messages.GUI_CLAN_LIST_INFO_DISPLAYNAME);
             }
         });
 
@@ -42,14 +43,13 @@ public class ClanListScreen {
             @Override
             protected ItemStack create(ClanListScreenContext context, int slot, ClanMember clanMember) {
                 MinecraftPlayer player = McNative.getInstance().getPlayerManager().getPlayer(clanMember.getPlayerId());
-                String roleDisplay = " &7("+clanMember.getRole().toString()+")";
                 if(player.isOnline()) {
                     return ItemStack.newItemStack(Material.PLAYER_HEAD)
-                            .setDisplayName(Text.parse(player.getDisplayName() + roleDisplay))
+                            .setDisplayName(Messages.GUI_CLAN_LIST_PLAYER_ONLINE_DISPLAYNAME)
                             .getData(SkullItemData.class, data -> data.setGameProfile(player.getGameProfile()));
                 } else {
                     return ItemStack.newItemStack(Material.SKELETON_SKULL)
-                            .setDisplayName(Text.parse(player.getName() + roleDisplay));
+                            .setDisplayName(Messages.GUI_CLAN_LIST_PLAYER_OFFLINE_DISPLAYNAME);
                 }
             }
 

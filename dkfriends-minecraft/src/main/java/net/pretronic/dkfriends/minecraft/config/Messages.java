@@ -153,4 +153,23 @@ public class Messages {
     public static MessageComponent<?> LOBBY_HIDER_NONE_DISPLAY_NAME = Text.ofMessageKey("dkfriends.lobby.hider.none.displayName");
 
     public static MessageComponent<?> PROFILE_HEAD_DISPLAY_NAME = Text.ofMessageKey("dkfriends.profileHead.displayName");
+
+
+    /*
+    GUI messages
+     */
+
+    /*
+    Clan create
+     */
+    public static MessageComponent<?> GUI_CLAN_CREATE_DISPLAYNAME = Text.ofMessageKey("dkfriends.gui.clan.create.displayName");
+    public static MessageComponent<?> GUI_CLAN_CREATE_LORE = Text.ofMessageKey("dkfriends.gui.clan.create.lore");
+
+    /*
+    Clan list
+     */
+    public static MessageComponent<?> GUI_CLAN_LIST_INFO_DISPLAYNAME = Text.ofMessageKey("dkfriends.gui.clan.list.info.displayName");
+
+    public static MessageComponent<?> GUI_CLAN_LIST_PLAYER_ONLINE_DISPLAYNAME = Text.ofMessageKey("dkfriends.gui.clan.list.player.online.displayName");
+    public static MessageComponent<?> GUI_CLAN_LIST_PLAYER_OFFLINE_DISPLAYNAME = Text.ofMessageKey("dkfriends.gui.clan.list.player.offline.displayName");
 }
