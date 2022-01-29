@@ -118,4 +118,5 @@ public class DKFriendsPlugin extends MinecraftPlugin {
         DocumentRegistry.getDefaultContext().registerMappingAdapter(ClanInvitation.class, DefaultClanInvitation.class);
     }
 
+
 }
