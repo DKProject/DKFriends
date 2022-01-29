@@ -36,7 +36,7 @@ public class ClanCreateScreen {
             protected ItemStack create(EmptyScreenContext context) {
                 return ItemStack.newItemStack(Material.ANVIL)
                         .setDisplayName(Messages.GUI_CLAN_CREATE_DISPLAYNAME)
-                        .setLore(Text.of("Click here to create a new clanT\nHallo\nTest", TextColor.GRAY));
+                        .setLore(Text.of("Click here to create a new clan", TextColor.GRAY));
             }
 
             @Override
