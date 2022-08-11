@@ -41,24 +41,9 @@ import java.util.UUID;
 
 public class DKFriendsPlugin extends MinecraftPlugin {
 
-    public static String RESOURCE_ID ="f9aa2e05-fb5a-407a-844c-175105ec3544";
-    public static String PUBLIC_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhjqoZgV1AEr/TFLmp17qatCK9q2aTQvZAP0YYsPLCqe2mVR6Uq6Re4FUjpUj4ouZB06F+Q8xAG+kYXQ3bvT9Bear6xBWWGyuTaIiJHLevB7eFJDz8K1492PiSrgWymzPz1VnRe1rC4qrLVSv0bXH7F2ioCCNftvAiv7Zata/GObcwy8n5aCWeIaE31+t7YmA8sEceiSQKtjpImx3MnqDLP3sq2kLLxBwTuKR1EsBKEcp+ayFibEaoHLLTmphMSsnwbfxtydQIjIOgJIQtHt/O+Gr8um19tyUrOo94mcnEs4kprnU1m9+kY5COt/cgZ+/tTCX3swvuJ2zV3+xrD7s5wIDAQAB";
-
     @Lifecycle(state = LifecycleState.LOAD)
     public void onLoad(LifecycleState state){
         getLogger().info("DKFriends is starting, please wait..");
-
-        try{
-            McNativeLicenseIntegration.newContext(this,RESOURCE_ID,PUBLIC_KEY).verifyOrCheckout();
-        }catch (LicenseNotValidException | CloudNotCheckoutLicenseException e){
-            getLogger().error("--------------------------------");
-            getLogger().error("-> Invalid license");
-            getLogger().error("-> Error: "+e.getMessage());
-            getLogger().error("--------------------------------");
-            getLogger().info("DKFriends is shutting down");
-            getLoader().shutdown();
-            return;
-        }
 
         getConfiguration().load(DKFriendsConfig.class);
 
